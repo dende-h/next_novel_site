@@ -29,9 +29,9 @@ const Header = () => {
           </Link>
         </Box>
         <Box mr={4}>
-          <Link href="#" _hover={{ textDecoration: 'none' }}>
+          <Link href="/writers" _hover={{ textDecoration: 'none' }}>
             <Text fontSize="lg" fontWeight="medium">
-              About
+              Writers
             </Text>
           </Link>
         </Box>
