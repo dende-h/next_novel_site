@@ -36,7 +36,7 @@ const Header = () => {
           </Link>
         </Box>
         <Box mr={4}>
-          <Link href="#" _hover={{ textDecoration: 'none' }}>
+          <Link href="contact" _hover={{ textDecoration: 'none' }}>
             <Text fontSize="lg" fontWeight="medium">
               Contact
             </Text>
