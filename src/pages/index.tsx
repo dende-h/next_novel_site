@@ -1,56 +1,127 @@
-import {
-  Link as ChakraLink,
-  Text,
-  Code,
-  List,
-  ListIcon,
-  ListItem,
-} from '@chakra-ui/react'
-import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
+// pages/index.tsx
 
-import { Hero } from '../components/Hero'
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { CTA } from '../components/CTA'
-import { Footer } from '../components/Footer'
+import { Box, Container, Heading, SimpleGrid, Flex } from '@chakra-ui/react';
+import NovelCard from '../components/NovelCard';
+import TagFilter from '../components/TagFilter';
+import Header from '../components/Header';
 
-const Index = () => (
-  <Container height="100vh">
-    <Hero />
-    <Main>
-      <Text color="text">
-        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
-        <Code>TypeScript</Code>.
-      </Text>
 
-      <List spacing={3} my={0} color="text">
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink
-            isExternal
-            href="https://chakra-ui.com"
-            flexGrow={1}
-            mr={2}
-          >
-            Chakra UI <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-            Next.js <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-      </List>
-    </Main>
+const novels = [
+  {
+    id: 1,
+    title: 'Novel 1',
+    author: 'Author 1',
+    genre: 'Genre 1',
+    thumbnail: 'https://example.com/novel1.jpg',
+    tags: ['tag1', 'tag2'],
+  },
+  {
+    id: 2,
+    title: 'Novel 2',
+    author: 'Author 2',
+    genre: 'Genre 2',
+    thumbnail: 'https://example.com/novel2.jpg',
+    tags: ['tag1', 'tag3'],
+  },
+  {
+    id: 1,
+    title: 'Novel 1',
+    author: 'Author 1',
+    genre: 'Genre 1',
+    thumbnail: 'https://example.com/novel1.jpg',
+    tags: ['tag1', 'tag2'],
+  },
+  {
+    id: 2,
+    title: 'Novel 2',
+    author: 'Author 2',
+    genre: 'Genre 2',
+    thumbnail: 'https://example.com/novel2.jpg',
+    tags: ['tag1', 'tag3'],
+  },
+  {
+    id: 1,
+    title: 'Novel 1',
+    author: 'Author 1',
+    genre: 'Genre 1',
+    thumbnail: 'https://example.com/novel1.jpg',
+    tags: ['tag1', 'tag2'],
+  },
+  {
+    id: 2,
+    title: 'Novel 2',
+    author: 'Author 2',
+    genre: 'Genre 2',
+    thumbnail: 'https://example.com/novel2.jpg',
+    tags: ['tag1', 'tag3'],
+  },
+  {
+    id: 1,
+    title: 'Novel 1',
+    author: 'Author 1',
+    genre: 'Genre 1',
+    thumbnail: 'https://example.com/novel1.jpg',
+    tags: ['tag1', 'tag2'],
+  },
+  {
+    id: 2,
+    title: 'Novel 2',
+    author: 'Author 2',
+    genre: 'Genre 2',
+    thumbnail: 'https://example.com/novel2.jpg',
+    tags: ['tag1', 'tag3'],
+  },
+  // ... 追加の小説データ
+];
 
-    <DarkModeSwitch />
-    <Footer>
-      <Text>Next ❤️ Chakra</Text>
-    </Footer>
-    <CTA />
-  </Container>
-)
 
-export default Index
+const IndexPage = () => {
+  return (
+    <Box bg="gray.100" minH="100vh" display="flex" flexDirection="column">
+      <Header/>
+
+      <Container flex="1" maxW="container.lg" py={8}>
+        <Heading as="h1" mb={4} textAlign="center">
+          小説一覧
+        </Heading>
+
+        {/* タグフィルター */}
+        <TagFilter
+          tags={['tag1', 'tag2', 'tag3']} // タグのリスト
+          selectedTags={['tag1']} // 選択されたタグのリスト
+          onTagSelect={(tag) => console.log(`Tag selected: ${tag}`)} // タグが選択されたときに呼び出されるコールバック関数
+          onTagRemove={(tag) => console.log(`Tag removed: ${tag}`)} // タグが削除されたときに呼び出されるコールバック関数
+        />
+
+        {/* 小説一覧 */}
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4} mt={4}>
+          {novels.map((novel) => (
+            <NovelCard key={novel.id} novel={novel} />
+          ))}
+        </SimpleGrid>
+      </Container>
+
+      <Box bg="gray.900" color="white" py={4}> {/* フッター */}
+        <Container maxW="container.lg" textAlign="center">
+          <Flex justify="center">
+            <Box mr={4}>
+              <Heading as="h4" fontSize="sm">
+                お問い合わせ
+              </Heading>
+              <Box mt={2}>info@example.com</Box>
+            </Box>
+            <Box>
+              <Heading as="h4" fontSize="sm">
+                プライバシーポリシー
+              </Heading>
+              <Box mt={2}>プライバシーポリシーのリンク</Box>
+            </Box>
+          </Flex>
+        </Container>
+      </Box>
+    </Box>
+  );
+};
+
+export default IndexPage;
+
