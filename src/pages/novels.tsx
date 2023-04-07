@@ -4,78 +4,29 @@ import { Box, Container, Heading, SimpleGrid, Flex } from '@chakra-ui/react';
 import NovelCard from '../components/NovelCard';
 import TagFilter from '../components/TagFilter';
 import Header from '../components/Header';
+import {supabase} from "../../lib/supabaseClient"
+import format from 'date-fns/format';
 
 
-const novels = [
-  {
-    id: 1,
-    title: 'Novel 1',
-    author: 'Author 1',
-    genre: 'Genre 1',
-    thumbnail: 'https://example.com/novel1.jpg',
-    tags: ['tag1', 'tag2'],
-  },
-  {
-    id: 2,
-    title: 'Novel 2',
-    author: 'Author 2',
-    genre: 'Genre 2',
-    thumbnail: 'https://example.com/novel2.jpg',
-    tags: ['tag1', 'tag3'],
-  },
-  {
-    id: 1,
-    title: 'Novel 1',
-    author: 'Author 1',
-    genre: 'Genre 1',
-    thumbnail: 'https://example.com/novel1.jpg',
-    tags: ['tag1', 'tag2'],
-  },
-  {
-    id: 2,
-    title: 'Novel 2',
-    author: 'Author 2',
-    genre: 'Genre 2',
-    thumbnail: 'https://example.com/novel2.jpg',
-    tags: ['tag1', 'tag3'],
-  },
-  {
-    id: 1,
-    title: 'Novel 1',
-    author: 'Author 1',
-    genre: 'Genre 1',
-    thumbnail: 'https://example.com/novel1.jpg',
-    tags: ['tag1', 'tag2'],
-  },
-  {
-    id: 2,
-    title: 'Novel 2',
-    author: 'Author 2',
-    genre: 'Genre 2',
-    thumbnail: 'https://example.com/novel2.jpg',
-    tags: ['tag1', 'tag3'],
-  },
-  {
-    id: 1,
-    title: 'Novel 1',
-    author: 'Author 1',
-    genre: 'Genre 1',
-    thumbnail: 'https://example.com/novel1.jpg',
-    tags: ['tag1', 'tag2'],
-  },
-  {
-    id: 2,
-    title: 'Novel 2',
-    author: 'Author 2',
-    genre: 'Genre 2',
-    thumbnail: 'https://example.com/novel2.jpg',
-    tags: ['tag1', 'tag3'],
-  },
-  // ... 追加の小説データ
-];
 
+const IndexPage = ({drafts}) => {
 
-const IndexPage = () => {
+console.log(drafts)
+
+const novels = drafts.map((item)=>{
+  const formatDate = format(new Date(item.created_at),"yyyy/MM/dd-HH:mm") 
+
+  return {
+  id:item.id,
+    title: item.title,
+  author: item.user_name,
+  created_at: formatDate,
+  thumbnail: item.image_url,
+  tags: [item.tag1, item.tag2,item.tag3,item.tag4],
+  body:item.body,
+  good_mark:item.good_mark}
+})
+
   return (
     <Box bg="gray.100" minH="100vh" display="flex" flexDirection="column">
       <Header/>
@@ -125,3 +76,17 @@ const IndexPage = () => {
 
 export default IndexPage;
 
+export async function getStaticProps() {
+  const { data, error } = await supabase
+    .from("drafts")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) console.log("error", error);
+
+  return {
+    props: {
+      drafts: data,
+    },
+  };
+}

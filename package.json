@@ -11,6 +11,8 @@
     "@chakra-ui/theme-tools": "^2.0.2",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.9.0",
+    "@supabase/supabase-js": "^2.15.0",
+    "date-fns": "^2.29.3",
     "framer-motion": "^6.3.0",
     "next": "latest",
     "react": "^18.2.0",
