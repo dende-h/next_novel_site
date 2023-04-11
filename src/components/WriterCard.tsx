@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 const WriterCard = ({ writer }) => {
 	const router = useRouter();
-	const { id, name, introduction, thumbnail } = writer;
+	const { name, introduction, thumbnail } = writer;
 
 	const imageUrl = thumbnail ? thumbnail : "/ilastya.png";
 
@@ -21,7 +21,7 @@ const WriterCard = ({ writer }) => {
 			_hover={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
 			mb={"4"}
 			onClick={() => {
-				router.push(`/novels/${id}`);
+				router.push(`/novels/${name}`);
 			}}
 		>
 			<Center w="100%" h="75%" position="relative">
