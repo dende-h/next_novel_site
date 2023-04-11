@@ -1,33 +1,51 @@
 // components/WriterCard.js
 
-import { Box, Flex, Heading, Text, Image } from '@chakra-ui/react';
+import { Box, Heading, Text, Center } from "@chakra-ui/react";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 const WriterCard = ({ writer }) => {
-  const { id, name, thumbnail, genres } = writer;
+	const router = useRouter();
+	const { id, name, introduction, thumbnail } = writer;
 
-  return (
-    <Box
-      bg="white"
-      p={4}
-      borderWidth={1}
-      borderRadius="md"
-      boxShadow="md"
-      transition="box-shadow 0.2s"
-      _hover={{ boxShadow: 'lg' }}
-    >
-      <Flex direction="column" alignItems="center">
-        <Box w="120px" h="120px" borderRadius="full" overflow="hidden">
-          <Image src={thumbnail} alt={`Thumbnail of ${name}`} objectFit="cover" w="100%" h="100%" />
-        </Box>
-        <Heading as="h3" fontSize="lg" mt={2} textAlign="center" color="gray.800">
-          {name}
-        </Heading>
-        <Text color="gray.600" mt={1} textAlign="center">
-          {genres.join(', ')}
-        </Text>
-      </Flex>
-    </Box>
-  );
+	const imageUrl = thumbnail ? thumbnail : "/ilastya.png";
+
+	return (
+		<Box
+			w={"300px"}
+			h={"424px"}
+			borderWidth={1}
+			borderRadius="md"
+			boxShadow="md"
+			transition="all 0.5s"
+			_hover={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
+			mb={"4"}
+			onClick={() => {
+				router.push(`/novels/${id}`);
+			}}
+		>
+			<Center w="100%" h="75%" position="relative">
+				<Image src={imageUrl} alt={name} object-fit="contain" width={300} height={485} />
+			</Center>
+
+			<Box h="30%" p="2" borderBottomLeftRadius="md" borderBottomRightRadius="md" backgroundColor="gray.50">
+				<Heading
+					as={"h4"}
+					fontSize={"md"}
+					fontWeight="bold"
+					mb={"1"}
+					lineHeight="shorter"
+					height="1.5rem"
+					overflow="hidden"
+				>
+					{name}
+				</Heading>
+				<Text color="gray.600" fontSize={"xs"} overflowWrap="break-word">
+					{introduction}
+				</Text>
+			</Box>
+		</Box>
+	);
 };
 
 export default WriterCard;

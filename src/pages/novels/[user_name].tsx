@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import {
 	Box,
 	Container,
@@ -15,44 +16,54 @@ import {
 	useDisclosure,
 	useColorModeValue
 } from "@chakra-ui/react";
-import NovelCard from "../components/NovelCard";
-import TagFilter from "../components/TagFilter";
-import Header from "../components/Header";
-import { supabase } from "../../lib/supabaseClient";
+import NovelCard from "../../components/NovelCard";
+import TagFilter from "../../components/TagFilter";
+import Header from "../../components/Header";
+import { supabase } from "../../../lib/supabaseClient";
 import format from "date-fns/format";
 import { useState } from "react";
 import React from "react";
-import { Footer } from "../components/Footer";
+import { Footer } from "../../components/Footer";
+import { novels } from "../novels";
 
-export type novels = {
+export type Draft = {
+	created_at: string;
 	id: string;
 	title: string;
-	author: string;
-	created_at: string;
-	thumbnail: string;
-	tags: string[];
+	user_name: string;
+	image_url: string;
+	tag1: string;
+	tag2: string;
+	tag3: string;
+	tag4: string;
 	body: string;
 	good_mark: number;
 };
 
-const NovelsPage = ({ drafts }) => {
+const NovelsByUser = ({ drafts }) => {
+	const router = useRouter();
+	const userName = router.query.user_name;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef = React.useRef();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
-	const novels: novels[] = drafts.map((item) => {
-		const formatDate = format(new Date(item.created_at), "yyyy/MM/dd-HH:mm");
+	const novels: novels[] = drafts
+		.filter((item) => {
+			return item.user_name === userName;
+		})
+		.map((item: Draft) => {
+			const formatDate = format(new Date(item.created_at), "yyyy/MM/dd-HH:mm");
 
-		return {
-			id: item.id,
-			title: item.title,
-			author: item.user_name,
-			created_at: formatDate,
-			thumbnail: item.image_url,
-			tags: [item.tag1, item.tag2, item.tag3, item.tag4],
-			body: item.body,
-			good_mark: item.good_mark
-		};
-	});
+			return {
+				id: item.id,
+				title: item.title,
+				author: item.user_name,
+				created_at: formatDate,
+				thumbnail: item.image_url,
+				tags: [item.tag1, item.tag2, item.tag3, item.tag4],
+				body: item.body,
+				good_mark: item.good_mark
+			};
+		});
 
 	const draftTagsArray: string[][] = novels.map((item) => item.tags);
 
@@ -78,7 +89,7 @@ const NovelsPage = ({ drafts }) => {
 
 			<Container flex="1" maxW="container.lg" py={8}>
 				<Heading as="h1" mb={4} textAlign="center">
-					小説一覧
+					{userName}の小説一覧
 				</Heading>
 
 				{/* タグフィルター */}
@@ -132,7 +143,19 @@ const NovelsPage = ({ drafts }) => {
 	);
 };
 
-export default NovelsPage;
+export default NovelsByUser;
+
+export async function getStaticPaths() {
+	const { data, error } = await supabase.from("user").select("*");
+
+	if (error) console.log("error", error);
+
+	const paths = data.map((user) => ({
+		params: { user_name: user.user_name }
+	}));
+
+	return { paths, fallback: false };
+}
 
 export async function getStaticProps() {
 	const { data, error } = await supabase.from("drafts").select("*").order("created_at", { ascending: false });

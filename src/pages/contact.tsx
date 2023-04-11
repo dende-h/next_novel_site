@@ -68,9 +68,8 @@ export default function Contact() {
 				<title>お問い合わせフォーム</title>
 				<meta name="description" content="問い合わせフォームです" />
 			</Head>
-			<Header/>
+			<Header />
 			<Box p="6" w="100%" h={"90vh"}>
-				
 				<VStack spacing="6">
 					<Heading as="h1" size="xl">
 						Contact Form
@@ -155,24 +154,10 @@ export default function Contact() {
 					</form>
 				</VStack>
 			</Box>
-			<Box bg="gray.900" color="white" py={4}> {/* フッター */}
-        <Container maxW="container.lg" textAlign="center">
-          <Flex justify="center">
-            <Box mr={4}>
-              <Heading as="h4" fontSize="sm">
-                お問い合わせ
-              </Heading>
-              <Box mt={2}>info@example.com</Box>
-            </Box>
-            <Box>
-              <Heading as="h4" fontSize="sm">
-                プライバシーポリシー
-              </Heading>
-              <Box mt={2}>プライバシーポリシーのリンク</Box>
-            </Box>
-          </Flex>
-        </Container>
-      </Box>
+			<Box bg="gray.900" color="white" py={4}>
+				{/* フッター */}
+				<Footer />
+			</Box>
 		</>
 	);
 }

@@ -1,5 +1,21 @@
-import { Flex, FlexProps } from '@chakra-ui/react'
+import { Box, Center, Flex, Container, Heading, Link } from "@chakra-ui/react";
 
-export const Footer = (props: FlexProps) => (
-  <Flex as="footer" py="8rem" {...props} />
-)
+export const Footer = () => (
+	<Container maxW="container.lg" textAlign="center">
+		<Flex justify="center">
+			<Link href="contact" _hover={{ textDecoration: "none" }}>
+				<Box mr={4}>
+					<Heading as="h4" fontSize="sm">
+						お問い合わせ
+					</Heading>
+				</Box>
+			</Link>
+			<Box>
+				<Heading as="h4" fontSize="sm">
+					プライバシーポリシー
+				</Heading>
+			</Box>
+		</Flex>
+		<Center>©2022 dende-h</Center>
+	</Container>
+);

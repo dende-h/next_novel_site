@@ -1,64 +1,118 @@
-import { Box,  Text, Flex, Badge, Center } from '@chakra-ui/react';
-import Image from 'next/image';
+import {
+	Box,
+	Text,
+	Badge,
+	Center,
+	useDisclosure,
+	Button,
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalFooter,
+	ModalHeader,
+	ModalOverlay,
+	useColorModeValue
+} from "@chakra-ui/react";
+import Image from "next/image";
+import { novels } from "../pages/novels";
+import { NovelViewer } from "./NovelViwer";
 
-const NovelCard = ({ novel }) => {
-  return (
-    <Box
-      w="300px"
-      borderWidth={1}
-      borderRadius="md"
-      overflow="hidden"
-      boxShadow="lg"
-      transition="box-shadow 0.2s"
-      _hover={{ boxShadow: 'xl' }}
-    >
-     <Center>
-									<Box
-										w="200px"
-										h="282px"
-										display="flex"
-										justifyContent="center"
-										alignItems="center"
-										position={"relative"}
-									>
-										<Image
-											src={novel.thumbnail}
-											alt={novel.title}
-											object-fit="contain"
-											width={200}
-											height={282}
-										/>
-									</Box>
-								</Center>
-      <Box p={6}>
-        <Text fontSize="2xl" fontWeight="bold" mb={2}>
-          {novel.title}
-        </Text>
-        <Text color="gray.600" mb={2}>
-          作者：{novel.author}
-        </Text>
-        <Text color="gray.600" mb={6}>
-          更新：{novel.created_at}
-        </Text>
+type Props = {
+	novel: novels;
+};
 
-        <Flex justify="space-between" alignItems="flex-end">
-          <Box>
-            {novel.tags.map((tag, index) => (
-              <Badge key={index} colorScheme="teal" mr={1}>
-                {tag}
-              </Badge>
-            ))}
-          </Box>
-          <Box>
-          <Text color="gray.600" mb={6}>
-        いいね：{novel.good_mark}
-        </Text>
-            {/* お気に入りボタンなどのアクションボタンをここに配置 */}
-          </Box>
-        </Flex>
-      </Box>
-    </Box>
-  );
+const NovelCard = (props: Props) => {
+	const { novel } = props;
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const css = { writingMode: "vertical-rl", textOrientation: "upright" };
+
+	const backgroundColor = useColorModeValue("gray.200", "gray.600");
+	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
+
+	return (
+		<>
+			<Box
+				w={"300px"}
+				h={"424px"}
+				borderWidth={1}
+				borderRadius="md"
+				boxShadow="md"
+				transition="all 0.5s"
+				_hover={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
+				mb={"4"}
+				onClick={onOpen}
+			>
+				<Center w="100%" h="75%" position="relative">
+					<Image src={novel.thumbnail} alt={novel.title} object-fit="contain" width={300} height={485} />
+				</Center>
+
+				<Box h="30%" p="2" borderBottomLeftRadius="md" borderBottomRightRadius="md" backgroundColor="gray.50">
+					<Text fontSize={"sm"} fontWeight="bold" mb={"1"} lineHeight="shorter" height="1.5rem" overflow="hidden">
+						{novel.title}
+					</Text>
+					<Text color="gray.600" fontSize={"xs"} overflow="hidden">
+						作者：{novel.author}
+					</Text>
+					<Text color="gray.600" fontSize={"xs"} mb={"2"} overflow="hidden">
+						更新：{novel.created_at}
+					</Text>
+
+					<Box>
+						{novel.tags.map((tag: string, index: number) => (
+							<Badge key={index} colorScheme="teal" mr={"1"} fontSize={"sm"} lineHeight="none" overflow="hidden">
+								{tag}
+							</Badge>
+						))}
+					</Box>
+					<Box textAlign={"end"}>
+						<Text color="gray.600" fontSize={"xs"} height="1rem" overflow="hidden" mr={2}>
+							いいね：{novel.good_mark}
+						</Text>
+					</Box>
+				</Box>
+			</Box>
+
+			<Modal isOpen={isOpen} onClose={onClose} size="full">
+				<ModalOverlay />
+				<ModalContent backgroundColor={backgroundColor} position={"relative"}>
+					<ModalHeader
+						maxW={"300px"}
+						textOverflow={"ellipsis"}
+						overflow={"hidden"}
+						whiteSpace={"nowrap"}
+						fontFamily={"Noto Serif JP"}
+						marginX={"auto"}
+						fontSize={{ base: "14px", md: "16px", lg: "18px" }}
+					>
+						{novel.title}
+					</ModalHeader>
+					<ModalCloseButton position={"absolute"} top={1} left={1} />
+					<ModalBody>
+						<Box
+							sx={css}
+							bgColor={textBackgroundColor}
+							borderRadius={"md"}
+							margin={"0"}
+							marginLeft={"auto"}
+							w={"100%"}
+							h={"80%"}
+							p={6}
+							overflowX={"scroll"}
+							position={"relative"}
+						>
+							<NovelViewer text={novel.body} />
+						</Box>
+					</ModalBody>
+					<ModalFooter>
+						<Button colorScheme={"teal"} onClick={onClose}>
+							Close
+						</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
+		</>
+	);
 };
 
 export default NovelCard;
