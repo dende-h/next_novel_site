@@ -1,4 +1,5 @@
-import { extendTheme } from "@chakra-ui/react";
+import { StyleFunctionProps, extendTheme } from "@chakra-ui/react";
+import { mode } from "@chakra-ui/theme-tools";
 
 const breakpoints = {
 	sm: "40em",
@@ -34,7 +35,30 @@ const theme = extendTheme({
 		heading: `'Raleway', sans-serif`,
 		body: `'Open Sans', sans-serif`
 	},
-	breakpoints
+	breakpoints,
+	styles: {
+		global: (props: StyleFunctionProps) => ({
+			body: {
+				color: mode("gray.700", "gray.100")(props),
+				bg: mode("gray.200", "gray.800")(props),
+				fontFamily: "body"
+			},
+			heading: {
+				color: mode("gray.800", "gray.100")(props),
+				fontFamily: "heading"
+			},
+			input: {
+				color: mode("gray.600", "gray.200")(props),
+				bgColor: mode("gray.200", "gray.500")(props),
+				fontFamily: "body"
+			},
+			textarea: {
+				color: mode("gray.600", "gray.200")(props),
+				bgColor: mode("gray.200", "gray.500")(props),
+				fontFamily: "body"
+			}
+		})
+	}
 });
 
 export default theme;

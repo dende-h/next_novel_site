@@ -8,7 +8,7 @@ const ShortNovelVillage: React.FC = () => {
   return (
     <Container maxW="xl" centerContent mt={8}>
       <VStack spacing={8} align="center">
-        <Heading as="h1" size="2xl" fontWeight="bold" color="gray.700">
+        <Heading as="h1" size="2xl" fontWeight="bold" >
           Welcome to ShortNovelVillage
         </Heading>
         <Text fontSize="2xl" textAlign="center" color="gray.500">
@@ -34,7 +34,7 @@ const ShortNovelVillage: React.FC = () => {
         </Box>
       </VStack>
       <Box mt={16} maxW="2xl" w="full" px={4}>
-        <Heading as="h2" size="xl" textAlign="center" mb={8} color="gray.700">
+        <Heading as="h2" size="xl" textAlign="center" mb={8} >
           Features
         </Heading>
         <HStack spacing={8}>
@@ -46,7 +46,7 @@ const ShortNovelVillage: React.FC = () => {
               size="lg"
               _hover={{ color: 'purple.500' }}
             />
-            <Text mt={2} fontWeight="bold" color="gray.700">
+            <Text mt={2} fontWeight="bold" >
               Like Stories
             </Text>
             <Text mt={2} color="gray.500">
@@ -62,11 +62,11 @@ const ShortNovelVillage: React.FC = () => {
               size="lg"
               _hover={{ color: 'purple.500' }}
             />
-            <Text mt={2} fontWeight="bold" color="gray.700">
+            <Text mt={2} fontWeight="bold" >
               Save Stories
             </Text>
             <Text mt={2} color="gray.500">
-            お気に入りのストーリーを記録して、後でもう一度読むことができます。
+            お気に入りの作者を登録して、その作者を応援することができます。
             </Text>
           </Box>
         </HStack>
@@ -76,3 +76,11 @@ const ShortNovelVillage: React.FC = () => {
 };
 
 export default ShortNovelVillage;
+
+export const getStaticProps = async () => {
+	return {
+		props: {
+			data: "This is static data"
+		}
+	};
+};

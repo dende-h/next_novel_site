@@ -1,15 +1,17 @@
 // components/WriterCard.js
 
-import { Box, Heading, Text, Center } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import LikeUserButton from "./LikeUserButton";
+import { Box, Center, Heading, Text, useColorModeValue } from "@chakra-ui/react";
 
 const WriterCard = ({ writer }) => {
 	const router = useRouter();
-	const { name, introduction, thumbnail } = writer;
+	const { user_name, Introduction, user_image } = writer;
 
-	const imageUrl = thumbnail ? thumbnail : "/ilastya.png";
+	const imageUrl = user_image ? user_image : "/ilastya.png";
+
+	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
 
 	return (
 		<Box
@@ -20,16 +22,23 @@ const WriterCard = ({ writer }) => {
 			boxShadow="md"
 			transition="all 0.5s"
 			_hover={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
-			mb={"4"}
+			mb={"2"}
 			onClick={() => {
-				router.push(`/novels/${name}`);
+				router.push(`/novels/${user_name}`);
 			}}
+			position={"relative"}
 		>
 			<Center w="100%" h="75%" position="relative">
-				<Image src={imageUrl} alt={name} object-fit="contain" width={300} height={485} />
+				<Image src={imageUrl} alt={user_name} object-fit="contain" width={300} height={485} />
 			</Center>
 
-			<Box h="30%" p="2" borderBottomLeftRadius="md" borderBottomRightRadius="md" backgroundColor="gray.50">
+			<Box
+				h="30%"
+				p="1"
+				borderBottomLeftRadius="md"
+				borderBottomRightRadius="md"
+				backgroundColor={backgroundCardFooterColor}
+			>
 				<Heading
 					as={"h4"}
 					fontSize={"md"}
@@ -39,13 +48,13 @@ const WriterCard = ({ writer }) => {
 					height="1.5rem"
 					overflow="hidden"
 				>
-					{name}
+					{user_name}
 				</Heading>
-				<Text color="gray.600" fontSize={"xs"} overflowWrap="break-word">
-					{introduction}
+				<Text fontSize={"xs"} overflowWrap="break-word">
+					{Introduction}
 				</Text>
-				<Box ml={"60%"}>
-					<LikeUserButton name={name} />
+				<Box position={"absolute"} bottom={0} right={1}>
+					<LikeUserButton name={user_name} />
 				</Box>
 			</Box>
 		</Box>

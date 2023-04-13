@@ -15,11 +15,11 @@ export type Writers = {
 
 const WritersPage = ({ user }) => {
 	const writers: Writers[] = user.map((item: Writers) => {
-		return { id: item.id, name: item.user_name, introduction: item.Introduction, thumbnail: item.user_image };
+		return { id: item.id, user_name: item.user_name, Introduction: item.Introduction, user_image: item.user_image };
 	});
 
 	return (
-		<Box bg="gray.100" minH="100vh" display="flex" flexDirection="column">
+		<Box minH="100vh" display="flex" flexDirection="column">
 			<Header />
 
 			<Container flex="1" maxW="container.lg" py={8}>
@@ -53,6 +53,7 @@ export async function getStaticProps() {
 	return {
 		props: {
 			user: data
-		}
+		},
+		revalidate: 10
 	};
 }

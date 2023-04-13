@@ -31,6 +31,7 @@ const NovelCard = (props: Props) => {
 	const css = { writingMode: "vertical-rl", textOrientation: "upright" };
 
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
+	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
 	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
 
 	return (
@@ -50,14 +51,20 @@ const NovelCard = (props: Props) => {
 					<Image src={novel.thumbnail} alt={novel.title} object-fit="contain" width={300} height={485} />
 				</Center>
 
-				<Box h="30%" p="2" borderBottomLeftRadius="md" borderBottomRightRadius="md" backgroundColor="gray.50">
+				<Box
+					h="30%"
+					p="2"
+					borderBottomLeftRadius="md"
+					borderBottomRightRadius="md"
+					backgroundColor={backgroundCardFooterColor}
+				>
 					<Text fontSize={"sm"} fontWeight="bold" mb={"1"} lineHeight="shorter" height="1.5rem" overflow="hidden">
 						{novel.title}
 					</Text>
-					<Text color="gray.600" fontSize={"xs"} overflow="hidden">
+					<Text fontSize={"xs"} overflow="hidden">
 						作者：{novel.author}
 					</Text>
-					<Text color="gray.600" fontSize={"xs"} mb={"2"} overflow="hidden">
+					<Text fontSize={"xs"} mb={"2"} overflow="hidden">
 						更新：{novel.created_at}
 					</Text>
 
@@ -68,9 +75,9 @@ const NovelCard = (props: Props) => {
 							</Badge>
 						))}
 					</Box>
-					<Box ml={"60%"}>
+					<Center>
 						<LikeButton id={novel.id} title={novel.title} good_mark={novel.good_mark} />
-					</Box>
+					</Center>
 				</Box>
 			</Box>
 

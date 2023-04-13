@@ -41,7 +41,7 @@ export const HeaderMenu = () => {
 						</Link>
 						<Link href={"/like_writers"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								Follow Writers
+								FavoriteWriters
 							</MenuItem>
 						</Link>
 						<Link href={"/contact"} passHref>

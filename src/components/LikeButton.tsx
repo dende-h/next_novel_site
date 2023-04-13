@@ -10,12 +10,11 @@ type Props = { id: string; title: string; good_mark: number };
 const LikeButton = (props: Props) => {
 	const { id, good_mark } = props;
 	const [likesNovel, setLikesNovel] = useRecoilState<string[]>(heartNovelArray);
-	const [isLikes, setIslikes] = useState(false);
+	const [isLikes, setIsLikes] = useState(false);
 	useEffect(() => {
-		setIslikes(() => likesNovel.includes(id));
+		setIsLikes(() => likesNovel.includes(id));
 	}, [likesNovel]);
 
-	console.log(isLikes);
 	const [goodMark, setGoodMark] = useState(good_mark);
 	const handleClick = async (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
 		e.stopPropagation();
@@ -53,7 +52,7 @@ const LikeButton = (props: Props) => {
 				variant="ghost"
 				borderRadius={"full"}
 			/>
-			<Box>いいね:{goodMark}</Box>
+			<Box>{goodMark}</Box>
 		</HStack>
 	);
 };

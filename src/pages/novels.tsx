@@ -73,7 +73,7 @@ const NovelsPage = ({ drafts }) => {
 	});
 
 	return (
-		<Box bg="gray.100" minH="100vh" display="flex" flexDirection="column">
+		<Box minH="100vh" display="flex" flexDirection="column">
 			<Header />
 
 			<Container flex="1" maxW="container.lg" py={8}>
@@ -142,6 +142,7 @@ export async function getStaticProps() {
 	return {
 		props: {
 			drafts: data
-		}
+		},
+		revalidate: 10
 	};
 }

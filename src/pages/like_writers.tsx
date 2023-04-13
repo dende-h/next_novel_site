@@ -6,45 +6,49 @@ import { supabase } from "../../lib/supabaseClient";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { heartUserArray } from "../Atoms/heartUserArray";
-
-export type Writers = {
-	id: string;
-	user_name: string;
-	Introduction: string;
-	user_image: string;
-};
+import { Writers } from "./writers";
 
 const WritersPage = ({ user }) => {
 	const [isClient, setIsClient] = useState(false);
-	const likeUsers = useRecoilValue<string[]>(heartUserArray);
 	useEffect(() => {
 		if (typeof window !== undefined) {
 			setIsClient(true);
 		}
 	}, []);
 
+	const heartUsers = useRecoilValue<string[]>(heartUserArray);
+
 	const writers: Writers[] = user
 		.map((item: Writers) => {
-			return { id: item.id, name: item.user_name, introduction: item.Introduction, thumbnail: item.user_image };
+			return { id: item.id, user_name: item.user_name, Introduction: item.Introduction, user_image: item.user_image };
 		})
-		.filter((item: Writers) => {
-			return likeUsers.includes(item.user_name);
+		.filter((item) => {
+			return heartUsers.includes(item.user_name);
 		});
+	const [likeWriters, setLikeWriters] = useState(writers);
+
+	useEffect(() => {
+		setLikeWriters((prevState) => {
+			return prevState.filter((item) => {
+				return heartUsers.includes(item.user_name);
+			});
+		});
+	}, [heartUsers]);
 
 	return (
 		<>
 			{isClient ? (
-				<Box bg="gray.100" minH="100vh" display="flex" flexDirection="column">
+				<Box  minH="100vh" display="flex" flexDirection="column">
 					<Header />
 
 					<Container flex="1" maxW="container.lg" py={8}>
 						<Heading as="h1" mb={4} textAlign="center">
-							作家一覧
+							お気に入り作家
 						</Heading>
 
 						{/* 作家一覧 */}
 						<SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4} mt={4}>
-							{writers.map((writer) => (
+							{likeWriters.map((writer) => (
 								<WriterCard key={writer.id} writer={writer} />
 							))}
 						</SimpleGrid>
@@ -74,6 +78,7 @@ export async function getStaticProps() {
 	return {
 		props: {
 			user: data
-		}
+		},
+		revalidate: 10
 	};
 }

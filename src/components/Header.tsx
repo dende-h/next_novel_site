@@ -14,7 +14,7 @@ const Header = () => {
 			py={2}
 			align="center"
 			justify="space-between"
-			backgroundColor="gray.800"
+			backgroundColor="gray.900"
 			color="white"
 		>
 			<Box>
@@ -43,7 +43,7 @@ const Header = () => {
 				<Box mr={4} display={{ base: "none", lg: "block" }}>
 					<Link href="/like_writers" _hover={{ textDecoration: "none" }}>
 						<Text fontSize="lg" fontWeight="medium">
-							Follow Writers
+							FavoriteWriters
 						</Text>
 					</Link>
 				</Box>
