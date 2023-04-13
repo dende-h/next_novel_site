@@ -12,10 +12,13 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
-	useColorModeValue
+	useColorModeValue,
+	HStack,
+	Flex
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { novels } from "../pages/novels";
+import LikeButton from "./LikeButton";
 import { NovelViewer } from "./NovelViwer";
 
 type Props = {
@@ -34,7 +37,7 @@ const NovelCard = (props: Props) => {
 		<>
 			<Box
 				w={"300px"}
-				h={"424px"}
+				h={"485px"}
 				borderWidth={1}
 				borderRadius="md"
 				boxShadow="md"
@@ -65,10 +68,8 @@ const NovelCard = (props: Props) => {
 							</Badge>
 						))}
 					</Box>
-					<Box textAlign={"end"}>
-						<Text color="gray.600" fontSize={"xs"} height="1rem" overflow="hidden" mr={2}>
-							いいね：{novel.good_mark}
-						</Text>
+					<Box ml={"60%"}>
+						<LikeButton id={novel.id} title={novel.title} good_mark={novel.good_mark} />
 					</Box>
 				</Box>
 			</Box>

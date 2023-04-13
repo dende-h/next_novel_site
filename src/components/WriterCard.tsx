@@ -13,7 +13,7 @@ const WriterCard = ({ writer }) => {
 	return (
 		<Box
 			w={"300px"}
-			h={"424px"}
+			h={"485px"}
 			borderWidth={1}
 			borderRadius="md"
 			boxShadow="md"
