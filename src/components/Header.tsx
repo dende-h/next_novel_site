@@ -41,6 +41,13 @@ const Header = () => {
 					</Link>
 				</Box>
 				<Box mr={4} display={{ base: "none", lg: "block" }}>
+					<Link href="/like_writers" _hover={{ textDecoration: "none" }}>
+						<Text fontSize="lg" fontWeight="medium">
+							Follow Writers
+						</Text>
+					</Link>
+				</Box>
+				<Box mr={4} display={{ base: "none", lg: "block" }}>
 					<Link href="contact" _hover={{ textDecoration: "none" }}>
 						<Text fontSize="lg" fontWeight="medium">
 							Contact
