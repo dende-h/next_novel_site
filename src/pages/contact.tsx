@@ -10,13 +10,12 @@ import {
 	Textarea,
 	Button,
 	Box,
-	FormErrorMessage,
-	Container,
-	Flex
+	FormErrorMessage
 } from "@chakra-ui/react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import Header from "../components/Header";
 import { Footer } from "../components/Footer";
+import Seo from "../components/Seo";
 
 type FormValues = {
 	name: string;
@@ -64,10 +63,14 @@ export default function Contact() {
 	});
 	return (
 		<>
-			<Head>
-				<title>お問い合わせフォーム</title>
-				<meta name="description" content="問い合わせフォームです" />
-			</Head>
+			<Seo
+				pageTitle="問い合わせフォーム"
+				pageDescription="管理人への問い合わせメールを送信できます"
+				pagePath="https://next-novel-site.vercel.app/contact"
+				pageImg="/meta.jpg"
+				pageImgWidth="1200"
+				pageImgHeight="630"
+			/>
 			<Header />
 			<Box p="6" w="100%" h={"90vh"}>
 				<VStack spacing="6">

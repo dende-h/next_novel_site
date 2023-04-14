@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { heartUserArray } from "../Atoms/heartUserArray";
 import { Writers } from "./writers";
+import Seo from "../components/Seo";
 
 const WritersPage = ({ user }) => {
 	const [isClient, setIsClient] = useState(false);
@@ -37,8 +38,16 @@ const WritersPage = ({ user }) => {
 
 	return (
 		<>
+			<Seo
+				pageTitle="お気に入り作家"
+				pageDescription="お気に入りに登録した作家の一覧です"
+				pageImg="/meta.jpg"
+				pagePath="https://next-novel-site.vercel.app/like_writers"
+				pageImgHeight="600"
+				pageImgWidth="1200"
+			/>
 			{isClient ? (
-				<Box  minH="100vh" display="flex" flexDirection="column">
+				<Box minH="100vh" display="flex" flexDirection="column">
 					<Header />
 
 					<Container flex="1" maxW="container.lg" py={8}>
