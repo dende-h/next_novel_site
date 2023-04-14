@@ -1,4 +1,4 @@
-import { Box, Container, Heading, SimpleGrid, Flex, Link, Center } from "@chakra-ui/react";
+import { Box, Container, Heading, SimpleGrid, Center } from "@chakra-ui/react";
 import WriterCard from "../components/WriterCard";
 import Header from "../components/Header";
 import { Footer } from "../components/Footer";

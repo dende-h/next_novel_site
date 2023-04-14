@@ -12,9 +12,7 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
-	useColorModeValue,
-	HStack,
-	Flex
+	useColorModeValue
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { novels } from "../pages/novels";
@@ -29,6 +27,8 @@ const NovelCard = (props: Props) => {
 	const { novel } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const css = { writingMode: "vertical-rl", textOrientation: "upright" };
+
+	const imageUrl = novel.thumbnail ? novel.thumbnail : "/book.png";
 
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
@@ -48,7 +48,7 @@ const NovelCard = (props: Props) => {
 				onClick={onOpen}
 			>
 				<Center w="100%" h="75%" position="relative">
-					<Image src={novel.thumbnail} alt={novel.title} object-fit="contain" width={300} height={485} />
+					<Image src={imageUrl} alt={novel.title} object-fit="contain" width={300} height={485} />
 				</Center>
 
 				<Box

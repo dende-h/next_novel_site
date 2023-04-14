@@ -1,6 +1,5 @@
 import React from "react";
-import { Box, Flex, IconButton, Link, Text } from "@chakra-ui/react";
-import { FiMenu } from "react-icons/fi";
+import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import { HeaderMenu } from "./HeaderMenu";
 import { DarkModeSwitch } from "./DarkModeSwitch";
 
