@@ -10,11 +10,13 @@ export const Footer = () => (
 					</Heading>
 				</Box>
 			</Link>
-			<Box>
-				<Heading as="h4" fontSize="sm">
-					プライバシーポリシー
-				</Heading>
-			</Box>
+			<Link href="policy" _hover={{ textDecoration: "none" }}>
+				<Box>
+					<Heading as="h4" fontSize="sm">
+						プライバシーポリシー
+					</Heading>
+				</Box>
+			</Link>
 		</Flex>
 		<Center>©2022 dende-h</Center>
 	</Container>
