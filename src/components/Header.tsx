@@ -18,7 +18,7 @@ const Header = () => {
 		>
 			<Box>
 				<Text fontSize="2xl" fontWeight="bold">
-					My Novels
+					Lit Bite
 				</Text>
 			</Box>
 			<Flex align="center">
