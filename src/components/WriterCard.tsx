@@ -7,9 +7,10 @@ import { Box, Center, Heading, Text, useColorModeValue } from "@chakra-ui/react"
 
 const WriterCard = ({ writer }) => {
 	const router = useRouter();
-	const { user_name, Introduction, user_image } = writer;
+	const { user_name, Introduction, image_url } = writer;
 
-	const imageUrl = user_image ? user_image : "/ilastya.png";
+	console.log(image_url);
+	const imageUrl = image_url ? image_url : "/ilastya.png";
 
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
 
@@ -24,12 +25,12 @@ const WriterCard = ({ writer }) => {
 			_hover={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
 			mb={"2"}
 			onClick={() => {
-				router.push(`/novels/${user_name}`);
+				router.push(`/novels_by_user/${user_name}`);
 			}}
 			position={"relative"}
 		>
 			<Center w="100%" h="75%" position="relative">
-				<Image src={imageUrl} alt={user_name} object-fit="contain" width={300} height={485} />
+				<Image src={imageUrl} alt={user_name} object-fit="contain" width={300} height={485} priority={true} />
 			</Center>
 
 			<Box

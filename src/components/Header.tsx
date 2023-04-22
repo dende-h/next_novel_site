@@ -26,7 +26,7 @@ const Header = () => {
 					<DarkModeSwitch />
 				</Box>
 				<Box mr={4} display={{ base: "none", lg: "block" }}>
-					<Link href="novels" _hover={{ textDecoration: "none" }}>
+					<Link href="/novels" _hover={{ textDecoration: "none" }}>
 						<Text fontSize="lg" fontWeight="medium">
 							Novels
 						</Text>

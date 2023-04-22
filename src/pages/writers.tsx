@@ -11,12 +11,12 @@ export type Writers = {
 	id: string;
 	user_name: string;
 	Introduction: string;
-	user_image: string;
+	image_url: string;
 };
 
 const WritersPage = ({ user }) => {
 	const writers: Writers[] = user.map((item: Writers) => {
-		return { id: item.id, user_name: item.user_name, Introduction: item.Introduction, user_image: item.user_image };
+		return { id: item.id, user_name: item.user_name, Introduction: item.Introduction, image_url: item.image_url };
 	});
 
 	return (
