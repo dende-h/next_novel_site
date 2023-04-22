@@ -21,7 +21,7 @@ const WritersPage = ({ user }) => {
 
 	const writers: Writers[] = user
 		.map((item: Writers) => {
-			return { id: item.id, user_name: item.user_name, Introduction: item.Introduction, user_image: item.user_image };
+			return { id: item.id, user_name: item.user_name, Introduction: item.Introduction, image_url: item.image_url };
 		})
 		.filter((item) => {
 			return heartUsers.includes(item.user_name);
