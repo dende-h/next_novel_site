@@ -7,7 +7,7 @@
 import Head from "next/head";
 
 const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, pageImgHeight }) => {
-	const defaultTitle = "Lit Bite";
+	const defaultTitle = "Lit:Bite";
 	const defaultDescription =
 		"世界中の才能ある作家が創作した短編小説の数々を発見し、楽しむことができます。掌編、ショートショート、短編までの短い物語専門の小説サイトです。会員登録不要で無料で閲覧できます。";
 

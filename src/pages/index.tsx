@@ -19,7 +19,7 @@ const ShortNovelVillage: React.FC = () => {
 			<Container maxW="xl" centerContent mt={8}>
 				<VStack spacing={8} align="center">
 					<Heading as="h1" size="2xl" fontWeight="bold">
-						Welcome to LitBite
+						Welcome to Lit:Bite
 					</Heading>
 					<Text fontSize="2xl" textAlign="center" color="gray.500">
 						世界中の才能ある作家が創作した短編小説の数々を発見し、楽しむことができます。
