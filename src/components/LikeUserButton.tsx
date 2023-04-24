@@ -9,7 +9,7 @@ type Props = { name: string };
 const LikeUserButton = (props: Props) => {
 	const { name } = props;
 	const [likesUser, setLikesUser] = useRecoilState<string[]>(heartUserArray);
-	const [isLikes, setIslikes] = useState(false);
+	const [isLikes, setIslikes] = useState(() => likesUser.includes(name));
 	useEffect(() => {
 		setIslikes(() => likesUser.includes(name));
 	}, [likesUser]);
