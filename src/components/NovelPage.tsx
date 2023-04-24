@@ -16,10 +16,12 @@ import {
 	Badge
 } from "@chakra-ui/react";
 import React from "react";
+import LikeButton from "./LikeButton";
 import { NovelViewer } from "./NovelViwer";
 
 // 小説の情報を受け取るprops
 type NovelProps = {
+	id: string;
 	title: string;
 	author: string;
 	authorBio: string;
@@ -30,7 +32,7 @@ type NovelProps = {
 	lastUpdated: string;
 };
 
-const NovelPage = ({ title, author, authorBio, body, coverImage, tags, likes, lastUpdated }: NovelProps) => {
+const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes, lastUpdated }: NovelProps) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const css = { writingMode: "vertical-rl", textOrientation: "upright" };
 
@@ -64,7 +66,7 @@ const NovelPage = ({ title, author, authorBio, body, coverImage, tags, likes, la
 
 					<Box mb={6}>
 						<Text fontSize="md" fontWeight="semibold" mb={2}>
-							いいね数: {likes}
+							<LikeButton id={id} title={title} good_mark={likes} />
 						</Text>
 						<Text fontSize="md" fontWeight="semibold" mb={2}>
 							最終更新日: {lastUpdated}

@@ -58,6 +58,7 @@ const novel = ({ drafts, user }) => {
 					</Heading>
 
 					<NovelPage
+						id={novel.id}
 						title={novel.title}
 						author={author.user_name}
 						authorBio={author.Introduction}

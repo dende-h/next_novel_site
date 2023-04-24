@@ -1,24 +1,8 @@
-import {
-	Box,
-	Text,
-	Badge,
-	Center,
-	useDisclosure,
-	Button,
-	Modal,
-	ModalBody,
-	ModalCloseButton,
-	ModalContent,
-	ModalFooter,
-	ModalHeader,
-	ModalOverlay,
-	useColorModeValue
-} from "@chakra-ui/react";
+import { Box, Text, Badge, Center, useColorModeValue } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { novels } from "../pages/novels";
 import LikeButton from "./LikeButton";
-import { NovelViewer } from "./NovelViwer";
 
 type Props = {
 	novel: novels;
@@ -27,14 +11,8 @@ type Props = {
 const NovelCard = (props: Props) => {
 	const { novel } = props;
 	const router = useRouter();
-	const { isOpen, onOpen, onClose } = useDisclosure();
-	const css = { writingMode: "vertical-rl", textOrientation: "upright" };
-
 	const imageUrl = novel.thumbnail ? novel.thumbnail : "/book.png";
-
-	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
-	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
 
 	return (
 		<>
