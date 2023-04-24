@@ -15,6 +15,7 @@ import {
 	useColorModeValue
 } from "@chakra-ui/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { novels } from "../pages/novels";
 import LikeButton from "./LikeButton";
 import { NovelViewer } from "./NovelViwer";
@@ -25,6 +26,7 @@ type Props = {
 
 const NovelCard = (props: Props) => {
 	const { novel } = props;
+	const router = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const css = { writingMode: "vertical-rl", textOrientation: "upright" };
 
@@ -45,7 +47,7 @@ const NovelCard = (props: Props) => {
 				transition="all 0.5s"
 				_hover={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
 				mb={"4"}
-				onClick={onOpen}
+				onClick={() => router.push(`/novels/${novel.id}`)}
 			>
 				<Center w="100%" h="75%" position="relative">
 					<Image src={imageUrl} alt={novel.title} object-fit="contain" width={300} height={485} />
@@ -80,45 +82,6 @@ const NovelCard = (props: Props) => {
 					</Center>
 				</Box>
 			</Box>
-
-			<Modal isOpen={isOpen} onClose={onClose} size="full">
-				<ModalOverlay />
-				<ModalContent backgroundColor={backgroundColor} position={"relative"}>
-					<ModalHeader
-						maxW={"300px"}
-						textOverflow={"ellipsis"}
-						overflow={"hidden"}
-						whiteSpace={"nowrap"}
-						fontFamily={"Noto Serif JP"}
-						marginX={"auto"}
-						fontSize={{ base: "14px", md: "16px", lg: "18px" }}
-					>
-						{novel.title}
-					</ModalHeader>
-					<ModalCloseButton position={"absolute"} top={1} left={1} />
-					<ModalBody>
-						<Box
-							sx={css}
-							bgColor={textBackgroundColor}
-							borderRadius={"md"}
-							margin={"0"}
-							marginLeft={"auto"}
-							w={"100%"}
-							h={"80%"}
-							p={6}
-							overflowX={"scroll"}
-							position={"relative"}
-						>
-							<NovelViewer text={novel.body} />
-						</Box>
-					</ModalBody>
-					<ModalFooter>
-						<Button colorScheme={"teal"} onClick={onClose}>
-							Close
-						</Button>
-					</ModalFooter>
-				</ModalContent>
-			</Modal>
 		</>
 	);
 };
