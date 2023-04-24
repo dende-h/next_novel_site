@@ -34,6 +34,11 @@ export const HeaderMenu = () => {
 								Novels
 							</MenuItem>
 						</Link>
+						<Link href={"/like_novels"} passHref>
+							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
+								LikeNovels
+							</MenuItem>
+						</Link>
 						<Link href={"/writers"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
 								Writers
@@ -41,7 +46,7 @@ export const HeaderMenu = () => {
 						</Link>
 						<Link href={"/like_writers"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								FavoriteWriters
+								LikeWriters
 							</MenuItem>
 						</Link>
 						<Link href={"/contact"} passHref>

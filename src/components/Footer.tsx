@@ -1,16 +1,17 @@
-import { Box, Center, Flex, Container, Heading, Link } from "@chakra-ui/react";
+import { Box, Center, Flex, Container, Heading } from "@chakra-ui/react";
+import Link from "next/link";
 
 export const Footer = () => (
 	<Container maxW="container.lg" textAlign="center">
 		<Flex justify="center">
-			<Link href="contact" _hover={{ textDecoration: "none" }}>
+			<Link href="/contact" passHref>
 				<Box mr={4}>
 					<Heading as="h4" fontSize="sm">
 						お問い合わせ
 					</Heading>
 				</Box>
 			</Link>
-			<Link href="policy" _hover={{ textDecoration: "none" }}>
+			<Link href="/policy" passHref>
 				<Box>
 					<Heading as="h4" fontSize="sm">
 						プライバシーポリシー

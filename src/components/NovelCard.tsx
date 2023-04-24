@@ -1,23 +1,8 @@
-import {
-	Box,
-	Text,
-	Badge,
-	Center,
-	useDisclosure,
-	Button,
-	Modal,
-	ModalBody,
-	ModalCloseButton,
-	ModalContent,
-	ModalFooter,
-	ModalHeader,
-	ModalOverlay,
-	useColorModeValue
-} from "@chakra-ui/react";
+import { Box, Text, Badge, Center, useColorModeValue } from "@chakra-ui/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { novels } from "../pages/novels";
 import LikeButton from "./LikeButton";
-import { NovelViewer } from "./NovelViwer";
 
 type Props = {
 	novel: novels;
@@ -25,14 +10,9 @@ type Props = {
 
 const NovelCard = (props: Props) => {
 	const { novel } = props;
-	const { isOpen, onOpen, onClose } = useDisclosure();
-	const css = { writingMode: "vertical-rl", textOrientation: "upright" };
-
+	const router = useRouter();
 	const imageUrl = novel.thumbnail ? novel.thumbnail : "/book.png";
-
-	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
-	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
 
 	return (
 		<>
@@ -45,7 +25,7 @@ const NovelCard = (props: Props) => {
 				transition="all 0.5s"
 				_hover={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
 				mb={"4"}
-				onClick={onOpen}
+				onClick={() => router.push(`/novels/${novel.id}`)}
 			>
 				<Center w="100%" h="75%" position="relative">
 					<Image src={imageUrl} alt={novel.title} object-fit="contain" width={300} height={485} />
@@ -80,45 +60,6 @@ const NovelCard = (props: Props) => {
 					</Center>
 				</Box>
 			</Box>
-
-			<Modal isOpen={isOpen} onClose={onClose} size="full">
-				<ModalOverlay />
-				<ModalContent backgroundColor={backgroundColor} position={"relative"}>
-					<ModalHeader
-						maxW={"300px"}
-						textOverflow={"ellipsis"}
-						overflow={"hidden"}
-						whiteSpace={"nowrap"}
-						fontFamily={"Noto Serif JP"}
-						marginX={"auto"}
-						fontSize={{ base: "14px", md: "16px", lg: "18px" }}
-					>
-						{novel.title}
-					</ModalHeader>
-					<ModalCloseButton position={"absolute"} top={1} left={1} />
-					<ModalBody>
-						<Box
-							sx={css}
-							bgColor={textBackgroundColor}
-							borderRadius={"md"}
-							margin={"0"}
-							marginLeft={"auto"}
-							w={"100%"}
-							h={"80%"}
-							p={6}
-							overflowX={"scroll"}
-							position={"relative"}
-						>
-							<NovelViewer text={novel.body} />
-						</Box>
-					</ModalBody>
-					<ModalFooter>
-						<Button colorScheme={"teal"} onClick={onClose}>
-							Close
-						</Button>
-					</ModalFooter>
-				</ModalContent>
-			</Modal>
 		</>
 	);
 };

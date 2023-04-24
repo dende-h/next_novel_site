@@ -9,7 +9,6 @@ const WriterCard = ({ writer }) => {
 	const router = useRouter();
 	const { user_name, Introduction, image_url } = writer;
 
-	console.log(image_url);
 	const imageUrl = image_url ? image_url : "/ilastya.png";
 
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");

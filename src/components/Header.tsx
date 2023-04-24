@@ -18,7 +18,7 @@ const Header = () => {
 		>
 			<Box>
 				<Text fontSize="2xl" fontWeight="bold">
-					Lit Bite
+					Lit:Bite
 				</Text>
 			</Box>
 			<Flex align="center">
@@ -33,6 +33,13 @@ const Header = () => {
 					</Link>
 				</Box>
 				<Box mr={4} display={{ base: "none", lg: "block" }}>
+					<Link href="/like_novels" _hover={{ textDecoration: "none" }}>
+						<Text fontSize="lg" fontWeight="medium">
+							LikeNovels
+						</Text>
+					</Link>
+				</Box>
+				<Box mr={4} display={{ base: "none", lg: "block" }}>
 					<Link href="/writers" _hover={{ textDecoration: "none" }}>
 						<Text fontSize="lg" fontWeight="medium">
 							Writers
@@ -42,7 +49,7 @@ const Header = () => {
 				<Box mr={4} display={{ base: "none", lg: "block" }}>
 					<Link href="/like_writers" _hover={{ textDecoration: "none" }}>
 						<Text fontSize="lg" fontWeight="medium">
-							FavoriteWriters
+							LikeWriters
 						</Text>
 					</Link>
 				</Box>

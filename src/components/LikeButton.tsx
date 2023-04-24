@@ -10,7 +10,7 @@ type Props = { id: string; title: string; good_mark: number };
 const LikeButton = (props: Props) => {
 	const { id, good_mark } = props;
 	const [likesNovel, setLikesNovel] = useRecoilState<string[]>(heartNovelArray);
-	const [isLikes, setIsLikes] = useState(false);
+	const [isLikes, setIsLikes] = useState(() => likesNovel.includes(id));
 	useEffect(() => {
 		setIsLikes(() => likesNovel.includes(id));
 	}, [likesNovel]);
