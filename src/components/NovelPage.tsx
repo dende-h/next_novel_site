@@ -1,6 +1,5 @@
 import {
 	Box,
-	Image,
 	Heading,
 	Text,
 	Button,
@@ -13,8 +12,10 @@ import {
 	ModalOverlay,
 	useColorModeValue,
 	useDisclosure,
-	Badge
+	Badge,
+	Center
 } from "@chakra-ui/react";
+import Image from "next/image";
 import React from "react";
 import LikeButton from "./LikeButton";
 import { NovelViewer } from "./NovelViwer";
@@ -43,8 +44,9 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 		<>
 			<Box bg={backgroundColor} px={4} py={8}>
 				<Box maxW="600px" mx="auto">
-					<Image src={coverImage} alt={`${title}の表紙`} borderRadius="md" mb={6} />
-
+					<Center w={"100%"} h={"auto"} mb={6} borderRadius="md">
+						<Image src={coverImage} alt={`${title}の表紙`} object-fit="contain" width={600} height={970} />
+					</Center>
 					<Box mb={6}>
 						<Heading as="h1" fontSize="2xl" mb={2}>
 							{title}
@@ -65,9 +67,8 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 					</Box>
 
 					<Box mb={6}>
-						<Text fontSize="md" fontWeight="semibold" mb={2}>
-							<LikeButton id={id} title={title} good_mark={likes} />
-						</Text>
+						<LikeButton id={id} title={title} good_mark={likes} />
+
 						<Text fontSize="md" fontWeight="semibold" mb={2}>
 							最終更新日: {lastUpdated}
 						</Text>
