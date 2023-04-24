@@ -69,7 +69,7 @@ const NovelsPage = ({ drafts }) => {
 	useEffect(() => {
 		setLikeNovels((prevState) => {
 			return prevState.filter((item) => {
-				return heartNovels.includes(item.title);
+				return heartNovels.includes(item.id);
 			});
 		});
 	}, [heartNovels]);
