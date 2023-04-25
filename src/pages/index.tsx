@@ -4,6 +4,7 @@ import { Box, Container, Heading, Text, VStack, HStack, Icon, Button, IconButton
 import { FaHeart, FaChevronRight } from "react-icons/fa";
 import Link from "next/link";
 import Seo from "../components/Seo";
+import Image from "next/image";
 
 const ShortNovelVillage: React.FC = () => {
 	return (
@@ -18,6 +19,7 @@ const ShortNovelVillage: React.FC = () => {
 			/>
 			<Container maxW="xl" centerContent mt={8}>
 				<VStack spacing={8} align="center">
+					<Image src={"/logo.png"} alt={"logoImage"} width={300} height={300} />
 					<Heading as="h1" size="2xl" fontWeight="bold">
 						Welcome to Lit:Bite
 					</Heading>
