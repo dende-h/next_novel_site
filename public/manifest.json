@@ -4,11 +4,16 @@
 	"description": "短編小説編集アプリRe:teratureから投稿された小説が読めるNovelサイトです",
 	"start_url": "/",
 	"display": "standalone",
-	"orientation": "portrate-primary",
-	"background_color": "#fff",
-	"theme_color": "#fff",
+	"orientation": "portrait-primary",
+	"background_color": "#ffffff",
+	"theme_color": "#808080",
 	"dir": "ltr",
 	"icons": [
+		{
+			"src": "/android-chrome-16x16.png",
+			"sizes": "16x16",
+			"type": "image/png"
+		},
 		{
 			"src": "/android-chrome-36x36.png",
 			"sizes": "36x36",
@@ -42,6 +47,11 @@
 		{
 			"src": "/android-chrome-152x152.png",
 			"sizes": "152x152",
+			"type": "image/png"
+		},
+		{
+			"src": "/android-chrome-180x180.png",
+			"sizes": "180x180",
 			"type": "image/png"
 		},
 		{
