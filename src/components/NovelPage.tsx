@@ -94,7 +94,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 						{title}
 					</ModalHeader>
 					<ModalCloseButton position={"absolute"} top={1} left={1} />
-					<ModalBody>
+					<ModalBody h={"100%"}>
 						<Box
 							sx={css}
 							bgColor={textBackgroundColor}
@@ -102,7 +102,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 							margin={"0"}
 							marginLeft={"auto"}
 							w={"100%"}
-							h={"80%"}
+							h={"100%"}
 							p={6}
 							overflowX={"scroll"}
 							position={"relative"}
