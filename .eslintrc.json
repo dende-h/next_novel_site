@@ -8,7 +8,6 @@
 		"standard-with-typescript",
 		"plugin:@typescript-eslint/eslint-recommended",
 		"plugin:@typescript-eslint/recommended",
-		"plugin:@typescript-eslint/strict",
 		"plugin:react/recommended",
 		"plugin:react-hooks/recommended",
 		"plugin:jest/recommended",
@@ -24,7 +23,7 @@
 		"sourceType": "module",
 		"project": "./tsconfig.json"
 	},
-	"plugins": ["react", "react-hooks", "@typescript-eslint", "@typescript-eslint/strict", "jest"],
+	"plugins": ["react", "react-hooks", "@typescript-eslint", "jest"],
 
 	"globals": {
 		"Atomics": "readonly",
@@ -115,6 +114,7 @@
 		"@typescript-eslint/no-unsafe-return": "off",
 		"@typescript-eslint/no-unused-vars-experimental": "off",
 		"@typescript-eslint/no-explicit-any": "off",
-		"@typescript-eslint/quotes": "off"
+		"@typescript-eslint/quotes": "off",
+		"@typescript-eslint/prefer-nullish-coalescing": "error"
 	}
 }
