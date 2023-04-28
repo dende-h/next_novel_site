@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Head from "next/head";
 import Link from "next/link";
 import { Box, Heading, VStack, Text } from "@chakra-ui/react";

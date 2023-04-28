@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 // pages/index.tsx
 import React from "react";
 import { Box, Container, Heading, Text, VStack, HStack, Icon, Button, IconButton, Spacer } from "@chakra-ui/react";
