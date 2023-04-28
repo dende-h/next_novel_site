@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import LikeUserButton from "./LikeUserButton";
 import { Box, Center, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+import { WritersIntroductionViewer } from "./WritersIntroductionViewer";
 
 const WriterCard = ({ writer }) => {
 	const router = useRouter();
@@ -51,7 +52,7 @@ const WriterCard = ({ writer }) => {
 					{user_name}
 				</Heading>
 				<Text fontSize={"xs"} overflowWrap="break-word">
-					{Introduction}
+					<WritersIntroductionViewer text={Introduction} />
 				</Text>
 				<Box position={"absolute"} bottom={0} right={1}>
 					<LikeUserButton name={user_name} />
