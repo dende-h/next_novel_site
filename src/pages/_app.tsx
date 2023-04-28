@@ -5,7 +5,6 @@ import GoogleAnalytics from "../components/GoogleAnalytics";
 import theme from "../theme";
 import { type AppProps } from "next/app";
 import usePageView from "../hooks/usePageView";
-import { useEffect } from "react";
 const SiteKey = process.env.NEXT_PUBLIC_GOOGLE_RECAOTCHA_KEY;
 
 function MyApp({ Component, pageProps }: AppProps) {

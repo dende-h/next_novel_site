@@ -20,7 +20,7 @@ import TagFilter from "../components/TagFilter";
 import Header from "../components/Header";
 import { supabase } from "../../lib/supabaseClient";
 import format from "date-fns/format";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import { Footer } from "../components/Footer";
 import Seo from "../components/Seo";
@@ -37,6 +37,12 @@ export type novels = {
 };
 
 const NovelsPage = ({ drafts }) => {
+	const [isClient, setIsClient] = useState(false);
+	useEffect(() => {
+		if (typeof window !== undefined) {
+			setIsClient(true);
+		}
+	}, []);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef = React.useRef();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
@@ -83,62 +89,68 @@ const NovelsPage = ({ drafts }) => {
 				pageImgHeight="600"
 				pageImgWidth="1200"
 			/>
-			<Box minH="100vh" display="flex" flexDirection="column">
-				<Header />
+			{isClient ? (
+				<Box minH="100vh" display="flex" flexDirection="column">
+					<Header />
 
-				<Container flex="1" maxW="container.lg" py={8}>
-					<Heading as="h1" mb={4} textAlign="center">
-						小説一覧
-					</Heading>
+					<Container flex="1" maxW="container.lg" py={8}>
+						<Heading as="h1" mb={4} textAlign="center">
+							小説一覧
+						</Heading>
 
-					{/* タグフィルター */}
-					<Button ref={btnRef} colorScheme="blackAlpha" onClick={onOpen}>
-						タグで絞り込む
-					</Button>
-					<Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef}>
-						<DrawerOverlay />
-						<DrawerContent>
-							<DrawerCloseButton />
-							<DrawerHeader bgColor={backgroundColor}>タグを選択して絞り込む</DrawerHeader>
+						{/* タグフィルター */}
+						<Button ref={btnRef} colorScheme="blackAlpha" onClick={onOpen}>
+							タグで絞り込む
+						</Button>
+						<Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef}>
+							<DrawerOverlay />
+							<DrawerContent>
+								<DrawerCloseButton />
+								<DrawerHeader bgColor={backgroundColor}>タグを選択して絞り込む</DrawerHeader>
 
-							<DrawerBody bgColor={backgroundColor}>
-								<TagFilter
-									tags={filterDuplicatesAllDraftTags} // タグのリスト
-									selectedTags={selectTags} // 選択されたタグのリスト
-									onTagSelect={(tag: string) => setSelectTags([...selectTags, tag])} // タグが選択されたときに呼び出されるコールバック関数
-									onTagRemove={(tag: string) =>
-										setSelectTags(
-											selectTags.filter((item: string) => {
-												return item !== tag;
-											})
-										)
-									} // タグが削除されたときに呼び出されるコールバック関数
-								/>
-							</DrawerBody>
+								<DrawerBody bgColor={backgroundColor}>
+									<TagFilter
+										tags={filterDuplicatesAllDraftTags} // タグのリスト
+										selectedTags={selectTags} // 選択されたタグのリスト
+										onTagSelect={(tag: string) => setSelectTags([...selectTags, tag])} // タグが選択されたときに呼び出されるコールバック関数
+										onTagRemove={(tag: string) =>
+											setSelectTags(
+												selectTags.filter((item: string) => {
+													return item !== tag;
+												})
+											)
+										} // タグが削除されたときに呼び出されるコールバック関数
+									/>
+								</DrawerBody>
 
-							<DrawerFooter bgColor={backgroundColor}>
-								<Button colorScheme={"blue"} variant="ghost" mr={3} onClick={onClose}>
-									Cancel
-								</Button>
-							</DrawerFooter>
-						</DrawerContent>
-					</Drawer>
+								<DrawerFooter bgColor={backgroundColor}>
+									<Button colorScheme={"blue"} variant="ghost" mr={3} onClick={onClose}>
+										Cancel
+									</Button>
+								</DrawerFooter>
+							</DrawerContent>
+						</Drawer>
 
-					{/* 小説一覧 */}
-					<SimpleGrid spacing={1} minChildWidth="300px">
-						{(selectTags.length > 0 ? filterNovels : novels).map((novel) => (
-							<Center mt={4} key={novel.id}>
-								<NovelCard novel={novel} />
-							</Center>
-						))}
-					</SimpleGrid>
-				</Container>
+						{/* 小説一覧 */}
+						<SimpleGrid spacing={1} minChildWidth="300px">
+							{(selectTags.length > 0 ? filterNovels : novels).map((novel) => (
+								<Center mt={4} key={novel.id}>
+									<NovelCard novel={novel} />
+								</Center>
+							))}
+						</SimpleGrid>
+					</Container>
 
-				<Box bg="gray.900" color="white" py={4}>
-					{/* フッター */}
-					<Footer />
+					<Box bg="gray.900" color="white" py={4}>
+						{/* フッター */}
+						<Footer />
+					</Box>
 				</Box>
-			</Box>
+			) : (
+				<Center bg="gray.100" minH="100vh">
+					...is Loading
+				</Center>
+			)}
 		</>
 	);
 };

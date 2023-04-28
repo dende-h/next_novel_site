@@ -1,17 +1,9 @@
-import localforage from "localforage";
 import { atom } from "recoil";
-import { recoilPersist } from "../components/customRecoilPersist";
-
-localforage.config({
-	driver: localforage.INDEXEDDB,
-	name: "heartUserArray",
-	version: 2,
-	storeName: "heartUserArray"
-});
+import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist({
 	key: "recoil-persist",
-	storage: typeof window === "undefined" ? undefined : localforage
+	storage: typeof window === "undefined" ? undefined : localStorage
 });
 
 const defaultValue: string[] = [];
