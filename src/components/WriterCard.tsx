@@ -30,7 +30,7 @@ const WriterCard = ({ writer }) => {
 			position={"relative"}
 		>
 			<Center w="100%" h="75%" position="relative">
-				<Image src={imageUrl} alt={user_name} object-fit="contain" width={300} height={485} priority loading="lazy" />
+				<Image src={imageUrl} alt={user_name} object-fit="contain" width={300} height={485} priority />
 			</Center>
 
 			<Box

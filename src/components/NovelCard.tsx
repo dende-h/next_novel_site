@@ -28,15 +28,7 @@ const NovelCard = (props: Props) => {
 				onClick={() => router.push(`/novels/${novel.id}`)}
 			>
 				<Center w="100%" h="75%" position="relative">
-					<Image
-						src={imageUrl}
-						alt={novel.title}
-						object-fit="contain"
-						width={300}
-						height={485}
-						priority
-						loading="lazy"
-					/>
+					<Image src={imageUrl} alt={novel.title} object-fit="contain" width={300} height={485} priority />
 				</Center>
 
 				<Box

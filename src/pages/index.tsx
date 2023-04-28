@@ -19,7 +19,7 @@ const ShortNovelVillage: React.FC = () => {
 			/>
 			<Container maxW="xl" centerContent mt={8}>
 				<VStack spacing={8} align="center">
-					<Image src={"/logo.png"} alt={"logoImage"} width={300} height={300} />
+					<Image src={"/logo.png"} alt={"logoImage"} width={300} height={300} priority />
 					<Heading as="h1" size="2xl" fontWeight="bold">
 						Welcome to Lit:Bite
 					</Heading>
