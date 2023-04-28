@@ -1,10 +1,17 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const withPWA = require('next-pwa');
-
-module.exports = withPWA({
+/* eslint-disable comma-dangle */
+/* eslint-disable semi */
+/* eslint-disable indent */
+/* eslint-disable no-tabs */
+module.exports = {
 	images: {
-		domains: ['enjzxtbbcyrptkkutovq.supabase.co']
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'enjzxtbbcyrptkkutovq.supabase.co'
+			}
+		]
 	},
+	// 以下はPWAでISRを利用するための設定
 	pwa: {
 		disable: process.env.NODE_ENV === 'development',
 		dest: 'public',
@@ -22,20 +29,20 @@ module.exports = withPWA({
 				}
 			},
 			{
-				urlPattern: /\/api\/.+/,
+				urlPattern: /\/_next\/data\/.+\/.+\.json/,
 				handler: 'NetworkFirst',
 				options: {
-					cacheName: 'api-calls',
+					networkTimeoutSeconds: 10,
+					cacheName: 'next-data',
 					cacheableResponse: {
-						statuses: [0, 200]
+						statuses: [200]
 					}
 				}
 			},
 			{
-				urlPattern: /^\/_next\/data\/.+\/.+\.json$/,
-				handler: 'StaleWhileRevalidate',
+				urlPattern: /\/api\/.+/,
+				handler: 'NetworkFirst',
 				options: {
-					cacheName: 'next-data',
 					cacheableResponse: {
 						statuses: [0, 200]
 					}
@@ -45,7 +52,6 @@ module.exports = withPWA({
 				urlPattern: /.*/,
 				handler: 'NetworkFirst',
 				options: {
-					cacheName: 'others',
 					cacheableResponse: {
 						statuses: [0, 200]
 					}
@@ -54,4 +60,4 @@ module.exports = withPWA({
 		]
 	},
 	generateEtags: false
-});
+};
