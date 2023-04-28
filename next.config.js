@@ -32,6 +32,8 @@ module.exports = {
 				urlPattern: /\/_next\/data\/.+\/.+\.json/,
 				handler: 'NetworkFirst',
 				options: {
+					networkTimeoutSeconds: 10,
+					cacheName: 'next-data',
 					cacheableResponse: {
 						statuses: [200]
 					}
