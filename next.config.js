@@ -2,7 +2,9 @@
 /* eslint-disable semi */
 /* eslint-disable indent */
 /* eslint-disable no-tabs */
-module.exports = {
+const withPWA = require('next-pwa');
+
+module.exports = withPWA({
 	images: {
 		remotePatterns: [
 			{
@@ -49,4 +51,4 @@ module.exports = {
 		]
 	},
 	generateEtags: false
-};
+});
