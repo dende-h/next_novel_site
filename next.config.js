@@ -2,9 +2,8 @@
 /* eslint-disable semi */
 /* eslint-disable indent */
 /* eslint-disable no-tabs */
-const withPWA = require('next-pwa');
 
-module.exports = withPWA({
+module.exports = {
 	images: {
 		remotePatterns: [
 			{
@@ -35,7 +34,7 @@ module.exports = withPWA({
 				handler: 'NetworkFirst',
 				options: {
 					cacheableResponse: {
-						statuses: [0, 200]
+						statuses: [] // 空の配列を設定してキャッシュを無効化
 					}
 				}
 			},
@@ -51,4 +50,4 @@ module.exports = withPWA({
 		]
 	},
 	generateEtags: false
-});
+};
