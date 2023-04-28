@@ -11,7 +11,7 @@ import { Writers } from "../writers";
 import { Draft } from "../novels_by_user/[user_name]";
 import NovelPage from "../../components/NovelPage";
 
-const novel = ({ drafts, user }) => {
+const Novel = ({ drafts, user }) => {
 	const router = useRouter();
 	const draftId = router.query.id;
 	const novel: novels = drafts
@@ -79,7 +79,7 @@ const novel = ({ drafts, user }) => {
 	);
 };
 
-export default novel;
+export default Novel;
 
 export async function getStaticPaths() {
 	const { data, error } = await supabase.from("drafts").select("*");

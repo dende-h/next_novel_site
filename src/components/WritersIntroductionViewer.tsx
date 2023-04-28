@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { Box } from "@chakra-ui/react";
 import { FC } from "react";
 
