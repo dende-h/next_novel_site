@@ -3,14 +3,8 @@ const withPWA = require('next-pwa');
 
 module.exports = withPWA({
 	images: {
-		remotePatterns: [
-			{
-				protocol: 'https',
-				hostname: 'enjzxtbbcyrptkkutovq.supabase.co'
-			}
-		]
+		domains: ['enjzxtbbcyrptkkutovq.supabase.co']
 	},
-	// 以下はPWAでISRを利用するための設定
 	pwa: {
 		disable: process.env.NODE_ENV === 'development',
 		dest: 'public',
@@ -31,6 +25,17 @@ module.exports = withPWA({
 				urlPattern: /\/api\/.+/,
 				handler: 'NetworkFirst',
 				options: {
+					cacheName: 'api-calls',
+					cacheableResponse: {
+						statuses: [0, 200]
+					}
+				}
+			},
+			{
+				urlPattern: /^\/_next\/data\/.+\/.+\.json$/,
+				handler: 'StaleWhileRevalidate',
+				options: {
+					cacheName: 'next-data',
 					cacheableResponse: {
 						statuses: [0, 200]
 					}
@@ -40,6 +45,7 @@ module.exports = withPWA({
 				urlPattern: /.*/,
 				handler: 'NetworkFirst',
 				options: {
+					cacheName: 'others',
 					cacheableResponse: {
 						statuses: [0, 200]
 					}
