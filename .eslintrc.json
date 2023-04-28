@@ -4,8 +4,8 @@
 		"es2021": true
 	},
 	"extends": [
-		"plugin:react/recommended",
-		"standard-with-typescript",
+		"eslint:recommended",
+		"plugin:storybook/recommended",
 		"plugin:@typescript-eslint/eslint-recommended",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:react/recommended",
@@ -14,17 +14,28 @@
 		"next/core-web-vitals",
 		"prettier"
 	],
-	"overrides": [],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": "latest",
+		"sourceType": "module",
 		"project": "./tsconfig.json"
 	},
 	"plugins": ["react", "react-hooks", "@typescript-eslint", "jest"],
+
+	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly",
+		"React": "writable"
+	},
 	"settings": {
 		"react": {
-			"version": "18.2.0" // ここでReactバージョンを指定する
+			"version": "detect"
 		}
 	},
+
 	"rules": {
 		"@typescript-eslint/dot-notation": "error",
 		"@typescript-eslint/ban-ts-comment": "off",
