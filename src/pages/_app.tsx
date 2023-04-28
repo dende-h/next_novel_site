@@ -5,9 +5,19 @@ import GoogleAnalytics from "../components/GoogleAnalytics";
 import theme from "../theme";
 import { AppProps } from "next/app";
 import usePageView from "../hooks/usePageView";
+import { useEffect } from "react";
 const SiteKey = process.env.NEXT_PUBLIC_GOOGLE_RECAOTCHA_KEY;
 
 function MyApp({ Component, pageProps }: AppProps) {
+	useEffect(() => {
+		if ("serviceWorker" in navigator) {
+			navigator.serviceWorker.getRegistrations().then((registrations) => {
+				for (const registration of registrations) {
+					registration.unregister();
+				}
+			});
+		}
+	}, []);
 	usePageView();
 	return (
 		<ChakraProvider theme={theme}>
