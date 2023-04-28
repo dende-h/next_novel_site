@@ -7,7 +7,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-import { existsGaId, pageview } from "../../lib/gtag";
+import { existsGaId, pageView } from "../../lib/gtag";
 
 export default function usePageView() {
 	const router = useRouter();
@@ -18,7 +18,7 @@ export default function usePageView() {
 		}
 
 		const handleRouteChange = (path) => {
-			pageview(path);
+			pageView(path);
 		};
 
 		router.events.on("routeChangeComplete", handleRouteChange);
