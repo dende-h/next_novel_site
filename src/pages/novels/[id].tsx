@@ -38,7 +38,7 @@ const Novel = ({ drafts, user }) => {
 				good_mark: item.good_mark
 			};
 		})[0];
-
+	console.log(user);
 	const author: Writers = user.filter((item) => {
 		return item.user_name === novel.author;
 	})[0];
@@ -106,7 +106,7 @@ export async function getStaticProps() {
 		.select("*")
 		.order("created_at", { ascending: false });
 	const { data: user, error: userFetchErr } = await supabase
-		.from("drafts")
+		.from("user")
 		.select("*")
 		.order("created_at", { ascending: false });
 	if (draftFetchErr) console.log("error", draftFetchErr);

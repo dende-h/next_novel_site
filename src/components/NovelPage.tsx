@@ -18,6 +18,7 @@ type NovelProps = {
 };
 
 const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes, lastUpdated }: NovelProps) => {
+	console.log(authorBio);
 	const css = { writingMode: "vertical-rl", textOrientation: "upright" };
 	const comments = [{ username: "nanasi", content: "素晴らしい作品です", time: "12/11" }];
 
@@ -31,7 +32,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 						</Center>
 					</Box>
 					<VStack alignItems="start" spacing={1} marginLeft={4}>
-						<Heading as="h1" fontSize="xl">
+						<Heading as="h1" fontSize={{ base: "lg", md: "xl", lg: "2xl" }}>
 							{title}
 						</Heading>
 						<Text fontSize="md" fontWeight="semibold">
@@ -44,8 +45,8 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 								</Badge>
 							))}
 						</Box>
-						<Text fontSize="md" fontWeight="semibold" mb={2}>
-							最終更新日: {lastUpdated}
+						<Text fontSize="sm" fontWeight="semibold" mb={2}>
+							更新日: {lastUpdated}
 						</Text>
 					</VStack>
 				</Flex>
@@ -57,7 +58,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 				margin={"0"}
 				marginLeft={"auto"}
 				width={"100%"}
-				maxH={"90%"}
+				maxH={"85%"}
 				padding={6}
 				overflowX={"scroll"}
 				position={"relative"}
