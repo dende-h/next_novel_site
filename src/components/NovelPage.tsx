@@ -1,26 +1,10 @@
-import {
-	Box,
-	Heading,
-	Text,
-	Button,
-	Modal,
-	ModalBody,
-	ModalCloseButton,
-	ModalContent,
-	ModalFooter,
-	ModalHeader,
-	ModalOverlay,
-	useColorModeValue,
-	useDisclosure,
-	Badge,
-	Center
-} from "@chakra-ui/react";
+import { Box, Heading, Text, Badge, Center, Textarea, Icon, VStack, HStack, Flex, Button } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
+import { FaUser } from "react-icons/fa";
 import LikeButton from "./LikeButton";
 import { NovelViewer } from "./NovelViwer";
 
-// 小説の情報を受け取るprops
 type NovelProps = {
 	id: string;
 	title: string;
@@ -34,28 +18,24 @@ type NovelProps = {
 };
 
 const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes, lastUpdated }: NovelProps) => {
-	const { isOpen, onOpen, onClose } = useDisclosure();
 	const css = { writingMode: "vertical-rl", textOrientation: "upright" };
-
-	const backgroundColor = useColorModeValue("gray.200", "gray.600");
-	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
+	const comments = [{ username: "nanasi", content: "素晴らしい作品です", time: "12/11" }];
 
 	return (
-		<>
-			<Box bg={backgroundColor} px={4} py={8}>
-				<Box maxW="600px" mx="auto">
-					<Center w={"100%"} h={"auto"} mb={6} borderRadius="md">
-						<Image src={coverImage} alt={`${title}の表紙`} object-fit="contain" width={450} height={728} priority />
-					</Center>
-					<Box mb={6}>
-						<Heading as="h1" fontSize="2xl" mb={2}>
+		<VStack spacing={4} width="100%" paddingX={4} paddingY={8}>
+			<Box>
+				<Flex alignItems="flex-start">
+					<Box>
+						<Center width="75px" height="122px" borderRadius="md">
+							<Image src={coverImage} alt={`${title}の表紙`} object-fit="contain" width={150} height={243} priority />
+						</Center>
+					</Box>
+					<VStack alignItems="start" spacing={1} marginLeft={4}>
+						<Heading as="h1" fontSize="xl">
 							{title}
 						</Heading>
-						<Text fontSize="md" fontWeight="semibold" mb={4}>
+						<Text fontSize="md" fontWeight="semibold">
 							作者：{author}
-						</Text>
-						<Text fontSize="md" mb={4}>
-							{authorBio}
 						</Text>
 						<Box>
 							{tags.map((tag: string, index: number) => (
@@ -64,60 +44,120 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 								</Badge>
 							))}
 						</Box>
-					</Box>
-
-					<Box mb={6}>
-						<LikeButton id={id} title={title} good_mark={likes} />
-
 						<Text fontSize="md" fontWeight="semibold" mb={2}>
 							最終更新日: {lastUpdated}
 						</Text>
-					</Box>
+					</VStack>
+				</Flex>
+			</Box>
 
-					<Button colorScheme="gray" mb={6} onClick={onOpen}>
-						小説を読む
-					</Button>
+			<Box
+				sx={css}
+				borderRadius={"md"}
+				margin={"0"}
+				marginLeft={"auto"}
+				width={"100%"}
+				maxH={"90%"}
+				padding={6}
+				overflowX={"scroll"}
+				position={"relative"}
+				bg="gray.100"
+			>
+				<NovelViewer text={body} />
+			</Box>
+
+			<Box width="100%">
+				<LikeButton id={id} title={title} good_mark={likes} />
+				<Text fontSize="md" fontWeight="semibold" mb={2}>
+					作者コメント: {authorBio}
+				</Text>
+
+				<Box
+					as="form"
+					onSubmit={(e) => {
+						e.preventDefault();
+						// Submit comment
+					}}
+				>
+					<Flex alignItems="center">
+						<Box
+							borderRadius="full"
+							width="35px"
+							height="35px"
+							bg="gray.100"
+							display="flex"
+							alignItems="center"
+							justifyContent="center"
+							color="gray.500"
+							fontSize="sm"
+							marginRight={2}
+						>
+							<Icon as={FaUser} />
+						</Box>
+						<Textarea
+							placeholder="コメントを入力してください"
+							fontSize="sm"
+							borderRadius="md"
+							resize="none"
+							border="1px solid"
+							borderColor="gray.200"
+							_focus={{
+								outline: "none",
+
+								BorderColor: "blue.400"
+							}}
+							paddingLeft={2}
+							paddingTop={1}
+							flexGrow={1}
+						/>
+						<Button
+							colorScheme="teal"
+							size="sm"
+							type="submit"
+							marginLeft={2}
+							paddingLeft={4}
+							paddingRight={4}
+							fontWeight="medium"
+						>
+							投稿
+						</Button>
+					</Flex>
+				</Box>
+				<Box>
+					{comments.map((comment, index) => (
+						<Box key={index} display="flex" marginBottom={4}>
+							<Box
+								borderRadius="full"
+								width="35px"
+								height="35px"
+								bg="gray.100"
+								display="flex"
+								alignItems="center"
+								justifyContent="center"
+								color="gray.500"
+								fontSize="sm"
+								marginRight={2}
+							>
+								<Icon as={FaUser} />
+							</Box>
+							<Box flex={1}>
+								<Box bg="gray.100" borderRadius="md" padding={2} marginBottom={1} position="relative">
+									<Text fontSize="sm" fontWeight="semibold" marginBottom={1}>
+										{comment.username}
+									</Text>
+									<Text fontSize="sm" marginBottom={1}>
+										{comment.content}
+									</Text>
+									<Box position="absolute" right="0" top="0" fontSize="xs">
+										{comment.time}
+									</Box>
+								</Box>
+							</Box>
+						</Box>
+					))}
 				</Box>
 			</Box>
-			<Modal isOpen={isOpen} onClose={onClose} size="full">
-				<ModalOverlay />
-				<ModalContent backgroundColor={backgroundColor} position={"relative"}>
-					<ModalHeader
-						maxW={"300px"}
-						textOverflow={"ellipsis"}
-						overflow={"hidden"}
-						whiteSpace={"nowrap"}
-						fontFamily={"Noto Serif JP"}
-						marginX={"auto"}
-						fontSize={{ base: "14px", md: "16px", lg: "18px" }}
-					>
-						{title}
-					</ModalHeader>
-					<ModalCloseButton position={"absolute"} top={1} left={1} />
-					<ModalBody h={"100%"}>
-						<Box
-							sx={css}
-							bgColor={textBackgroundColor}
-							borderRadius={"md"}
-							margin={"0"}
-							marginLeft={"auto"}
-							w={"100%"}
-							h={"80%"}
-							p={6}
-							overflowX={"scroll"}
-							position={"relative"}
-						>
-							<NovelViewer text={body} />
-						</Box>
-					</ModalBody>
-					<ModalFooter>
-						<Button colorScheme={"teal"} onClick={onClose}>
-							Close
-						</Button>
-					</ModalFooter>
-				</ModalContent>
-			</Modal>
-		</>
+		</VStack>
 	);
 };
 

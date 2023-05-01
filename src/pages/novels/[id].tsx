@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
-import { Box, Container, Heading } from "@chakra-ui/react";
+import { Box, Center, Container, Heading } from "@chakra-ui/react";
 import Header from "../../components/Header";
 import { supabase } from "../../../lib/supabaseClient";
 import format from "date-fns/format";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Footer } from "../../components/Footer";
 import { novels } from "../novels";
 import Seo from "../../components/Seo";
@@ -12,6 +12,12 @@ import { Draft } from "../novels_by_user/[user_name]";
 import NovelPage from "../../components/NovelPage";
 
 const Novel = ({ drafts, user }) => {
+	const [isClient, setIsClient] = useState(false);
+	useEffect(() => {
+		if (typeof window !== undefined) {
+			setIsClient(true);
+		}
+	}, []);
 	const router = useRouter();
 	const draftId = router.query.id;
 	const novel: novels = drafts
@@ -51,24 +57,25 @@ const Novel = ({ drafts, user }) => {
 			/>
 			<Box minH="100vh" display="flex" flexDirection="column">
 				<Header />
-
-				<Container flex="1" maxW="container.lg" py={8}>
-					<Heading as="h1" mb={4} textAlign="center">
-						{novel.title}
-					</Heading>
-
-					<NovelPage
-						id={novel.id}
-						title={novel.title}
-						author={author.user_name}
-						authorBio={author.Introduction}
-						body={novel.body}
-						coverImage={imageUrl}
-						tags={novel.tags}
-						likes={novel.good_mark}
-						lastUpdated={novel.created_at}
-					/>
-				</Container>
+				{isClient ? (
+					<Container flex="1" maxW="container.lg" py={8}>
+						<NovelPage
+							id={novel.id}
+							title={novel.title}
+							author={author.user_name}
+							authorBio={author.Introduction}
+							body={novel.body}
+							coverImage={imageUrl}
+							tags={novel.tags}
+							likes={novel.good_mark}
+							lastUpdated={novel.created_at}
+						/>
+					</Container>
+				) : (
+					<Center bg="gray.100" minH="100vh">
+						...is Loading
+					</Center>
+				)}
 
 				<Box bg="gray.900" color="white" py={4}>
 					{/* フッター */}
