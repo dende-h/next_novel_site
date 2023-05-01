@@ -1,9 +1,15 @@
 import React from "react";
-import { Box, Flex, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Link, Text, Tooltip } from "@chakra-ui/react";
 import { HeaderMenu } from "./HeaderMenu";
 import { DarkModeSwitch } from "./DarkModeSwitch";
+import { TbReload } from "react-icons/tb";
 
 const Header = () => {
+	const handleReload = () => {
+		if (typeof window !== "undefined") {
+			window.location.reload();
+		}
+	};
 	return (
 		<Flex
 			as="header"
@@ -22,9 +28,6 @@ const Header = () => {
 				</Text>
 			</Box>
 			<Flex align="center">
-				<Box mr={3} display={{ base: "none", lg: "block" }}>
-					<DarkModeSwitch />
-				</Box>
 				<Box mr={4} display={{ base: "none", lg: "block" }}>
 					<Link href="/novels" _hover={{ textDecoration: "none" }}>
 						<Text fontSize="lg" fontWeight="medium">
@@ -60,6 +63,7 @@ const Header = () => {
 						</Text>
 					</Link>
 				</Box>
+
 				<Box
 					as={"a"}
 					href={"https://next-novel-editor.vercel.app/"}
@@ -68,13 +72,39 @@ const Header = () => {
 					mr={4}
 					display={{ base: "none", lg: "block" }}
 					fontSize="lg"
-					fontWeight="medium"
+					fontWeight="bold"
+					color={"teal.300"}
 				>
-					Editor
+					Re:terature
+				</Box>
+				<Box mr={3} display={{ base: "none", lg: "block" }}>
+					<Tooltip label={"最新状態に更新"} placement={"right-end"}>
+						<IconButton
+							icon={<TbReload />}
+							aria-label="reload"
+							colorScheme="telegram"
+							onClick={handleReload}
+							fontSize={25}
+						/>
+					</Tooltip>
+				</Box>
+				<Box mr={3} display={{ base: "none", lg: "block" }}>
+					<DarkModeSwitch />
 				</Box>
 			</Flex>
 			<Box display={{ base: "block", lg: "none" }}>
 				<Flex align="center">
+					<Box mr={3} display={{ base: "block", lg: "none" }}>
+						<Tooltip label={"最新状態に更新"} placement={"right-end"}>
+							<IconButton
+								icon={<TbReload />}
+								aria-label="reload"
+								colorScheme="telegram"
+								onClick={handleReload}
+								fontSize={25}
+							/>
+						</Tooltip>
+					</Box>
 					<Box mr={3} display={{ base: "block", lg: "none" }}>
 						<DarkModeSwitch />
 					</Box>
