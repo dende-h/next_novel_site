@@ -21,11 +21,12 @@ import {
 	DrawerHeader,
 	DrawerOverlay,
 	DrawerFooter,
-	HStack
+	HStack,
+	VStack
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
 import { NovelBookViewer } from "./NovelBookViewer";
 import { NovelViewer } from "./NovelViwer";
@@ -46,7 +47,6 @@ type NovelProps = {
 const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes, lastUpdated }: NovelProps) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	const css = { writingMode: "vertical-rl", textOrientation: "upright" };
 	const [displayMode, setDisplayMode] = useState<string | null>(null);
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
@@ -84,38 +84,38 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 							最終更新日: {lastUpdated}
 						</Text>
 					</Box>
-					<HStack>
+					<VStack>
 						<Button
+							w={"250px"}
 							colorScheme="gray"
-							mb={6}
 							onClick={() => {
-								onOpen();
 								setDisplayMode("horizontalScroll");
+								onOpen();
 							}}
 						>
 							横書きスクロール読み
 						</Button>
 						<Button
+							w={"250px"}
 							colorScheme="gray"
-							mb={6}
 							onClick={() => {
-								onOpen();
 								setDisplayMode("verticalScroll");
+								onOpen();
 							}}
 						>
 							縦書きスクロール読み
 						</Button>
 						<Button
+							w={"250px"}
 							colorScheme="gray"
-							mb={6}
 							onClick={() => {
-								onOpen();
 								setDisplayMode("bookView");
+								onOpen();
 							}}
 						>
-							縦読みブックビュー
+							縦読みブックビューワー
 						</Button>
-					</HStack>
+					</VStack>
 				</Box>
 			</Box>
 			{/* <Modal isOpen={isOpen} onClose={onClose} size="full">
@@ -174,7 +174,6 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 					</DrawerHeader>
 					<DrawerBody h={"100%"}>
 						<Box
-							sx={css}
 							bgColor={textBackgroundColor}
 							borderRadius={"md"}
 							margin={"0"}

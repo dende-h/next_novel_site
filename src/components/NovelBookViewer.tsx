@@ -69,36 +69,14 @@ export const NovelBookViewer: FC<Props> = ({ text }) => {
 					}
 				}}
 			/>
-			<HTMLFlipBook
+			{/* <HTMLFlipBook
 				width={300}
 				height={500}
-				size="fixed"
-				minWidth={300}
-				maxWidth={300}
-				minHeight={500}
-				maxHeight={500}
-				drawShadow
-				flippingTime={1000}
-				usePortrait
-				startZIndex={0}
-				autoSize
-				maxShadowOpacity={1}
-				showCover={false}
-				mobileScrollSupport
-				swipeDistance={30}
-				clickEventForward
-				useMouseEvents
-				renderOnlyPageLengthChange={false}
-				className={"htmlflip"}
-				style={undefined}
-				startPage={0}
-				showPageCorners={false}
-				disableFlipByClick={false}
 			>
 				{pages.map((pageText, index) => (
 					<Page key={index} number={index.toString()} text={pageText} />
 				))}
-			</HTMLFlipBook>
+			</HTMLFlipBook> */}
 		</div>
 	);
 };

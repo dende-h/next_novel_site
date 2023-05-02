@@ -37,18 +37,20 @@ const css = {
 	textOrientation: "upright"
 };
 
+const cssx = {};
+
 export const NovelViewer: FC<Props> = ({ text, writingHorizontally }) => {
 	const aText = addLinkTags(text);
 	const rubyText = addRubyTags(aText);
 	const brText = addBrTags(rubyText);
 	return (
 		<Box
-			sx={writingHorizontally ? undefined : css}
+			sx={writingHorizontally ? cssx : css}
 			className="ruby-text"
 			dangerouslySetInnerHTML={{ __html: brText }}
 			fontSize={{ base: "14px", md: "16px", lg: "18px" }}
 			fontFamily={"Noto Serif JP"}
-			lineHeight="1.5em"
+			lineHeight={writingHorizontally ? "2em" : "1.5em"}
 			margin="10px"
 		/>
 	);
