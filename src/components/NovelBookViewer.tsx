@@ -1,13 +1,27 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-useless-escape */
-import { Box, useMediaQuery } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { FC, useState } from "react";
-import HTMLFlipBook from "react-pageflip";
-import Page from "../components/Page";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Props = {
 	text: string;
 	writingHorizontally: boolean;
+};
+
+const pageVariants = {
+	enter: {
+		opacity: 0,
+		rotateY: 90
+	},
+	center: {
+		opacity: 1,
+		rotateY: 0
+	},
+	exit: {
+		opacity: 0,
+		rotateY: -90
+	}
 };
 
 const rubyRegex = /[｜|]([^《｜|]+)《([^》]+)》/g;
@@ -40,50 +54,66 @@ const css = {
 	textOrientation: "upright"
 };
 
-function splitTextIntoPages(text: string, containerHeight: number, fontSize: number, lineHeight: number) {
-	const lines = text.split("<br>");
-	const maxLinesPerPage = Math.floor(containerHeight / (fontSize * lineHeight));
+function splitPages(text: string, maxCharactersPerPage: number): string[] {
+	const lines = text.split(/\r?\n/);
 	const pages: string[] = [];
+	let currentPage = "";
 
-	let currentPageLines: string[] = [];
-	let currentPageLineCount = 0;
-
-	for (const line of lines) {
-		if (currentPageLineCount + 1 > maxLinesPerPage) {
-			pages.push(currentPageLines.join("<br>"));
-			currentPageLines = [];
-			currentPageLineCount = 0;
+	lines.forEach((line, index) => {
+		if (currentPage.length + line.length + (index === 0 ? 0 : 1) > maxCharactersPerPage) {
+			pages.push(currentPage);
+			currentPage = "";
 		}
 
-		currentPageLines.push(line);
-		currentPageLineCount++;
+		if (index !== 0) {
+			currentPage += "\n";
+		}
+
+		currentPage += line;
+	});
+
+	if (currentPage.length > 0) {
+		pages.push(currentPage);
 	}
 
-	if (currentPageLines.length > 0) {
-		pages.push(currentPageLines.join("<br>"));
-	}
 	return pages;
 }
 
 export const NovelBookViewer: FC<Props> = ({ text }) => {
-	const aText = addLinkTags(text);
+	const [page, setPage] = useState(0);
+	const [currentPage, setCurrentPage] = useState(0);
+	const maxCharactersPerPage = 300; // 任意の値に設定
+	const pages = splitPages(text, maxCharactersPerPage);
+	const displayedText = pages[currentPage] || "";
+	const aText = addLinkTags(displayedText);
 	const rubyText = addRubyTags(aText);
 	const brText = addBrTags(rubyText);
-
-	const [containerHeight, setContainerHeight] = useState(0);
-	const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
-	const fontSize = isLargerThanMd ? 16 : 14;
-	const lineHeight = 1.5;
-	const pages = splitTextIntoPages(brText, containerHeight, fontSize, lineHeight);
-	console.log(pages);
 	return (
-		<Box position="relative">
-			{/* @ts-ignore */}
-			<HTMLFlipBook width={300} height={700}>
-				{pages.map((pageText, index) => (
-					<Page key={index} number={index.toString()} text={pageText} />
-				))}
-			</HTMLFlipBook>
-		</Box>
+		<>
+			<AnimatePresence exitBeforeEnter>
+				<motion.div
+					key={page}
+					variants={pageVariants}
+					initial="enter"
+					animate="center"
+					exit="exit"
+					transition={{ duration: 0.5, ease: "easeInOut" }}
+					style={{ width: "100%", height: "100%" }} // この行を追加
+				>
+					<Box
+						sx={css}
+						className="ruby-text"
+						dangerouslySetInnerHTML={{ __html: brText }}
+						fontSize={{ base: "14px", md: "16px", lg: "18px" }}
+						fontFamily={"Noto Serif JP"}
+						lineHeight="1.5em"
+						margin="10px"
+					/>
+				</motion.div>
+			</AnimatePresence>
+			{/* ページ遷移ボタンの実装 */}
+			<button onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 0))}>前ページ</button>
+			<button onClick={() => setCurrentPage((prevPage) => Math.min(prevPage + 1, pages.length - 1))}>次ページ</button>
+		</>
 	);
 };

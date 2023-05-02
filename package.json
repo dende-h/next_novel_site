@@ -18,7 +18,7 @@
 		"@fontsource/raleway": "^4.5.12",
 		"@supabase/supabase-js": "^2.15.0",
 		"date-fns": "^2.29.3",
-		"framer-motion": "^6.3.0",
+		"framer-motion": "^6.5.1",
 		"localforage": "^1.10.0",
 		"next": "latest",
 		"next-pwa": "^5.6.0",
