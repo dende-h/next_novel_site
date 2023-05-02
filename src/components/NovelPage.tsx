@@ -24,8 +24,10 @@ import {
 	HStack
 } from "@chakra-ui/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import LikeButton from "./LikeButton";
+import { NovelBookViewer } from "./NovelBookViewer";
 import { NovelViewer } from "./NovelViwer";
 
 // 小説の情報を受け取るprops
@@ -43,19 +45,11 @@ type NovelProps = {
 
 const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes, lastUpdated }: NovelProps) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+
 	const css = { writingMode: "vertical-rl", textOrientation: "upright" };
-	const [writingHorizontally, setWritingHorizontally] = useState(false);
+	const [displayMode, setDisplayMode] = useState<string | null>(null);
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
-
-	const onOpenX = () => {
-		setWritingHorizontally(true);
-		onOpen();
-	};
-	const onOpenY = () => {
-		setWritingHorizontally(false);
-		onOpen();
-	};
 
 	return (
 		<>
@@ -91,13 +85,34 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 						</Text>
 					</Box>
 					<HStack>
-						<Button colorScheme="gray" mb={6} onClick={onOpenX}>
+						<Button
+							colorScheme="gray"
+							mb={6}
+							onClick={() => {
+								onOpen();
+								setDisplayMode("horizontalScroll");
+							}}
+						>
 							横書きスクロール読み
 						</Button>
-						<Button colorScheme="gray" mb={6} onClick={onOpenY}>
+						<Button
+							colorScheme="gray"
+							mb={6}
+							onClick={() => {
+								onOpen();
+								setDisplayMode("verticalScroll");
+							}}
+						>
 							縦書きスクロール読み
 						</Button>
-						<Button colorScheme="gray" mb={6} onClick={onOpen}>
+						<Button
+							colorScheme="gray"
+							mb={6}
+							onClick={() => {
+								onOpen();
+								setDisplayMode("bookView");
+							}}
+						>
 							縦読みブックビュー
 						</Button>
 					</HStack>
@@ -170,7 +185,9 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 							overflowX={"scroll"}
 							position={"relative"}
 						>
-							<NovelViewer text={body} writingHorizontally={writingHorizontally} />
+							{displayMode === "horizontalScroll" && <NovelViewer text={body} writingHorizontally={true} />}
+							{displayMode === "verticalScroll" && <NovelViewer text={body} writingHorizontally={false} />}
+							{displayMode === "bookView" && <NovelBookViewer text={body} writingHorizontally={false} />}
 						</Box>
 					</DrawerBody>
 					<DrawerFooter>

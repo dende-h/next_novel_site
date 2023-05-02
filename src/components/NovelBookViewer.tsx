@@ -1,6 +1,9 @@
 /* eslint-disable no-useless-escape */
-import { Box } from "@chakra-ui/react";
-import { FC } from "react";
+import { Box, useMediaQuery } from "@chakra-ui/react";
+import { FC, useState } from "react";
+import HTMLFlipBook from "react-pageflip";
+import { useSplitTextIntoPages } from "../hooks/useSplitTextIntoPages";
+import Page from "../components/Page";
 
 type Props = {
 	text: string;
@@ -37,19 +40,65 @@ const css = {
 	textOrientation: "upright"
 };
 
-export const NovelViewer: FC<Props> = ({ text, writingHorizontally }) => {
+export const NovelBookViewer: FC<Props> = ({ text }) => {
 	const aText = addLinkTags(text);
 	const rubyText = addRubyTags(aText);
 	const brText = addBrTags(rubyText);
+
+	const [containerHeight, setContainerHeight] = useState(0);
+	const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
+	const fontSize = isLargerThanMd ? 16 : 14;
+	const lineHeight = 1.5;
+	const pages = useSplitTextIntoPages(brText, containerHeight, fontSize, lineHeight);
+
 	return (
-		<Box
-			sx={writingHorizontally ? undefined : css}
-			className="ruby-text"
-			dangerouslySetInnerHTML={{ __html: brText }}
-			fontSize={{ base: "14px", md: "16px", lg: "18px" }}
-			fontFamily={"Noto Serif JP"}
-			lineHeight="1.5em"
-			margin="10px"
-		/>
+		<div style={{ position: "relative" }}>
+			<Box
+				sx={css}
+				display="inline-block"
+				position="absolute"
+				fontSize={{ base: "14px", md: "16px", lg: "18px" }}
+				fontFamily={"Noto Serif JP"}
+				lineHeight="1.5em"
+				width="100%"
+				height="100%"
+				margin="10px"
+				ref={(el) => {
+					if (el) {
+						setContainerHeight(el.offsetHeight);
+					}
+				}}
+			/>
+			<HTMLFlipBook
+				width={300}
+				height={500}
+				size="fixed"
+				minWidth={300}
+				maxWidth={300}
+				minHeight={500}
+				maxHeight={500}
+				drawShadow
+				flippingTime={1000}
+				usePortrait
+				startZIndex={0}
+				autoSize
+				maxShadowOpacity={1}
+				showCover={false}
+				mobileScrollSupport
+				swipeDistance={30}
+				clickEventForward
+				useMouseEvents
+				renderOnlyPageLengthChange={false}
+				className={"htmlflip"}
+				style={undefined}
+				startPage={0}
+				showPageCorners={false}
+				disableFlipByClick={false}
+			>
+				{pages.map((pageText, index) => (
+					<Page key={index} number={index.toString()} text={pageText} />
+				))}
+			</HTMLFlipBook>
+		</div>
 	);
 };
