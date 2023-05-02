@@ -20,10 +20,11 @@ import {
 	DrawerCloseButton,
 	DrawerHeader,
 	DrawerOverlay,
-	DrawerFooter
+	DrawerFooter,
+	HStack
 } from "@chakra-ui/react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import LikeButton from "./LikeButton";
 import { NovelViewer } from "./NovelViwer";
 
@@ -43,9 +44,18 @@ type NovelProps = {
 const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes, lastUpdated }: NovelProps) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const css = { writingMode: "vertical-rl", textOrientation: "upright" };
-
+	const [writingHorizontally, setWritingHorizontally] = useState(false);
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
+
+	const onOpenX = () => {
+		setWritingHorizontally(true);
+		onOpen();
+	};
+	const onOpenY = () => {
+		setWritingHorizontally(false);
+		onOpen();
+	};
 
 	return (
 		<>
@@ -80,10 +90,17 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 							最終更新日: {lastUpdated}
 						</Text>
 					</Box>
-
-					<Button colorScheme="gray" mb={6} onClick={onOpen}>
-						小説を読む
-					</Button>
+					<HStack>
+						<Button colorScheme="gray" mb={6} onClick={onOpenX}>
+							横書きスクロール読み
+						</Button>
+						<Button colorScheme="gray" mb={6} onClick={onOpenY}>
+							縦書きスクロール読み
+						</Button>
+						<Button colorScheme="gray" mb={6} onClick={onOpen}>
+							縦読みブックビュー
+						</Button>
+					</HStack>
 				</Box>
 			</Box>
 			{/* <Modal isOpen={isOpen} onClose={onClose} size="full">
@@ -153,7 +170,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 							overflowX={"scroll"}
 							position={"relative"}
 						>
-							<NovelViewer text={body} />
+							<NovelViewer text={body} writingHorizontally={writingHorizontally} />
 						</Box>
 					</DrawerBody>
 					<DrawerFooter>
