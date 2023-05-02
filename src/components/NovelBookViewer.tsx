@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-useless-escape */
 import { Box, useMediaQuery } from "@chakra-ui/react";
 import { FC, useState } from "react";
 import HTMLFlipBook from "react-pageflip";
-import { useSplitTextIntoPages } from "../hooks/useSplitTextIntoPages";
 import Page from "../components/Page";
 
 type Props = {
@@ -40,6 +40,31 @@ const css = {
 	textOrientation: "upright"
 };
 
+function splitTextIntoPages(text: string, containerHeight: number, fontSize: number, lineHeight: number) {
+	const lines = text.split("<br>");
+	const maxLinesPerPage = Math.floor(containerHeight / (fontSize * lineHeight));
+	const pages: string[] = [];
+
+	let currentPageLines: string[] = [];
+	let currentPageLineCount = 0;
+
+	for (const line of lines) {
+		if (currentPageLineCount + 1 > maxLinesPerPage) {
+			pages.push(currentPageLines.join("<br>"));
+			currentPageLines = [];
+			currentPageLineCount = 0;
+		}
+
+		currentPageLines.push(line);
+		currentPageLineCount++;
+	}
+
+	if (currentPageLines.length > 0) {
+		pages.push(currentPageLines.join("<br>"));
+	}
+	return pages;
+}
+
 export const NovelBookViewer: FC<Props> = ({ text }) => {
 	const aText = addLinkTags(text);
 	const rubyText = addRubyTags(aText);
@@ -49,34 +74,16 @@ export const NovelBookViewer: FC<Props> = ({ text }) => {
 	const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
 	const fontSize = isLargerThanMd ? 16 : 14;
 	const lineHeight = 1.5;
-	const pages = useSplitTextIntoPages(brText, containerHeight, fontSize, lineHeight);
-
+	const pages = splitTextIntoPages(brText, containerHeight, fontSize, lineHeight);
+	console.log(pages);
 	return (
-		<div style={{ position: "relative" }}>
-			<Box
-				sx={css}
-				display="inline-block"
-				position="absolute"
-				fontSize={{ base: "14px", md: "16px", lg: "18px" }}
-				fontFamily={"Noto Serif JP"}
-				lineHeight="1.5em"
-				width="100%"
-				height="100%"
-				margin="10px"
-				ref={(el) => {
-					if (el) {
-						setContainerHeight(el.offsetHeight);
-					}
-				}}
-			/>
-			{/* <HTMLFlipBook
-				width={300}
-				height={500}
-			>
+		<Box position="relative">
+			{/* @ts-ignore */}
+			<HTMLFlipBook width={300} height={700}>
 				{pages.map((pageText, index) => (
 					<Page key={index} number={index.toString()} text={pageText} />
 				))}
-			</HTMLFlipBook> */}
-		</div>
+			</HTMLFlipBook>
+		</Box>
 	);
 };

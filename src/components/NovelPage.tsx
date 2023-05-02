@@ -145,44 +145,6 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 					</VStack>
 				</Box>
 			</Box>
-			{/* <Modal isOpen={isOpen} onClose={onClose} size="full">
-				<ModalOverlay />
-				<ModalContent backgroundColor={backgroundColor} position={"relative"}>
-					<ModalHeader
-						maxW={"300px"}
-						textOverflow={"ellipsis"}
-						overflow={"hidden"}
-						whiteSpace={"nowrap"}
-						fontFamily={"Noto Serif JP"}
-						marginX={"auto"}
-						fontSize={{ base: "14px", md: "16px", lg: "18px" }}
-					>
-						{title}
-					</ModalHeader>
-					<ModalCloseButton position={"absolute"} top={1} left={1} />
-					<ModalBody h={"100%"}>
-						<Box
-							sx={css}
-							bgColor={textBackgroundColor}
-							borderRadius={"md"}
-							margin={"0"}
-							marginLeft={"auto"}
-							w={"100%"}
-							h={"80%"}
-							p={6}
-							overflowX={"scroll"}
-							position={"relative"}
-						>
-							<NovelViewer text={body} />
-						</Box>
-					</ModalBody>
-					<ModalFooter>
-						<Button colorScheme={"teal"} onClick={onClose}>
-							Close
-						</Button>
-					</ModalFooter>
-				</ModalContent>
-			</Modal> */}
 			<Drawer isOpen={isOpen} onClose={onClose} size="full" placement="bottom">
 				<DrawerOverlay />
 				<DrawerContent backgroundColor={backgroundColor} position={"relative"}>

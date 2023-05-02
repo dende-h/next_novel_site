@@ -23,7 +23,7 @@ function splitTextIntoPages(text: string, containerHeight: number, fontSize: num
 	if (currentPageLines.length > 0) {
 		pages.push(currentPageLines.join("<br>"));
 	}
-
+	console.log(pages);
 	return pages;
 }
 
