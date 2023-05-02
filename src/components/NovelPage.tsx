@@ -22,7 +22,10 @@ import {
 	DrawerOverlay,
 	DrawerFooter,
 	HStack,
-	VStack
+	VStack,
+	IconButton,
+	useClipboard,
+	useToast
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -30,6 +33,7 @@ import React, { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
 import { NovelBookViewer } from "./NovelBookViewer";
 import { NovelViewer } from "./NovelViwer";
+import { BsShareFill } from "react-icons/bs";
 
 // 小説の情報を受け取るprops
 type NovelProps = {
@@ -46,10 +50,23 @@ type NovelProps = {
 
 const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes, lastUpdated }: NovelProps) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-
+	const router = useRouter();
+	const currentPath = router.asPath;
+	const { onCopy, hasCopied } = useClipboard(`https://next-novel-site.vercel.app/${currentPath}`);
+	const toast = useToast();
 	const [displayMode, setDisplayMode] = useState<string | null>(null);
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
+	const onCopyLink = () => {
+		onCopy();
+		toast({
+			title: "LinkURL Copied!",
+			status: "success",
+			duration: 1000,
+			isClosable: true,
+			position: "top"
+		});
+	};
 
 	return (
 		<>
@@ -80,9 +97,19 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 					<Box mb={6}>
 						<LikeButton id={id} title={title} good_mark={likes} />
 
-						<Text fontSize="md" fontWeight="semibold" mb={2}>
-							最終更新日: {lastUpdated}
-						</Text>
+						<HStack spacing={5}>
+							<Text fontSize="md" fontWeight="semibold" mb={2}>
+								最終更新日: {lastUpdated}
+							</Text>
+							<IconButton
+								aria-label={"shere"}
+								size={"sm"}
+								icon={<BsShareFill />}
+								borderRadius={"full"}
+								colorScheme="twitter"
+								onClick={onCopyLink}
+							/>
+						</HStack>
 					</Box>
 					<VStack>
 						<Button
