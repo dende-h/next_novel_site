@@ -13,7 +13,14 @@ import {
 	useColorModeValue,
 	useDisclosure,
 	Badge,
-	Center
+	Center,
+	DrawerContent,
+	Drawer,
+	DrawerBody,
+	DrawerCloseButton,
+	DrawerHeader,
+	DrawerOverlay,
+	DrawerFooter
 } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
@@ -79,7 +86,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 					</Button>
 				</Box>
 			</Box>
-			<Modal isOpen={isOpen} onClose={onClose} size="full">
+			{/* <Modal isOpen={isOpen} onClose={onClose} size="full">
 				<ModalOverlay />
 				<ModalContent backgroundColor={backgroundColor} position={"relative"}>
 					<ModalHeader
@@ -116,7 +123,46 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 						</Button>
 					</ModalFooter>
 				</ModalContent>
-			</Modal>
+			</Modal> */}
+			<Drawer isOpen={isOpen} onClose={onClose} size="full" placement="bottom">
+				<DrawerOverlay />
+				<DrawerContent backgroundColor={backgroundColor} position={"relative"}>
+					<DrawerCloseButton position={"absolute"} top={1} left={1} />
+					<DrawerHeader
+						maxW={"300px"}
+						textOverflow={"ellipsis"}
+						overflow={"hidden"}
+						whiteSpace={"nowrap"}
+						fontFamily={"Noto Serif JP"}
+						marginX={"auto"}
+						fontSize={{ base: "12px", md: "14px", lg: "16px" }}
+						marginBottom={4}
+					>
+						{title}
+					</DrawerHeader>
+					<DrawerBody h={"100%"}>
+						<Box
+							sx={css}
+							bgColor={textBackgroundColor}
+							borderRadius={"md"}
+							margin={"0"}
+							marginLeft={"auto"}
+							w={"100%"}
+							h={"95%"}
+							p={6}
+							overflowX={"scroll"}
+							position={"relative"}
+						>
+							<NovelViewer text={body} />
+						</Box>
+					</DrawerBody>
+					<DrawerFooter>
+						<Button colorScheme={"teal"} onClick={onClose}>
+							Close
+						</Button>
+					</DrawerFooter>
+				</DrawerContent>
+			</Drawer>
 		</>
 	);
 };

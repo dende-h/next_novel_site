@@ -99,7 +99,7 @@ export async function getStaticProps() {
 		.select("*")
 		.order("created_at", { ascending: false });
 	const { data: user, error: userFetchErr } = await supabase
-		.from("drafts")
+		.from("user")
 		.select("*")
 		.order("created_at", { ascending: false });
 	if (draftFetchErr) console.log("error", draftFetchErr);
