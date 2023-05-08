@@ -29,7 +29,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import LikeButton from "./LikeButton";
 import { NovelBookViewer } from "./NovelBookViewer";
 import { NovelViewer } from "./NovelViwer";
@@ -57,6 +57,10 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 	const [displayMode, setDisplayMode] = useState<string | null>(null);
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
+	const css = {
+		writingMode: "vertical-rl",
+		textOrientation: "upright"
+	};
 	const onCopyLink = () => {
 		onCopy();
 		toast({
@@ -98,7 +102,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 						<LikeButton id={id} title={title} good_mark={likes} />
 
 						<HStack spacing={5}>
-							<Text fontSize="md" fontWeight="semibold" mb={2}>
+							<Text fontSize={{ base: "xs", lg: "md" }} fontWeight="semibold" mb={2}>
 								最終更新日: {lastUpdated}
 							</Text>
 							<IconButton
@@ -120,7 +124,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 								onOpen();
 							}}
 						>
-							横書きスクロール読み
+							横読み（スマホ推奨）
 						</Button>
 						<Button
 							w={"250px"}
@@ -130,9 +134,9 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 								onOpen();
 							}}
 						>
-							縦書きスクロール読み
+							縦読み（PC推奨）
 						</Button>
-						<Button
+						{/* <Button
 							w={"250px"}
 							colorScheme="gray"
 							onClick={() => {
@@ -141,7 +145,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 							}}
 						>
 							縦読みブックビューワー
-						</Button>
+						</Button> */}
 					</VStack>
 				</Box>
 			</Box>
@@ -156,20 +160,22 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 						whiteSpace={"nowrap"}
 						fontFamily={"Noto Serif JP"}
 						marginX={"auto"}
-						fontSize={{ base: "12px", md: "14px", lg: "16px" }}
-						marginBottom={4}
+						fontSize={{ base: "14px", md: "16px", lg: "18px" }}
+						marginBottom={{ base: 4, lg: 8 }}
+						h={8}
 					>
 						{title}
 					</DrawerHeader>
-					<DrawerBody h={"100%"}>
+					<DrawerBody h={"100%"} overflowY={"auto"} overflowX={"scroll"}>
 						<Box
+							sx={displayMode === "verticalScroll" ? css : undefined}
 							bgColor={textBackgroundColor}
 							borderRadius={"md"}
 							margin={"0"}
 							marginLeft={"auto"}
 							w={"100%"}
 							h={"95%"}
-							p={6}
+							p={{ base: 2, lg: 6 }}
 							overflowX={"scroll"}
 							position={"relative"}
 						>
