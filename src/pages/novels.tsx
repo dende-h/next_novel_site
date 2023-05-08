@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import { Footer } from "../components/Footer";
 import Seo from "../components/Seo";
+import { NovelBookViewer } from "../components/NovelBookViewer";
 
 export type novels = {
 	id: string;
@@ -134,7 +135,7 @@ const NovelsPage = ({ drafts }) => {
 						{/* 小説一覧 */}
 						<SimpleGrid spacing={1} minChildWidth="300px">
 							{(selectTags.length > 0 ? filterNovels : novels).map((novel) => (
-								<Center mt={4} key={novel.id}>
+								<Center key={novel.id} mt={4}>
 									<NovelCard novel={novel} />
 								</Center>
 							))}

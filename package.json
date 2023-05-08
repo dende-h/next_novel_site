@@ -18,7 +18,7 @@
 		"@fontsource/raleway": "^4.5.12",
 		"@supabase/supabase-js": "^2.15.0",
 		"date-fns": "^2.29.3",
-		"framer-motion": "^6.3.0",
+		"framer-motion": "^6.5.1",
 		"localforage": "^1.10.0",
 		"next": "latest",
 		"next-pwa": "^5.6.0",
@@ -28,6 +28,7 @@
 		"react-google-recaptcha-v3": "^1.10.1",
 		"react-hook-form": "^7.43.9",
 		"react-icons": "^4.8.0",
+		"react-pageflip": "^2.0.3",
 		"recoil": "^0.7.6",
 		"recoil-persist": "^4.2.0"
 	},

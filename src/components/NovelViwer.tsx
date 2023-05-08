@@ -4,6 +4,7 @@ import { FC } from "react";
 
 type Props = {
 	text: string;
+	writingHorizontally: boolean;
 };
 
 const rubyRegex = /[｜|]([^《｜|]+)《([^》]+)》/g;
@@ -36,18 +37,20 @@ const css = {
 	textOrientation: "upright"
 };
 
-export const NovelViewer: FC<Props> = ({ text }) => {
+const cssx = {};
+
+export const NovelViewer: FC<Props> = ({ text, writingHorizontally }) => {
 	const aText = addLinkTags(text);
 	const rubyText = addRubyTags(aText);
 	const brText = addBrTags(rubyText);
 	return (
 		<Box
-			sx={css}
+			sx={writingHorizontally ? cssx : css}
 			className="ruby-text"
 			dangerouslySetInnerHTML={{ __html: brText }}
-			fontSize={{ base: "14px", md: "16px", lg: "18px" }}
+			fontSize={{ base: "12px", md: "16px", lg: "18px" }}
 			fontFamily={"Noto Serif JP"}
-			lineHeight="1.5em"
+			lineHeight={writingHorizontally ? "2em" : "1.5em"}
 			margin="10px"
 		/>
 	);
