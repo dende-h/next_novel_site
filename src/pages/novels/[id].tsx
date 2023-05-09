@@ -56,9 +56,7 @@ const Novel = ({ drafts, user }) => {
 			<Seo
 				pageTitle={`${novel.title}`}
 				pageDescription={`${pageDescriptionText}』...`}
-				pageImg={
-					"https://enjzxtbbcyrptkkutovq.supabase.co/storage/v1/object/public/images/images/profileImage/mosura.png?t=2023-05-09T00%3A27%3A13.497Z"
-				}
+				pageImg={imageUrl}
 				pagePath={`https://next-novel-site.vercel.app/novels/${draftId}`}
 				pageImgHeight="600"
 				pageImgWidth="1200"
