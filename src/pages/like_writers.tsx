@@ -41,7 +41,7 @@ const WritersPage = ({ user }) => {
 			<Seo
 				pageTitle="お気に入り作家"
 				pageDescription="お気に入りに登録した作家の一覧です"
-				pageImg="/meta.jpg"
+				pageImg={null}
 				pagePath="https://next-novel-site.vercel.app/like_writers"
 				pageImgHeight="600"
 				pageImgWidth="1200"

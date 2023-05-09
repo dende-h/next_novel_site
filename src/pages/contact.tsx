@@ -66,7 +66,7 @@ export default function Contact() {
 				pageTitle="問い合わせフォーム"
 				pageDescription="管理人への問い合わせメールを送信できます"
 				pagePath="https://next-novel-site.vercel.app/contact"
-				pageImg="/meta.jpg"
+				pageImg={null}
 				pageImgWidth="1200"
 				pageImgHeight="630"
 			/>

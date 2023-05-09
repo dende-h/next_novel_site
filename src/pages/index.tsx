@@ -13,7 +13,7 @@ const ShortNovelVillage: React.FC = () => {
 			<Seo
 				pageTitle="イントロダクション"
 				pageDescription="世界中の才能ある作家が創作した短編小説の数々を発見し、楽しむことができます。掌編、ショートショート、短編までの短い物語専門の小説サイトです。会員登録不要で無料で閲覧できます。"
-				pageImg="/meta.jpg"
+				pageImg={null}
 				pagePath="https://next-novel-site.vercel.app/"
 				pageImgHeight="600"
 				pageImgWidth="1200"

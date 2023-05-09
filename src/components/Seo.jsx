@@ -10,11 +10,13 @@ const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, page
 	const defaultTitle = "Lit:Bite";
 	const defaultDescription =
 		"世界中の才能ある作家が創作した短編小説の数々を発見し、楽しむことができます。掌編、ショートショート、短編までの短い物語専門の小説サイトです。会員登録不要で無料で閲覧できます。";
+	const defaultImageUrl =
+		"https://enjzxtbbcyrptkkutovq.supabase.co/storage/v1/object/public/images/siteImage/android-chrome-256x256.png?t=2023-05-09T02%3A58%3A42.335Z";
 
 	const title = pageTitle ? `${pageTitle} | ${defaultTitle}` : defaultTitle;
 	const description = pageDescription || defaultDescription;
 	const url = pagePath;
-	const imgUrl = pageImg;
+	const imgUrl = pageImg ? `${pageImg}` : defaultImageUrl;
 	const imgWidth = pageImgWidth || 1280;
 	const imgHeight = pageImgHeight || 640;
 

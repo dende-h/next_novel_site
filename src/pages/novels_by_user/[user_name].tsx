@@ -89,7 +89,7 @@ const NovelsByUser = ({ drafts }) => {
 			<Seo
 				pageTitle={`${userName}の小説一覧`}
 				pageDescription={`ペンネーム${userName}さんの投稿している一覧です`}
-				pageImg="/meta.jpg"
+				pageImg={null}
 				pagePath={`https://next-novel-site.vercel.app/novels/${userName}`}
 				pageImgHeight="600"
 				pageImgWidth="1200"

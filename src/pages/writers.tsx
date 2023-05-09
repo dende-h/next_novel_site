@@ -32,7 +32,7 @@ const WritersPage = ({ user }) => {
 			<Seo
 				pageTitle="作家一覧"
 				pageDescription="投稿している作家の一覧です"
-				pageImg="/meta.jpg"
+				pageImg={null}
 				pagePath="https://next-novel-site.vercel.app/writers"
 				pageImgHeight="600"
 				pageImgWidth="1200"
