@@ -38,11 +38,6 @@ const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, page
 			<meta name="twitter:card" content="summary_large_image" />
 			<meta name="twitter:site" content="@dendeiriamaka1" />
 			<meta name="twitter:domain" content="next-novel-site.vercel.app" />
-			<meta name="twitter:title" content="Lit:Bite" />
-			<meta
-				name="twitter:description"
-				content="世界中の才能ある作家が創作した短編小説の数々を発見し、楽しむことができます。掌編、ショートショート、短編までの短い物語専門の小説サイトです。会員登録不要で無料で閲覧できます。"
-			/>
 			<meta name="twitter:image" content={imgUrl} />
 		</Head>
 	);
