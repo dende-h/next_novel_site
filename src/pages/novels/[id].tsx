@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import { useRouter } from "next/router";
 import { Box, Container, Heading } from "@chakra-ui/react";
 import Header from "../../components/Header";
@@ -14,6 +15,7 @@ import NovelPage from "../../components/NovelPage";
 const Novel = ({ drafts, user }) => {
 	const router = useRouter();
 	const draftId = router.query.id;
+	const displayCharacters = 40;
 	const novel: novels = drafts
 		.filter((item) => {
 			return item.id === draftId;
@@ -39,12 +41,24 @@ const Novel = ({ drafts, user }) => {
 
 	const imageUrl = novel.thumbnail ? novel.thumbnail : "/book.png";
 
+	const introductionBody = [...novel.body].filter((char) => {
+		return !char.match(/(\s+|　)/g); //空白文字、全角半角スペース、改行は除外
+	});
+
+	const pageDescriptionText = introductionBody
+		.filter((_, index) => {
+			return index < displayCharacters;
+		})
+		.join("");
+
 	return (
 		<>
 			<Seo
 				pageTitle={`${novel.title}`}
-				pageDescription={`小説『${novel.title}』作者【${author.user_name}】`}
-				pageImg="/meta.jpg"
+				pageDescription={`${pageDescriptionText}』...`}
+				pageImg={
+					"https://enjzxtbbcyrptkkutovq.supabase.co/storage/v1/object/public/images/images/profileImage/mosura.png?t=2023-05-09T00%3A27%3A13.497Z"
+				}
 				pagePath={`https://next-novel-site.vercel.app/novels/${draftId}`}
 				pageImgHeight="600"
 				pageImgWidth="1200"
