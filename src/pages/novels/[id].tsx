@@ -4,18 +4,29 @@ import { Box, Container, Heading } from "@chakra-ui/react";
 import Header from "../../components/Header";
 import { supabase } from "../../../lib/supabaseClient";
 import format from "date-fns/format";
-import React from "react";
+import React, { useEffect } from "react";
 import { Footer } from "../../components/Footer";
 import { novels } from "../novels";
 import Seo from "../../components/Seo";
 import { Writers } from "../writers";
 import { Draft } from "../novels_by_user/[user_name]";
 import NovelPage from "../../components/NovelPage";
+import { useRecoilState } from "recoil";
+import { commentsArray } from "../../Atoms/commentsArray";
 
-const Novel = ({ drafts, user }) => {
+const Novel = ({ drafts, user, comments }) => {
 	const router = useRouter();
 	const draftId = router.query.id;
 	const displayCharacters = 40;
+	const commentsOnSingleNovel = comments.filter((item) => {
+		return item.novel_id === draftId;
+	});
+	const [commentsState, setCommentsState] = useRecoilState(commentsArray);
+
+	useEffect(() => {
+		setCommentsState(commentsOnSingleNovel);
+	}, []);
+
 	const novel: novels = drafts
 		.filter((item) => {
 			return item.id === draftId;
@@ -114,12 +125,19 @@ export async function getStaticProps() {
 		.from("user")
 		.select("*")
 		.order("created_at", { ascending: false });
+	const { data: comments, error: commentsFetchErr } = await supabase
+		.from("comments")
+		.select("*")
+		.order("created_at", { ascending: false });
 	if (draftFetchErr) console.log("error", draftFetchErr);
 	if (userFetchErr) console.log("error", userFetchErr);
+	if (commentsFetchErr) console.log("error", commentsFetchErr);
+
 	return {
 		props: {
 			drafts: drafts,
-			user: user
+			user: user,
+			comments: comments
 		},
 		revalidate: 10
 	};
