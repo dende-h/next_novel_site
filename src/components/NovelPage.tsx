@@ -190,11 +190,12 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 						whiteSpace={"nowrap"}
 						fontFamily={"Noto Serif JP"}
 						marginX={"auto"}
-						fontSize={{ base: "14px", md: "16px", lg: "18px" }}
-						marginBottom={{ base: 4, lg: 8 }}
-						h={8}
+						h={"auto"}
+						p={8}
 					>
-						{title}
+						<Text as={"h3"} fontSize={{ base: "12px", md: "14px", lg: "16px" }}>
+							{title}
+						</Text>
 					</DrawerHeader>
 					<DrawerBody h={"100%"} overflowY={"auto"} overflowX={"scroll"}>
 						<Box
@@ -205,7 +206,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 							marginLeft={"auto"}
 							w={"100%"}
 							h={"95%"}
-							p={{ base: 2, lg: 6 }}
+							p={{ base: 2, md: 6 }}
 							overflowX={"scroll"}
 							position={"relative"}
 						>
