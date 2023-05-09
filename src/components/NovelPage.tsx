@@ -34,6 +34,8 @@ import LikeButton from "./LikeButton";
 import { NovelBookViewer } from "./NovelBookViewer";
 import { NovelViewer } from "./NovelViwer";
 import { BsShareFill } from "react-icons/bs";
+import { CommentsViewer } from "./ComentsViewer";
+import { type } from "os";
 
 // 小説の情報を受け取るprops
 type NovelProps = {
@@ -46,10 +48,23 @@ type NovelProps = {
 	tags: string[];
 	likes: number;
 	lastUpdated: string;
+	commentsArray: [{ id: string; name: string; comment: string; novel_id: string }];
 };
 
-const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes, lastUpdated }: NovelProps) => {
+const NovelPage = ({
+	id,
+	title,
+	author,
+	authorBio,
+	body,
+	coverImage,
+	tags,
+	likes,
+	lastUpdated,
+	commentsArray
+}: NovelProps) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const comments = commentsArray;
 	const router = useRouter();
 	const currentPath = router.asPath;
 	const { onCopy, hasCopied } = useClipboard(`https://next-novel-site.vercel.app${currentPath}`);
@@ -136,6 +151,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 						>
 							縦読み（PC推奨）
 						</Button>
+						<CommentsViewer novelId={id} comments={comments} />
 						{/* <Button
 							w={"250px"}
 							colorScheme="gray"

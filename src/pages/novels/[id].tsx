@@ -12,10 +12,13 @@ import { Writers } from "../writers";
 import { Draft } from "../novels_by_user/[user_name]";
 import NovelPage from "../../components/NovelPage";
 
-const Novel = ({ drafts, user }) => {
+const Novel = ({ drafts, user, comments }) => {
 	const router = useRouter();
 	const draftId = router.query.id;
 	const displayCharacters = 40;
+	const commentsArray = comments.filter((item) => {
+		return item.novel_id === draftId;
+	});
 	const novel: novels = drafts
 		.filter((item) => {
 			return item.id === draftId;
@@ -79,6 +82,7 @@ const Novel = ({ drafts, user }) => {
 						tags={novel.tags}
 						likes={novel.good_mark}
 						lastUpdated={novel.created_at}
+						commentsArray={commentsArray}
 					/>
 				</Container>
 
@@ -114,12 +118,19 @@ export async function getStaticProps() {
 		.from("user")
 		.select("*")
 		.order("created_at", { ascending: false });
+	const { data: comments, error: commentsFetchErr } = await supabase
+		.from("comments")
+		.select("*")
+		.order("created_at", { ascending: false });
 	if (draftFetchErr) console.log("error", draftFetchErr);
 	if (userFetchErr) console.log("error", userFetchErr);
+	if (commentsFetchErr) console.log("error", commentsFetchErr);
+
 	return {
 		props: {
 			drafts: drafts,
-			user: user
+			user: user,
+			comments: comments
 		},
 		revalidate: 10
 	};
