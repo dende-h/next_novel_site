@@ -3,13 +3,6 @@ import {
 	Heading,
 	Text,
 	Button,
-	Modal,
-	ModalBody,
-	ModalCloseButton,
-	ModalContent,
-	ModalFooter,
-	ModalHeader,
-	ModalOverlay,
 	useColorModeValue,
 	useDisclosure,
 	Badge,
@@ -25,17 +18,21 @@ import {
 	VStack,
 	IconButton,
 	useClipboard,
-	useToast
+	useToast,
+	Avatar,
+	Flex
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import LikeButton from "./LikeButton";
 import { NovelBookViewer } from "./NovelBookViewer";
 import { NovelViewer } from "./NovelViwer";
 import { BsShareFill } from "react-icons/bs";
 import { CommentsViewer } from "./ComentsViewer";
-import { type } from "os";
+import { useRecoilValue } from "recoil";
+import { commentsArray } from "../Atoms/commentsArray";
+import format from "date-fns/format";
 
 // 小説の情報を受け取るprops
 type NovelProps = {
@@ -48,23 +45,11 @@ type NovelProps = {
 	tags: string[];
 	likes: number;
 	lastUpdated: string;
-	commentsArray: [{ id: string; name: string; comment: string; novel_id: string }];
 };
 
-const NovelPage = ({
-	id,
-	title,
-	author,
-	authorBio,
-	body,
-	coverImage,
-	tags,
-	likes,
-	lastUpdated,
-	commentsArray
-}: NovelProps) => {
+const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes, lastUpdated }: NovelProps) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const comments = commentsArray;
+	const comments = useRecoilValue(commentsArray);
 	const router = useRouter();
 	const currentPath = router.asPath;
 	const { onCopy, hasCopied } = useClipboard(`https://next-novel-site.vercel.app${currentPath}`);
@@ -132,26 +117,55 @@ const NovelPage = ({
 					</Box>
 					<VStack>
 						<Button
-							w={"250px"}
+							width={{ base: "300px", md: "450px" }}
 							colorScheme="gray"
 							onClick={() => {
 								setDisplayMode("horizontalScroll");
 								onOpen();
 							}}
 						>
-							横読み（スマホ推奨）
+							横スクロール読み（スマホ推奨）
 						</Button>
 						<Button
-							w={"250px"}
+							width={{ base: "300px", md: "450px" }}
 							colorScheme="gray"
 							onClick={() => {
 								setDisplayMode("verticalScroll");
 								onOpen();
 							}}
 						>
-							縦読み（PC推奨）
+							縦スクロール読み（PC推奨）
 						</Button>
-						<CommentsViewer novelId={id} comments={comments} />
+						<CommentsViewer novelId={id} />
+						<VStack spacing={2}>
+							{comments.map((item) => {
+								return (
+									<Flex
+										key={item.id}
+										width={{ base: "350px", md: "600px" }}
+										borderRadius="md"
+										borderWidth="1px"
+										p={4}
+										mb={2}
+										alignItems="flex-start"
+										bgColor={textBackgroundColor}
+										boxShadow="md"
+									>
+										<Avatar size="md" name={item.name} src={item.avatarUrl || ""} mr={4} />
+										<Box>
+											<Text fontSize="md" fontWeight="bold">
+												{item.name}
+											</Text>
+											<Text wordBreak="break-word">{item.comment}</Text>
+											<Text fontSize="xs" color="gray.500" mt={1}>
+												{format(new Date(item.created_at), "yyyy/MM/dd-HH:mm")}
+											</Text>
+										</Box>
+									</Flex>
+								);
+							})}
+						</VStack>
+
 						{/* <Button
 							w={"250px"}
 							colorScheme="gray"

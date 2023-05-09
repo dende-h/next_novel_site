@@ -16,12 +16,16 @@ import {
 	FormErrorMessage,
 	FormControl,
 	Heading,
-	VStack
+	VStack,
+	color,
+	useColorModeValue
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm } from "react-hook-form";
 import { supabase } from "../../lib/supabaseClient";
+import { useSetRecoilState } from "recoil";
+import { commentsArray } from "../Atoms/commentsArray";
 
 type FormValues = {
 	name: string;
@@ -29,21 +33,20 @@ type FormValues = {
 	googleReCaptchaToken: string;
 };
 
-type Props = { novelId: string; comments: [{ id: string; name: string; comment: string; novel_id: string }] };
+type Props = { novelId: string };
 
 export const CommentsViewer = (props: Props) => {
-	const { novelId, comments } = props;
+	const { novelId } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [isSend, setIsSend] = useState<boolean>(false);
 	const firstField = React.useRef();
-	const [commentState, setIsCommentState] = useState(comments);
-
-	console.log(commentState);
-
+	const setCommentState = useSetRecoilState(commentsArray);
+	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const {
 		register,
 		handleSubmit,
-		formState: { errors }
+		formState: { errors },
+		reset
 	} = useForm<FormValues>({ mode: "onChange" });
 	const { executeRecaptcha } = useGoogleReCaptcha();
 
@@ -58,15 +61,24 @@ export const CommentsViewer = (props: Props) => {
 					novel_id: novelId
 				}
 			]);
-			const { data, error: fetchError } = await supabase
-				.from("comments")
-				.select("*")
-				.eq("novel_id", novelId)
-				.order("created_at", { ascending: false });
+			try {
+				const { data, error } = await supabase
+					.from("comments")
+					.select("*")
+					.eq("novel_id", novelId)
+					.order("created_at", { ascending: false });
+
+				setCommentState(data);
+
+				if (error) {
+					console.error("Error while fetching comment to the database:", error);
+				}
+			} catch {
+				console.error("Error while fetching comment to the database:", error);
+			}
+
 			if (error) {
 				console.error("Error while adding comment to the database:", error);
-			} else {
-				setIsSend(true);
 			}
 		} catch (error) {
 			console.error("Error while adding comment to the database:", error);
@@ -93,9 +105,7 @@ export const CommentsViewer = (props: Props) => {
 		data.googleReCaptchaToken = token;
 		// IPアドレスを取得します。
 		const ipAddress = await getIpAddress();
-		console.log(token);
-		console.log(data.name);
-		console.log(data.comment);
+
 		// ここでreCAPTCHAトークンの検証を行います。
 		try {
 			const response = await fetch("/api/recaptcha", {
@@ -108,8 +118,6 @@ export const CommentsViewer = (props: Props) => {
 
 			const result = await response.json();
 
-			console.log(result);
-
 			// reCAPTCHAトークンが正常であれば、コメントをデータベースに送信します。
 			if (result.success) {
 				await addCommentToDatabase(data.name, data.comment, ipAddress, novelId);
@@ -120,10 +128,11 @@ export const CommentsViewer = (props: Props) => {
 			console.log(error.message);
 		}
 		setIsSend(false);
+		reset();
 	});
 	return (
 		<>
-			<Button leftIcon={<AddIcon />} colorScheme="teal" onClick={onOpen} w={"250px"}>
+			<Button leftIcon={<AddIcon />} colorScheme="teal" onClick={onOpen} width={{ base: "300px", md: "450px" }}>
 				コメントする
 			</Button>
 			<Drawer
@@ -131,17 +140,17 @@ export const CommentsViewer = (props: Props) => {
 				placement="right"
 				initialFocusRef={firstField}
 				onClose={onClose}
-				size={{ base: "md", md: "lg", lg: "xl" }}
+				size={{ base: "sm", md: "md", lg: "lg" }}
 			>
 				<DrawerOverlay />
-				<DrawerContent>
-					<DrawerCloseButton />
+				<DrawerContent backgroundColor={backgroundColor}>
+					<DrawerCloseButton isDisabled={isSend} />
 					<DrawerHeader borderBottomWidth="1px">Send comments</DrawerHeader>
 					<DrawerBody>
 						<Box p="6" w="100%" h={"90vh"}>
 							<VStack spacing="6">
 								<Heading as="h1" size="xl">
-									Contact Form
+									コメントを追加
 								</Heading>
 								<form onSubmit={onSubmit}>
 									<VStack align="stretch" spacing="4">
@@ -166,15 +175,16 @@ export const CommentsViewer = (props: Props) => {
 												</FormErrorMessage>
 											)}
 										</FormControl>
-										<FormControl w={{ base: "320px", md: "400px", lg: "550px" }}>
-											<FormLabel htmlFor="message" fontSize={{ base: "md", md: "lg" }}>
+										<FormControl isInvalid={Boolean(errors.comment)} w={{ base: "320px", md: "400px", lg: "550px" }}>
+											<FormLabel htmlFor="comment" fontSize={{ base: "md", md: "lg" }}>
 												Comment
 											</FormLabel>
 											<Textarea
-												id="message"
+												id="comment"
 												name="comment"
+												aria-describedby="error-comment-required"
 												placeholder="コメントを入力してください"
-												{...register("comment")}
+												{...register("comment", { required: "Comment is required" })}
 												size="lg"
 												variant="filled"
 												shadow="md"
@@ -182,6 +192,11 @@ export const CommentsViewer = (props: Props) => {
 												_focus={{ outline: "none", shadow: "lg" }}
 												minH={"150px"}
 											></Textarea>
+											{errors?.comment && (
+												<FormErrorMessage id="error-comment-required" aria-live="assertive">
+													{errors.comment.message}
+												</FormErrorMessage>
+											)}
 										</FormControl>
 										<Button
 											type="submit"
@@ -190,6 +205,7 @@ export const CommentsViewer = (props: Props) => {
 											w={{ base: "100%", lg: "auto" }}
 											alignSelf={{ base: "center", lg: "flex-end" }}
 											isDisabled={isSend}
+											isLoading={isSend}
 										>
 											Submit
 										</Button>
@@ -199,7 +215,7 @@ export const CommentsViewer = (props: Props) => {
 						</Box>
 					</DrawerBody>
 					<DrawerFooter borderTopWidth="1px">
-						<Button variant="outline" mr={3} onClick={onClose} isDisabled={isSend}>
+						<Button variant="outline" mr={3} onClick={onClose} isDisabled={isSend} isLoading={isSend}>
 							Cancel
 						</Button>
 					</DrawerFooter>

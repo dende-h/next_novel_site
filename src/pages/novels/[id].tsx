@@ -4,21 +4,29 @@ import { Box, Container, Heading } from "@chakra-ui/react";
 import Header from "../../components/Header";
 import { supabase } from "../../../lib/supabaseClient";
 import format from "date-fns/format";
-import React from "react";
+import React, { useEffect } from "react";
 import { Footer } from "../../components/Footer";
 import { novels } from "../novels";
 import Seo from "../../components/Seo";
 import { Writers } from "../writers";
 import { Draft } from "../novels_by_user/[user_name]";
 import NovelPage from "../../components/NovelPage";
+import { useRecoilState } from "recoil";
+import { commentsArray } from "../../Atoms/commentsArray";
 
 const Novel = ({ drafts, user, comments }) => {
 	const router = useRouter();
 	const draftId = router.query.id;
 	const displayCharacters = 40;
-	const commentsArray = comments.filter((item) => {
+	const commentsOnSingleNovel = comments.filter((item) => {
 		return item.novel_id === draftId;
 	});
+	const [commentsState, setCommentsState] = useRecoilState(commentsArray);
+
+	useEffect(() => {
+		setCommentsState(commentsOnSingleNovel);
+	}, []);
+
 	const novel: novels = drafts
 		.filter((item) => {
 			return item.id === draftId;
@@ -82,7 +90,6 @@ const Novel = ({ drafts, user, comments }) => {
 						tags={novel.tags}
 						likes={novel.good_mark}
 						lastUpdated={novel.created_at}
-						commentsArray={commentsArray}
 					/>
 				</Container>
 
