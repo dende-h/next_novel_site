@@ -35,10 +35,10 @@ const Seo = ({ pageTitle, pageDescription, pagePath, pageImg, pageImgWidth, page
 			<link rel="canonical" href={url} />
 			<link rel="icon" href="/favicon.ico" />
 			<meta name="google-site-verification" content="26u2b3-4uum3ZXDKrS6jWfPzCaWa9I8dPyp5TD2ekrE" />
-			<meta name="twitter:card" content="summary_large_image" />
+			{/* <meta name="twitter:card" content="summary_large_image" />
 			<meta name="twitter:site" content="@dendeiriamaka1" />
 			<meta name="twitter:domain" content="next-novel-site.vercel.app" />
-			<meta name="twitter:image" content={imgUrl} />
+			<meta name="twitter:image" content={imgUrl} /> */}
 		</Head>
 	);
 };
