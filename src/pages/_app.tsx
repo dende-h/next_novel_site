@@ -5,6 +5,7 @@ import GoogleAnalytics from "../components/GoogleAnalytics";
 import theme from "../theme";
 import { type AppProps } from "next/app";
 import usePageView from "../hooks/usePageView";
+import { Analytics } from "@vercel/analytics/react";
 const SiteKey = process.env.NEXT_PUBLIC_GOOGLE_RECAOTCHA_KEY;
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -14,6 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 			<RecoilRoot>
 				<GoogleReCaptchaProvider reCaptchaKey={SiteKey} language="ja">
 					<GoogleAnalytics />
+					<Analytics />
 					<Component {...pageProps} />
 				</GoogleReCaptchaProvider>
 			</RecoilRoot>
