@@ -32,20 +32,12 @@ function addBrTags(text: string) {
 	return text.replace(/\r?\n/g, "<br>");
 }
 
-const css = {
-	writingMode: "vertical-rl",
-	textOrientation: "upright"
-};
-
-const cssx = {};
-
 export const NovelViewer: FC<Props> = ({ text, writingHorizontally }) => {
 	const aText = addLinkTags(text);
 	const rubyText = addRubyTags(aText);
 	const brText = addBrTags(rubyText);
 	return (
 		<Box
-			sx={writingHorizontally ? cssx : css}
 			className="ruby-text"
 			dangerouslySetInnerHTML={{ __html: brText }}
 			fontSize={{ base: "12px", md: "16px", lg: "18px" }}

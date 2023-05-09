@@ -1,27 +1,33 @@
 /* eslint-disable no-irregular-whitespace */
 import { useRouter } from "next/router";
-import { Box, Container, Heading } from "@chakra-ui/react";
+import { Box, Center, Container, Heading } from "@chakra-ui/react";
 import Header from "../../components/Header";
 import { supabase } from "../../../lib/supabaseClient";
 import format from "date-fns/format";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Footer } from "../../components/Footer";
 import { novels } from "../novels";
 import Seo from "../../components/Seo";
 import { Writers } from "../writers";
 import { Draft } from "../novels_by_user/[user_name]";
 import NovelPage from "../../components/NovelPage";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { commentsArray } from "../../Atoms/commentsArray";
 
 const Novel = ({ drafts, user, comments }) => {
+	const [isClient, setIsClient] = useState(false);
+	useEffect(() => {
+		if (typeof window !== undefined) {
+			setIsClient(true);
+		}
+	}, []);
 	const router = useRouter();
 	const draftId = router.query.id;
 	const displayCharacters = 40;
 	const commentsOnSingleNovel = comments.filter((item) => {
 		return item.novel_id === draftId;
 	});
-	const [commentsState, setCommentsState] = useRecoilState(commentsArray);
+	const setCommentsState = useSetRecoilState(commentsArray);
 
 	useEffect(() => {
 		setCommentsState(commentsOnSingleNovel);
@@ -72,32 +78,38 @@ const Novel = ({ drafts, user, comments }) => {
 				pageImgHeight="600"
 				pageImgWidth="1200"
 			/>
-			<Box minH="100vh" display="flex" flexDirection="column">
-				<Header />
+			{isClient ? (
+				<Box minH="100vh" display="flex" flexDirection="column">
+					<Header />
 
-				<Container flex="1" maxW="container.lg" py={8}>
-					<Heading as="h1" mb={4} textAlign="center">
-						{novel.title}
-					</Heading>
+					<Container flex="1" maxW="container.lg" py={8}>
+						<Heading as="h1" mb={4} textAlign="center">
+							{novel.title}
+						</Heading>
 
-					<NovelPage
-						id={novel.id}
-						title={novel.title}
-						author={author.user_name}
-						authorBio={author.Introduction}
-						body={novel.body}
-						coverImage={imageUrl}
-						tags={novel.tags}
-						likes={novel.good_mark}
-						lastUpdated={novel.created_at}
-					/>
-				</Container>
+						<NovelPage
+							id={novel.id}
+							title={novel.title}
+							author={author.user_name}
+							authorBio={author.Introduction}
+							body={novel.body}
+							coverImage={imageUrl}
+							tags={novel.tags}
+							likes={novel.good_mark}
+							lastUpdated={novel.created_at}
+						/>
+					</Container>
 
-				<Box bg="gray.900" color="white" py={4}>
-					{/* フッター */}
-					<Footer />
+					<Box bg="gray.900" color="white" py={4}>
+						{/* フッター */}
+						<Footer />
+					</Box>
 				</Box>
-			</Box>
+			) : (
+				<Center bg="gray.100" minH="100vh">
+					...is Loading
+				</Center>
+			)}
 		</>
 	);
 };
