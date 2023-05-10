@@ -23,9 +23,11 @@ const Header = () => {
 			color="white"
 		>
 			<Box>
-				<Text fontSize="2xl" fontWeight="bold">
-					Lit:Bite
-				</Text>
+				<Link href="/novels" _hover={{ textDecoration: "none" }}>
+					<Text as={"h1"} fontSize="2xl" fontWeight="bold">
+						Lit:Bite
+					</Text>
+				</Link>
 			</Box>
 			<Flex align="center">
 				<Box mr={4} display={{ base: "none", lg: "block" }}>
