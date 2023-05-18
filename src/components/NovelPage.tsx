@@ -88,10 +88,10 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 						<Heading as="h1" fontSize="2xl" mb={2}>
 							{title}
 						</Heading>
-						<Text fontSize="md" fontWeight="semibold" mb={4}>
+						<Text fontSize="md" fontWeight="semibold" mb={1}>
 							作者：{author}
 						</Text>
-						<Text fontSize="md" fontWeight="semibold" mb={4}>
+						<Text fontSize="sm" fontWeight="semibold" mb={4}>
 							{charCount}文字
 						</Text>
 						<Text fontSize="md" mb={4}>
