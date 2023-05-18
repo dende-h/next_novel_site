@@ -24,7 +24,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
 import { NovelBookViewer } from "./NovelBookViewer";
 import { NovelViewer } from "./NovelViwer";
@@ -33,6 +33,7 @@ import { CommentsViewer } from "./ComentsViewer";
 import { useRecoilValue } from "recoil";
 import { commentsArray } from "../Atoms/commentsArray";
 import format from "date-fns/format";
+import { useCalcCharCount } from "../hooks/useCalcCharCount";
 
 // 小説の情報を受け取るprops
 type NovelProps = {
@@ -52,11 +53,15 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 	const comments = useRecoilValue(commentsArray);
 	const router = useRouter();
 	const currentPath = router.asPath;
-	const { onCopy, hasCopied } = useClipboard(`https://next-novel-site.vercel.app${currentPath}`);
+	const { onCopy } = useClipboard(`https://next-novel-site.vercel.app${currentPath}`);
 	const toast = useToast();
 	const [displayMode, setDisplayMode] = useState<string | null>(null);
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
+	const { calcCharCount, charCount } = useCalcCharCount();
+	useEffect(() => {
+		calcCharCount(body);
+	}, []);
 	const css = {
 		writingMode: "vertical-rl",
 		textOrientation: "upright"
@@ -85,6 +90,9 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 						</Heading>
 						<Text fontSize="md" fontWeight="semibold" mb={4}>
 							作者：{author}
+						</Text>
+						<Text fontSize="md" fontWeight="semibold" mb={4}>
+							{charCount}文字
 						</Text>
 						<Text fontSize="md" mb={4}>
 							{authorBio}
