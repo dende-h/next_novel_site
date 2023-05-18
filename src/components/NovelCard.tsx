@@ -1,6 +1,8 @@
-import { Box, Text, Badge, Center, useColorModeValue } from "@chakra-ui/react";
+import { Box, Text, Badge, Center, useColorModeValue, Flex } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useCalcCharCount } from "../hooks/useCalcCharCount";
 import { novels } from "../pages/novels";
 import LikeButton from "./LikeButton";
 
@@ -13,6 +15,10 @@ const NovelCard = (props: Props) => {
 	const router = useRouter();
 	const imageUrl = novel.thumbnail ? novel.thumbnail : "/book.png";
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
+	const { calcCharCount, charCount } = useCalcCharCount();
+	useEffect(() => {
+		calcCharCount(novel.body);
+	}, []);
 
 	return (
 		<>
@@ -55,9 +61,12 @@ const NovelCard = (props: Props) => {
 							</Badge>
 						))}
 					</Box>
-					<Center>
+					<Flex>
+						<Text fontSize={"xs"} my={"auto"}>
+							{charCount}文字
+						</Text>
 						<LikeButton id={novel.id} title={novel.title} good_mark={novel.good_mark} />
-					</Center>
+					</Flex>
 				</Box>
 			</Box>
 		</>
