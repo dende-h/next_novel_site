@@ -31,27 +31,27 @@ export const HeaderMenu = () => {
 					>
 						<Link href={"/novels"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								Novels
+								新規小説一覧
 							</MenuItem>
 						</Link>
 						<Link href={"/like_novels"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								LikeNovels
+								いいねした小説
 							</MenuItem>
 						</Link>
 						<Link href={"/writers"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								Writers
+								作家一覧
 							</MenuItem>
 						</Link>
 						<Link href={"/like_writers"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								LikeWriters
+								いいねした作家
 							</MenuItem>
 						</Link>
 						<Link href={"/contact"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								Contact
+								お問い合わせ
 							</MenuItem>
 						</Link>
 						{/* 外部サイトへのリンク */}
@@ -64,7 +64,7 @@ export const HeaderMenu = () => {
 							bgColor={"gray.800"}
 							_hover={{ bgColor: headerMenuHoverColor }}
 						>
-							Editor
+							Re:terature
 						</MenuItem>
 					</MenuList>
 				</>

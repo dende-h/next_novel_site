@@ -33,35 +33,35 @@ const Header = () => {
 				<Box mr={4} display={{ base: "none", lg: "block" }}>
 					<Link href="/novels" _hover={{ textDecoration: "none" }}>
 						<Text fontSize="lg" fontWeight="medium">
-							Novels
+							新規小説
 						</Text>
 					</Link>
 				</Box>
 				<Box mr={4} display={{ base: "none", lg: "block" }}>
 					<Link href="/like_novels" _hover={{ textDecoration: "none" }}>
 						<Text fontSize="lg" fontWeight="medium">
-							LikeNovels
+							いいねした小説
 						</Text>
 					</Link>
 				</Box>
 				<Box mr={4} display={{ base: "none", lg: "block" }}>
 					<Link href="/writers" _hover={{ textDecoration: "none" }}>
 						<Text fontSize="lg" fontWeight="medium">
-							Writers
+							作家一覧
 						</Text>
 					</Link>
 				</Box>
 				<Box mr={4} display={{ base: "none", lg: "block" }}>
 					<Link href="/like_writers" _hover={{ textDecoration: "none" }}>
 						<Text fontSize="lg" fontWeight="medium">
-							LikeWriters
+							いいねした作家
 						</Text>
 					</Link>
 				</Box>
 				<Box mr={4} display={{ base: "none", lg: "block" }}>
 					<Link href="contact" _hover={{ textDecoration: "none" }}>
 						<Text fontSize="lg" fontWeight="medium">
-							Contact
+							お問い合わせ
 						</Text>
 					</Link>
 				</Box>
