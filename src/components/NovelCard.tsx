@@ -44,13 +44,13 @@ const NovelCard = (props: Props) => {
 					borderBottomRightRadius="md"
 					backgroundColor={backgroundCardFooterColor}
 				>
-					<Text fontSize={"sm"} fontWeight="bold" mb={"1"} lineHeight="shorter" height="1.5rem" overflow="hidden">
+					<Text fontSize={"sm"} fontWeight="bold" mb={"2"} lineHeight="shorter" height="2rem" overflow="hidden">
 						{novel.title}
 					</Text>
 					<Text fontSize={"xs"} overflow="hidden">
 						作者：{novel.author}
 					</Text>
-					<Text fontSize={"xs"} mb={"2"} overflow="hidden">
+					<Text fontSize={"xs"} mb={"1"} overflow="hidden">
 						更新：{novel.created_at}
 					</Text>
 
