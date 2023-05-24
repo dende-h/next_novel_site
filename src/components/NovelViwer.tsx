@@ -32,14 +32,19 @@ function addBrTags(text: string) {
 	return text.replace(/\r?\n/g, "<br>");
 }
 
+function preserveSpaces(text: string) {
+	return text.replace(/ /g, "&nbsp;");
+}
+
 export const NovelViewer: FC<Props> = ({ text, writingHorizontally }) => {
 	const aText = addLinkTags(text);
 	const rubyText = addRubyTags(aText);
 	const brText = addBrTags(rubyText);
+	const spaceText = preserveSpaces(brText);
 	return (
 		<Box
 			className="ruby-text"
-			dangerouslySetInnerHTML={{ __html: brText }}
+			dangerouslySetInnerHTML={{ __html: spaceText }}
 			fontSize={{ base: "12px", md: "16px", lg: "18px" }}
 			fontFamily={"Noto Serif JP"}
 			lineHeight={writingHorizontally ? "2em" : "1.5em"}
