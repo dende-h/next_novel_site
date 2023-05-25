@@ -14,7 +14,8 @@ import {
 	DrawerHeader,
 	DrawerOverlay,
 	useDisclosure,
-	useColorModeValue
+	useColorModeValue,
+	Spinner
 } from "@chakra-ui/react";
 import NovelCard from "../../components/NovelCard";
 import TagFilter from "../../components/TagFilter";
@@ -84,6 +85,8 @@ const NovelsByUser = ({ drafts }) => {
 		return tagIncludes.length > 0;
 	});
 
+	const [isLoading, setIsLoading] = useState(false);
+
 	return (
 		<>
 			<Seo
@@ -94,62 +97,70 @@ const NovelsByUser = ({ drafts }) => {
 				pageImgHeight="600"
 				pageImgWidth="1200"
 			/>
-			<Box minH="100vh" display="flex" flexDirection="column">
-				<Header />
+			{!isLoading ? (
+				<Box minH="100vh" display="flex" flexDirection="column">
+					<Header />
 
-				<Container flex="1" maxW="container.lg" py={8}>
-					<Heading as="h1" mb={4} textAlign="center">
-						{userName}の小説一覧
-					</Heading>
+					<Container flex="1" maxW="container.lg" py={8}>
+						<Heading as="h1" mb={4} textAlign="center">
+							{userName}の小説一覧
+						</Heading>
 
-					{/* タグフィルター */}
-					<Button ref={btnRef} colorScheme="blackAlpha" onClick={onOpen}>
-						タグで絞り込む
-					</Button>
-					<Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef}>
-						<DrawerOverlay />
-						<DrawerContent>
-							<DrawerCloseButton />
-							<DrawerHeader bgColor={backgroundColor}>タグを選択して絞り込む</DrawerHeader>
+						{/* タグフィルター */}
+						<Button ref={btnRef} colorScheme="blackAlpha" onClick={onOpen}>
+							タグで絞り込む
+						</Button>
+						<Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef}>
+							<DrawerOverlay />
+							<DrawerContent>
+								<DrawerCloseButton />
+								<DrawerHeader bgColor={backgroundColor}>タグを選択して絞り込む</DrawerHeader>
 
-							<DrawerBody bgColor={backgroundColor}>
-								<TagFilter
-									tags={filterDuplicatesAllDraftTags} // タグのリスト
-									selectedTags={selectTags} // 選択されたタグのリスト
-									onTagSelect={(tag: string) => setSelectTags([...selectTags, tag])} // タグが選択されたときに呼び出されるコールバック関数
-									onTagRemove={(tag: string) =>
-										setSelectTags(
-											selectTags.filter((item: string) => {
-												return item !== tag;
-											})
-										)
-									} // タグが削除されたときに呼び出されるコールバック関数
-								/>
-							</DrawerBody>
+								<DrawerBody bgColor={backgroundColor}>
+									<TagFilter
+										tags={filterDuplicatesAllDraftTags} // タグのリスト
+										selectedTags={selectTags} // 選択されたタグのリスト
+										onTagSelect={(tag: string) => setSelectTags([...selectTags, tag])} // タグが選択されたときに呼び出されるコールバック関数
+										onTagRemove={(tag: string) =>
+											setSelectTags(
+												selectTags.filter((item: string) => {
+													return item !== tag;
+												})
+											)
+										} // タグが削除されたときに呼び出されるコールバック関数
+									/>
+								</DrawerBody>
 
-							<DrawerFooter bgColor={backgroundColor}>
-								<Button colorScheme={"blue"} variant="ghost" mr={3} onClick={onClose}>
-									Cancel
-								</Button>
-							</DrawerFooter>
-						</DrawerContent>
-					</Drawer>
+								<DrawerFooter bgColor={backgroundColor}>
+									<Button colorScheme={"blue"} variant="ghost" mr={3} onClick={onClose}>
+										Cancel
+									</Button>
+								</DrawerFooter>
+							</DrawerContent>
+						</Drawer>
 
-					{/* 小説一覧 */}
-					<SimpleGrid spacing={1} minChildWidth="300px">
-						{(selectTags.length > 0 ? filterNovels : novels).map((novel) => (
-							<Center mt={4} key={novel.id}>
-								<NovelCard novel={novel} />
-							</Center>
-						))}
-					</SimpleGrid>
-				</Container>
+						{/* 小説一覧 */}
+						<SimpleGrid spacing={1} minChildWidth="300px">
+							<Box onClick={() => setIsLoading(true)}>
+								{(selectTags.length > 0 ? filterNovels : novels).map((novel) => (
+									<Center mt={4} key={novel.id}>
+										<NovelCard novel={novel} />
+									</Center>
+								))}
+							</Box>
+						</SimpleGrid>
+					</Container>
 
-				<Box bg="gray.900" color="white" py={4}>
-					{/* フッター */}
-					<Footer />
+					<Box bg="gray.900" color="white" py={4}>
+						{/* フッター */}
+						<Footer />
+					</Box>
 				</Box>
-			</Box>
+			) : (
+				<Center bg="gray.100" minH="100vh">
+					<Spinner />
+				</Center>
+			)}
 		</>
 	);
 };
