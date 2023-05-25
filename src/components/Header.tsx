@@ -68,7 +68,7 @@ const Header = () => {
 
 				<Box
 					as={"a"}
-					href={"https://next-novel-editor.vercel.app/"}
+					href={"https://novel-editor-ver2.vercel.app/"}
 					target="_blank"
 					rel="noopener noreferrer"
 					mr={4}
