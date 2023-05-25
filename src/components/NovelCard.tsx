@@ -1,6 +1,5 @@
 import { Box, Text, Badge, Center, useColorModeValue, Flex } from "@chakra-ui/react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useCalcCharCount } from "../hooks/useCalcCharCount";
@@ -48,17 +47,11 @@ const NovelCard = (props: Props) => {
 					<Text fontSize={"sm"} fontWeight="bold" mb={"2"} lineHeight="shorter" height="2rem" overflow="hidden">
 						{novel.title}
 					</Text>
-					<Link
-						href={`/novels_by_user/${novel.author}`}
-						passHref
-						onClick={(e) => {
-							e.stopPropagation();
-						}}
-					>
-						<Text fontSize={"xs"} overflow="hidden" color={"blue"}>
-							作者：{novel.author}
-						</Text>
-					</Link>
+
+					<Text fontSize={"xs"} overflow="hidden" color={"blue"}>
+						作者：{novel.author}
+					</Text>
+
 					<Text fontSize={"xs"} mb={"1"} overflow="hidden">
 						更新：{novel.created_at}
 					</Text>
