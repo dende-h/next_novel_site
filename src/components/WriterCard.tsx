@@ -10,7 +10,7 @@ const WriterCard = ({ writer }) => {
 	const router = useRouter();
 	const { user_name, Introduction, image_url } = writer;
 
-	const imageUrl = image_url ? image_url : "/android-chrome-256x256.png";
+	const imageUrl = image_url ? image_url : "/Reterature.png";
 
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
 
