@@ -1,5 +1,6 @@
 import { Box, Text, Badge, Center, useColorModeValue, Flex } from "@chakra-ui/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useCalcCharCount } from "../hooks/useCalcCharCount";
@@ -13,7 +14,7 @@ type Props = {
 const NovelCard = (props: Props) => {
 	const { novel } = props;
 	const router = useRouter();
-	const imageUrl = novel.thumbnail ? novel.thumbnail : "/book.png";
+	const imageUrl = novel.thumbnail ? novel.thumbnail : "/android-chrome-256x256.png";
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
 	const { calcCharCount, charCount } = useCalcCharCount();
 	useEffect(() => {
@@ -47,9 +48,17 @@ const NovelCard = (props: Props) => {
 					<Text fontSize={"sm"} fontWeight="bold" mb={"2"} lineHeight="shorter" height="2rem" overflow="hidden">
 						{novel.title}
 					</Text>
-					<Text fontSize={"xs"} overflow="hidden">
-						作者：{novel.author}
-					</Text>
+					<Link
+						href={`/novels_by_user/${novel.author}`}
+						passHref
+						onClick={(e) => {
+							e.stopPropagation();
+						}}
+					>
+						<Text fontSize={"xs"} overflow="hidden" color={"blue"}>
+							作者：{novel.author}
+						</Text>
+					</Link>
 					<Text fontSize={"xs"} mb={"1"} overflow="hidden">
 						更新：{novel.created_at}
 					</Text>

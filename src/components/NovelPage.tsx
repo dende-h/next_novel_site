@@ -34,6 +34,8 @@ import { useRecoilValue } from "recoil";
 import { commentsArray } from "../Atoms/commentsArray";
 import format from "date-fns/format";
 import { useCalcCharCount } from "../hooks/useCalcCharCount";
+import Link from "next/link";
+import LikeUserButton from "./LikeUserButton";
 
 // 小説の情報を受け取るprops
 type NovelProps = {
@@ -88,9 +90,21 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 						<Heading as="h1" fontSize="2xl" mb={2}>
 							{title}
 						</Heading>
-						<Text fontSize="md" fontWeight="semibold" mb={1}>
-							作者：{author}
-						</Text>
+						<HStack>
+							<Link
+								href={`/novels_by_user/${author}`}
+								passHref
+								onClick={(e) => {
+									e.stopPropagation();
+								}}
+							>
+								<Text fontSize="md" fontWeight="semibold" mb={1} color={"blue"}>
+									作者：{author}
+								</Text>
+							</Link>
+							<LikeUserButton name={author} />
+						</HStack>
+
 						<Text fontSize="sm" fontWeight="semibold" mb={4}>
 							{charCount}文字
 						</Text>

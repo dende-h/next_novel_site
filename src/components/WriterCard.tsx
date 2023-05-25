@@ -3,14 +3,14 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import LikeUserButton from "./LikeUserButton";
-import { Box, Center, Heading, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Center, Heading, HStack, Text, useColorModeValue } from "@chakra-ui/react";
 import { WritersIntroductionViewer } from "./WritersIntroductionViewer";
 
 const WriterCard = ({ writer }) => {
 	const router = useRouter();
 	const { user_name, Introduction, image_url } = writer;
 
-	const imageUrl = image_url ? image_url : "/ilastya.png";
+	const imageUrl = image_url ? image_url : "/android-chrome-256x256.png";
 
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
 
@@ -39,24 +39,17 @@ const WriterCard = ({ writer }) => {
 				borderBottomLeftRadius="md"
 				borderBottomRightRadius="md"
 				backgroundColor={backgroundCardFooterColor}
+				position="relative"
 			>
-				<Heading
-					as={"h4"}
-					fontSize={"md"}
-					fontWeight="bold"
-					mb={"1"}
-					lineHeight="shorter"
-					height="1.5rem"
-					overflow="hidden"
-				>
-					{user_name}
-				</Heading>
-				<Text fontSize={"xs"} overflowWrap="break-word">
+				<HStack>
+					<Heading as={"h4"} fontSize={"md"} fontWeight="bold" lineHeight="shorter" height="1.5rem" overflow="hidden">
+						{user_name}
+					</Heading>
+					<LikeUserButton name={user_name} />
+				</HStack>
+				<Text fontSize={"12px"} overflowWrap="break-word">
 					<WritersIntroductionViewer text={Introduction} />
 				</Text>
-				<Box position={"absolute"} bottom={0} right={1}>
-					<LikeUserButton name={user_name} />
-				</Box>
 			</Box>
 		</Box>
 	);
