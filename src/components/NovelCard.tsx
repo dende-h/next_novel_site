@@ -30,7 +30,7 @@ const NovelCard = (props: Props) => {
 				borderRadius="md"
 				boxShadow="md"
 				transition="all 0.5s"
-				_hover={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
+				_hover={{ boxShadow: "2xl", transform: "translateY(-4px)", cursor: "pointer" }}
 				mb={"4"}
 				onClick={() => router.push(`/novels/${novel.id}`)}
 			>
