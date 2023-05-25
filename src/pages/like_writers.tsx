@@ -36,6 +36,8 @@ const WritersPage = ({ user }) => {
 		});
 	}, [heartUsers]);
 
+	const [isLoading, setIsLoading] = useState(false);
+
 	return (
 		<>
 			<Seo
@@ -46,7 +48,7 @@ const WritersPage = ({ user }) => {
 				pageImgHeight="600"
 				pageImgWidth="1200"
 			/>
-			{isClient ? (
+			{isClient && !isLoading ? (
 				<Box minH="100vh" display="flex" flexDirection="column">
 					<Header />
 
@@ -56,10 +58,14 @@ const WritersPage = ({ user }) => {
 						</Heading>
 
 						{/* 作家一覧 */}
-						<SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4} mt={4}>
-							{likeWriters.map((writer) => (
-								<WriterCard key={writer.id} writer={writer} />
-							))}
+						<SimpleGrid spacing={1} minChildWidth="300px">
+							<Box onClick={() => setIsLoading(true)}>
+								{likeWriters.map((writer) => (
+									<Center key={writer.id} mt={4}>
+										<WriterCard writer={writer} />
+									</Center>
+								))}
+							</Box>
 						</SimpleGrid>
 					</Container>
 

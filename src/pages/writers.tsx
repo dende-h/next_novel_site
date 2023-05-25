@@ -1,6 +1,6 @@
 // pages/writers.tsx
 
-import { Box, Center, Container, Heading, SimpleGrid } from "@chakra-ui/react";
+import { Box, Center, Container, Heading, SimpleGrid, Spinner } from "@chakra-ui/react";
 import WriterCard from "../components/WriterCard";
 import Header from "../components/Header";
 import { Footer } from "../components/Footer";
@@ -23,6 +23,8 @@ const WritersPage = ({ user }) => {
 		}
 	}, []);
 
+	const [isLoading, setIsLoading] = useState(false);
+
 	const writers: Writers[] = user.map((item: Writers) => {
 		return { id: item.id, user_name: item.user_name, Introduction: item.Introduction, image_url: item.image_url };
 	});
@@ -37,7 +39,7 @@ const WritersPage = ({ user }) => {
 				pageImgHeight="600"
 				pageImgWidth="1200"
 			/>
-			{isClient ? (
+			{isClient && !isLoading ? (
 				<Box minH="100vh" display="flex" flexDirection="column">
 					<Header />
 
@@ -47,10 +49,14 @@ const WritersPage = ({ user }) => {
 						</Heading>
 
 						{/* 作家一覧 */}
-						<SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4} mt={4}>
-							{writers.map((writer) => (
-								<WriterCard key={writer.id} writer={writer} />
-							))}
+						<SimpleGrid spacing={1} minChildWidth="300px">
+							<Box onClick={() => setIsLoading(true)}>
+								{writers.map((writer) => (
+									<Center key={writer.id} mt={4}>
+										<WriterCard writer={writer} />
+									</Center>
+								))}
+							</Box>
 						</SimpleGrid>
 					</Container>
 
@@ -61,7 +67,7 @@ const WritersPage = ({ user }) => {
 				</Box>
 			) : (
 				<Center bg="gray.100" minH="100vh">
-					...is Loading
+					<Spinner />
 				</Center>
 			)}
 		</>

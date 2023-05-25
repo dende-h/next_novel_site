@@ -56,7 +56,7 @@ const Novel = ({ drafts, user, comments }) => {
 		return item.user_name === novel.author;
 	})[0];
 
-	const imageUrl = novel.thumbnail ? novel.thumbnail : "/book.png";
+	const imageUrl = novel.thumbnail ? novel.thumbnail : "/android-chrome-256x256.png";
 
 	const introductionBody = [...novel.body].filter((char) => {
 		return !char.match(/(\s+|　)/g); //空白文字、全角半角スペース、改行は除外

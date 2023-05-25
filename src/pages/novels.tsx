@@ -13,7 +13,8 @@ import {
 	DrawerHeader,
 	DrawerOverlay,
 	useDisclosure,
-	useColorModeValue
+	useColorModeValue,
+	Spinner
 } from "@chakra-ui/react";
 import NovelCard from "../components/NovelCard";
 import TagFilter from "../components/TagFilter";
@@ -79,6 +80,7 @@ const NovelsPage = ({ drafts }) => {
 		});
 		return tagIncludes.length > 0;
 	});
+	const [isLoading, setIsLoading] = useState(false);
 
 	return (
 		<>
@@ -90,7 +92,7 @@ const NovelsPage = ({ drafts }) => {
 				pageImgHeight="600"
 				pageImgWidth="1200"
 			/>
-			{isClient ? (
+			{isClient && !isLoading ? (
 				<Box minH="100vh" display="flex" flexDirection="column">
 					<Header />
 
@@ -134,11 +136,13 @@ const NovelsPage = ({ drafts }) => {
 
 						{/* 小説一覧 */}
 						<SimpleGrid spacing={1} minChildWidth="300px">
-							{(selectTags.length > 0 ? filterNovels : novels).map((novel) => (
-								<Center key={novel.id} mt={4}>
-									<NovelCard novel={novel} />
-								</Center>
-							))}
+							<Box onClick={() => setIsLoading(true)}>
+								{(selectTags.length > 0 ? filterNovels : novels).map((novel) => (
+									<Center key={novel.id} mt={4}>
+										<NovelCard novel={novel} />
+									</Center>
+								))}
+							</Box>
 						</SimpleGrid>
 					</Container>
 
@@ -149,7 +153,7 @@ const NovelsPage = ({ drafts }) => {
 				</Box>
 			) : (
 				<Center bg="gray.100" minH="100vh">
-					...is Loading
+					<Spinner />
 				</Center>
 			)}
 		</>

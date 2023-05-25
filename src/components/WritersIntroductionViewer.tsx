@@ -39,7 +39,6 @@ export const WritersIntroductionViewer: FC<Props> = ({ text }) => {
 		<Box
 			className="ruby-text"
 			dangerouslySetInnerHTML={{ __html: brText }}
-			fontSize={{ base: "14px", md: "16px", lg: "18px" }}
 			fontFamily={"Noto Serif JP"}
 			lineHeight="1.5em"
 			margin="10px"

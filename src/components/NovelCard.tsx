@@ -13,7 +13,7 @@ type Props = {
 const NovelCard = (props: Props) => {
 	const { novel } = props;
 	const router = useRouter();
-	const imageUrl = novel.thumbnail ? novel.thumbnail : "/book.png";
+	const imageUrl = novel.thumbnail ? novel.thumbnail : "/android-chrome-256x256.png";
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
 	const { calcCharCount, charCount } = useCalcCharCount();
 	useEffect(() => {
@@ -29,7 +29,7 @@ const NovelCard = (props: Props) => {
 				borderRadius="md"
 				boxShadow="md"
 				transition="all 0.5s"
-				_hover={{ boxShadow: "2xl", transform: "translateY(-4px)" }}
+				_hover={{ boxShadow: "2xl", transform: "translateY(-4px)", cursor: "pointer" }}
 				mb={"4"}
 				onClick={() => router.push(`/novels/${novel.id}`)}
 			>
@@ -47,9 +47,11 @@ const NovelCard = (props: Props) => {
 					<Text fontSize={"sm"} fontWeight="bold" mb={"2"} lineHeight="shorter" height="2rem" overflow="hidden">
 						{novel.title}
 					</Text>
-					<Text fontSize={"xs"} overflow="hidden">
+
+					<Text fontSize={"xs"} overflow="hidden" color={"blue"}>
 						作者：{novel.author}
 					</Text>
+
 					<Text fontSize={"xs"} mb={"1"} overflow="hidden">
 						更新：{novel.created_at}
 					</Text>
