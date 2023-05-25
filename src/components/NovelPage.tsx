@@ -214,7 +214,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 							marginLeft={"auto"}
 							w={"100%"}
 							h={"95%"}
-							p={{ base: 2, md: 6 }}
+							p={{ base: 1, md: 4, lg: 6 }}
 							overflowX={"scroll"}
 							position={"relative"}
 						>
