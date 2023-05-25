@@ -32,10 +32,6 @@ function addBrTags(text: string) {
 	return text.replace(/\r?\n/g, "<br>");
 }
 
-function preserveSpaces(text: string) {
-	return text.replace(/ /g, "&nbsp;");
-}
-
 export const NovelViewer: FC<Props> = ({ text, writingHorizontally }) => {
 	const aText = addLinkTags(text);
 	const rubyText = addRubyTags(aText);

@@ -49,14 +49,12 @@ const WritersPage = ({ user }) => {
 						</Heading>
 
 						{/* 作家一覧 */}
-						<SimpleGrid spacing={1} minChildWidth="300px">
-							<Box onClick={() => setIsLoading(true)}>
-								{writers.map((writer) => (
-									<Center key={writer.id} mt={4}>
-										<WriterCard writer={writer} />
-									</Center>
-								))}
-							</Box>
+						<SimpleGrid spacing={1} minChildWidth="300px" onClick={() => setIsLoading(true)}>
+							{writers.map((writer) => (
+								<Center key={writer.id} mt={4}>
+									<WriterCard writer={writer} />
+								</Center>
+							))}
 						</SimpleGrid>
 					</Container>
 

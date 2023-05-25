@@ -47,7 +47,7 @@ const WriterCard = ({ writer }) => {
 					</Heading>
 					<LikeUserButton name={user_name} />
 				</HStack>
-				<Text fontSize={"12px"} overflowWrap="break-word">
+				<Text fontSize={"12px"} overflowWrap="break-word" overflow={"scroll"}>
 					<WritersIntroductionViewer text={Introduction} />
 				</Text>
 			</Box>

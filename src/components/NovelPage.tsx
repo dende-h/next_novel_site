@@ -113,7 +113,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 								<Text fontSize="sm" fontWeight="semibold" mb={4}>
 									{charCount}文字
 								</Text>
-								<Text fontSize="md" mb={4}>
+								<Text fontSize="md" mb={4} overflowWrap={"break-word"} overflow={"scroll"}>
 									{authorBio}
 								</Text>
 								<Box>

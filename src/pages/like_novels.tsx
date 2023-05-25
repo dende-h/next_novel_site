@@ -147,14 +147,12 @@ const NovelsPage = ({ drafts }) => {
 						</Drawer>
 
 						{/* 小説一覧 */}
-						<SimpleGrid spacing={1} minChildWidth="300px">
-							<Box onClick={() => setIsLoading(true)}>
-								{(selectTags.length > 0 ? filterNovels : likeNovels).map((novel) => (
-									<Center mt={4} key={novel.id}>
-										<NovelCard novel={novel} />
-									</Center>
-								))}
-							</Box>
+						<SimpleGrid spacing={1} minChildWidth="300px" onClick={() => setIsLoading(true)}>
+							{(selectTags.length > 0 ? filterNovels : likeNovels).map((novel) => (
+								<Center mt={4} key={novel.id}>
+									<NovelCard novel={novel} />
+								</Center>
+							))}
 						</SimpleGrid>
 					</Container>
 
