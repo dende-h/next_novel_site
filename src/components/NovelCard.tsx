@@ -44,11 +44,11 @@ const NovelCard = (props: Props) => {
 					borderBottomRightRadius="md"
 					backgroundColor={backgroundCardFooterColor}
 				>
-					<Text fontSize={"sm"} fontWeight="bold" mb={"2"} lineHeight="shorter" height="2rem" overflow="hidden">
+					<Text fontSize={"sm"} fontWeight="bold" lineHeight="shorter" height="3rem" overflow="hidden">
 						{novel.title}
 					</Text>
 
-					<Text fontSize={"xs"} overflow="hidden" color={"blue"}>
+					<Text fontSize={"xs"} overflow="hidden">
 						作者：{novel.author}
 					</Text>
 
@@ -64,7 +64,7 @@ const NovelCard = (props: Props) => {
 						))}
 					</Box>
 					<Flex>
-						<Text fontSize={"xs"} my={"auto"}>
+						<Text fontSize={"xs"} my={"auto"} mr={3}>
 							{charCount}文字
 						</Text>
 						<LikeButton id={novel.id} title={novel.title} good_mark={novel.good_mark} />
