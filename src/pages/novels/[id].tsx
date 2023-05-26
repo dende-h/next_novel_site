@@ -83,10 +83,6 @@ const Novel = ({ drafts, user, comments }) => {
 					<Header />
 
 					<Container flex="1" maxW="container.lg" py={8}>
-						<Heading as="h1" mb={4} textAlign="center">
-							{novel.title}
-						</Heading>
-
 						<NovelPage
 							id={novel.id}
 							title={novel.title}

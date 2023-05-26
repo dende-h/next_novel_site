@@ -37,6 +37,7 @@ import format from "date-fns/format";
 import { useCalcCharCount } from "../hooks/useCalcCharCount";
 import Link from "next/link";
 import LikeUserButton from "./LikeUserButton";
+import { WritersIntroductionViewer } from "./WritersIntroductionViewer";
 
 // 小説の情報を受け取るprops
 type NovelProps = {
@@ -113,9 +114,9 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 								<Text fontSize="sm" fontWeight="semibold" mb={4}>
 									{charCount}文字
 								</Text>
-								<Text fontSize="md" mb={4} overflowWrap={"break-word"} overflow={"scroll"}>
-									{authorBio}
-								</Text>
+								<Box fontSize="14px" width={"auto"}>
+									<WritersIntroductionViewer text={authorBio} />
+								</Box>
 								<Box>
 									{tags.map((tag: string, index: number) => (
 										<Badge key={index} colorScheme="teal" mr={"1"} fontSize={"sm"} lineHeight="none" overflow="hidden">

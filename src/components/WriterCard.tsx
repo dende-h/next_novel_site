@@ -40,6 +40,7 @@ const WriterCard = ({ writer }) => {
 				borderBottomRightRadius="md"
 				backgroundColor={backgroundCardFooterColor}
 				position="relative"
+				overflowY={"scroll"}
 			>
 				<HStack>
 					<Heading as={"h4"} fontSize={"md"} fontWeight="bold" lineHeight="shorter" height="1.5rem" overflow="hidden">
@@ -47,9 +48,9 @@ const WriterCard = ({ writer }) => {
 					</Heading>
 					<LikeUserButton name={user_name} />
 				</HStack>
-				<Text fontSize={"12px"} overflowWrap="break-word" overflow={"scroll"}>
+				<Box fontSize={"12px"} overflowWrap="break-word">
 					<WritersIntroductionViewer text={Introduction} />
-				</Text>
+				</Box>
 			</Box>
 		</Box>
 	);
