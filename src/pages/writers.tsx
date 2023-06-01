@@ -43,7 +43,7 @@ const WritersPage = ({ user }) => {
 				<Box minH="100vh" display="flex" flexDirection="column">
 					<Header />
 
-					<Container flex="1" maxW="container.lg" py={8}>
+					<Container flex="1" maxW={"100%"} py={8} px={4}>
 						<Heading as="h1" mb={4} textAlign="center">
 							作家一覧
 						</Heading>

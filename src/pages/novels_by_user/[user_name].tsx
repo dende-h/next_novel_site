@@ -42,7 +42,7 @@ export type Draft = {
 	good_mark: number;
 };
 
-const NovelsByUser = ({ drafts }) => {
+const NovelsByUser = ({ drafts, comments }) => {
 	const router = useRouter();
 	const userName = router.query.user_name;
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -101,7 +101,7 @@ const NovelsByUser = ({ drafts }) => {
 				<Box minH="100vh" display="flex" flexDirection="column">
 					<Header />
 
-					<Container flex="1" maxW="container.lg" py={8}>
+					<Container flex="1" maxW={"100%"} py={8} px={4}>
 						<Heading as="h1" mb={4} textAlign="center">
 							{userName}の小説一覧
 						</Heading>
@@ -143,7 +143,14 @@ const NovelsByUser = ({ drafts }) => {
 						<SimpleGrid spacing={1} minChildWidth="300px" onClick={() => setIsLoading(true)}>
 							{(selectTags.length > 0 ? filterNovels : novels).map((novel) => (
 								<Center mt={4} key={novel.id}>
-									<NovelCard novel={novel} />
+									<NovelCard
+										novel={novel}
+										commentNum={
+											comments.filter((item) => {
+												return novel.id === item.novel_id;
+											}).length
+										}
+									/>
 								</Center>
 							))}
 						</SimpleGrid>
@@ -181,10 +188,16 @@ export async function getStaticProps() {
 	const { data, error } = await supabase.from("drafts").select("*").order("created_at", { ascending: false });
 
 	if (error) console.log("error", error);
+	const { data: comments, error: commentsFetchErr } = await supabase
+		.from("comments")
+		.select("*")
+		.order("created_at", { ascending: false });
 
+	if (commentsFetchErr) console.log("error", commentsFetchErr);
 	return {
 		props: {
-			drafts: data
+			drafts: data,
+			comments: comments
 		},
 		revalidate: 10
 	};

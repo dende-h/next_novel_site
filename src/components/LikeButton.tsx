@@ -51,7 +51,7 @@ const LikeButton = (props: Props) => {
 				colorScheme={isLikes ? "red" : "gray"}
 				borderRadius={"full"}
 			/>
-			<Box>{goodMark}</Box>
+			<Box fontSize={"xs"}>{goodMark}</Box>
 		</HStack>
 	);
 };

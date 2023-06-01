@@ -39,7 +39,7 @@ export type novels = {
 	good_mark: number;
 };
 
-const NovelsPage = ({ drafts }) => {
+const NovelsPage = ({ drafts ,comments}) => {
 	const [isClient, setIsClient] = useState(false);
 	useEffect(() => {
 		if (typeof window !== undefined) {
@@ -108,7 +108,7 @@ const NovelsPage = ({ drafts }) => {
 				<Box minH="100vh" display="flex" flexDirection="column">
 					<Header />
 
-					<Container flex="1" maxW="container.lg" py={8}>
+					<Container flex="1" maxW={"100%"} py={8} px={4}>
 						<Heading as="h1" mb={4} textAlign="center">
 							いいねした小説一覧（{`${selectTags.length > 0 ? filterNovels.length : likeNovels.length}件`}）
 						</Heading>
@@ -150,7 +150,14 @@ const NovelsPage = ({ drafts }) => {
 						<SimpleGrid spacing={1} minChildWidth="300px" onClick={() => setIsLoading(true)}>
 							{(selectTags.length > 0 ? filterNovels : likeNovels).map((novel) => (
 								<Center mt={4} key={novel.id}>
-									<NovelCard novel={novel} />
+									<NovelCard
+										novel={novel}
+										commentNum={
+											comments.filter((item) => {
+												return novel.id === item.novel_id;
+											}).length
+										}
+									/>
 								</Center>
 							))}
 						</SimpleGrid>
@@ -176,11 +183,17 @@ export async function getStaticProps() {
 	const { data, error } = await supabase.from("drafts").select("*").order("created_at", { ascending: false });
 
 	if (error) console.log("error", error);
+const { data: comments, error: commentsFetchErr } = await supabase
+	.from("comments")
+	.select("*")
+	.order("created_at", { ascending: false });
 
-	return {
-		props: {
-			drafts: data
-		},
-		revalidate: 10
-	};
+if (commentsFetchErr) console.log("error", commentsFetchErr);
+return {
+	props: {
+		drafts: data,
+		comments: comments
+	},
+	revalidate: 10
+};
 }

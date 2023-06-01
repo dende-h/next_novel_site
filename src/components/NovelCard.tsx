@@ -1,17 +1,20 @@
-import { Box, Text, Badge, Center, useColorModeValue, Flex } from "@chakra-ui/react";
+import { Box, Text, Badge, Center, useColorModeValue, Flex, Spacer } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useCalcCharCount } from "../hooks/useCalcCharCount";
 import { novels } from "../pages/novels";
 import LikeButton from "./LikeButton";
+import { useRecoilValue } from "recoil";
+import { commentsArray } from "../Atoms/commentsArray";
 
 type Props = {
 	novel: novels;
+	commentNum:number
 };
 
 const NovelCard = (props: Props) => {
-	const { novel } = props;
+	const { novel,commentNum } = props;
 	const router = useRouter();
 	const imageUrl = novel.thumbnail ? novel.thumbnail : "/android-chrome-256x256.png";
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
@@ -19,7 +22,7 @@ const NovelCard = (props: Props) => {
 	useEffect(() => {
 		calcCharCount(novel.body);
 	}, []);
-
+	
 	return (
 		<>
 			<Box
@@ -68,6 +71,8 @@ const NovelCard = (props: Props) => {
 							{charCount}文字
 						</Text>
 						<LikeButton id={novel.id} title={novel.title} good_mark={novel.good_mark} />
+						<Spacer/>
+						<Text fontSize={"xs"} my={"auto"} mr={3}>コメント{commentNum}件</Text>
 					</Flex>
 				</Box>
 			</Box>

@@ -46,7 +46,7 @@ export const HeaderMenu = () => {
 						</Link>
 						<Link href={"/like_writers"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
-								いいねした作家
+								お気に入り作家
 							</MenuItem>
 						</Link>
 						<Link href={"/contact"} passHref>
