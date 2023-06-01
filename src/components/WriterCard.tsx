@@ -29,27 +29,28 @@ const WriterCard = ({ writer }) => {
 			}}
 			position={"relative"}
 		>
-			<Center w="100%" h="75%" position="relative">
+			<Center w="100%" h="70%" position="relative">
 				<Image src={imageUrl} alt={user_name} object-fit="contain" width={300} height={485} priority />
 			</Center>
 
 			<Box
 				h="30%"
-				p="1"
+				p="2"
 				borderBottomLeftRadius="md"
 				borderBottomRightRadius="md"
 				backgroundColor={backgroundCardFooterColor}
 				position="relative"
+				overflowY={"scroll"}
 			>
-				<HStack>
+				<HStack spacing={2}>
 					<Heading as={"h4"} fontSize={"md"} fontWeight="bold" lineHeight="shorter" height="1.5rem" overflow="hidden">
-						{user_name}
+						PN:{user_name}
 					</Heading>
 					<LikeUserButton name={user_name} />
 				</HStack>
-				<Text fontSize={"12px"} overflowWrap="break-word" overflow={"scroll"}>
+				<Box fontSize={"12px"} overflowWrap="break-word">
 					<WritersIntroductionViewer text={Introduction} />
-				</Text>
+				</Box>
 			</Box>
 		</Box>
 	);

@@ -42,14 +42,13 @@ const LikeButton = (props: Props) => {
 	};
 
 	return (
-		<HStack spacing={0}>
+		<HStack spacing={1}>
 			<IconButton
 				icon={<FaHeart />}
 				aria-label="いいね"
 				onClick={(e) => handleClick(e)}
-				size={"sm"}
+				size={"xs"}
 				colorScheme={isLikes ? "red" : "gray"}
-				variant="ghost"
 				borderRadius={"full"}
 			/>
 			<Box>{goodMark}</Box>

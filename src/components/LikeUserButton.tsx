@@ -1,5 +1,5 @@
 import { HStack, IconButton } from "@chakra-ui/react";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaStar } from "react-icons/fa";
 import { useRecoilState } from "recoil";
 import { MouseEvent, useEffect, useState } from "react";
 import { heartUserArray } from "../Atoms/heartUserArray";
@@ -30,12 +30,11 @@ const LikeUserButton = (props: Props) => {
 	return (
 		<HStack spacing={0}>
 			<IconButton
-				icon={<FaHeart />}
+				icon={<FaStar />}
 				aria-label="お気に入り"
 				onClick={(e) => handleClick(e)}
-				size={"sm"}
+				size={"xs"}
 				colorScheme={isLikes ? "yellow" : "gray"}
-				variant="ghost"
 				borderRadius={"full"}
 			/>
 		</HStack>
