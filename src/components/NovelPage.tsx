@@ -163,7 +163,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 								>
 									縦スクロール読み（PC推奨）
 								</Button>
-								<CommentsViewer novelId={id} />
+								<CommentsViewer novelId={id} commentsNum={comments.length}/>
 								<VStack spacing={2}>
 									{comments.map((item) => {
 										return (

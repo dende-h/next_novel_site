@@ -97,7 +97,7 @@ const NovelsPage = ({ drafts }) => {
 		<>
 			<Seo
 				pageTitle="小説一覧"
-				pageDescription="投稿された小説の一覧です"
+				pageDescription="いいねした小説の一覧です"
 				pageImg={null}
 				pagePath="https://next-novel-site.vercel.app/novels"
 				pageImgHeight="600"
@@ -110,7 +110,7 @@ const NovelsPage = ({ drafts }) => {
 
 					<Container flex="1" maxW="container.lg" py={8}>
 						<Heading as="h1" mb={4} textAlign="center">
-							小説一覧
+							いいねした小説一覧（{`${selectTags.length > 0 ? filterNovels.length : likeNovels.length}件`}）
 						</Heading>
 
 						{/* タグフィルター */}

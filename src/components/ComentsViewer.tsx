@@ -33,10 +33,10 @@ type FormValues = {
 	googleReCaptchaToken: string;
 };
 
-type Props = { novelId: string };
+type Props = { novelId: string , commentsNum:number};
 
 export const CommentsViewer = (props: Props) => {
-	const { novelId } = props;
+	const { novelId,commentsNum } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [isSend, setIsSend] = useState<boolean>(false);
 	const firstField = React.useRef();
@@ -133,7 +133,7 @@ export const CommentsViewer = (props: Props) => {
 	return (
 		<>
 			<Button leftIcon={<AddIcon />} colorScheme="teal" onClick={onOpen} width={{ base: "300px", md: "450px" }}>
-				コメントする
+				{`コメントする (${commentsNum}件)`}
 			</Button>
 			<Drawer
 				isOpen={isOpen}
