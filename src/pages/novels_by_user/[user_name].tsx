@@ -185,7 +185,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps() {
-	const { data, error } = await supabase.from("drafts").select("*").order("created_at", { ascending: false });
+	const { data, error } = await supabase.from("drafts").select("*").order("last_edit_time", { ascending: false });
 
 	if (error) console.log("error", error);
 	const { data: comments, error: commentsFetchErr } = await supabase

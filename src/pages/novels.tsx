@@ -38,7 +38,7 @@ export type novels = {
 	good_mark: number;
 };
 
-const NovelsPage = ({ drafts ,comments}) => {
+const NovelsPage = ({ drafts, comments }) => {
 	const [isClient, setIsClient] = useState(false);
 	useEffect(() => {
 		if (typeof window !== undefined) {
@@ -138,7 +138,14 @@ const NovelsPage = ({ drafts ,comments}) => {
 						<SimpleGrid spacing={1} minChildWidth="300px" onClick={() => setIsLoading(true)}>
 							{(selectTags.length > 0 ? filterNovels : novels).map((novel) => (
 								<Center key={novel.id} mt={4}>
-									<NovelCard novel={novel} commentNum={comments.filter((item)=>{return novel.id === item.novel_id}).length} />
+									<NovelCard
+										novel={novel}
+										commentNum={
+											comments.filter((item) => {
+												return novel.id === item.novel_id;
+											}).length
+										}
+									/>
 								</Center>
 							))}
 						</SimpleGrid>
@@ -161,14 +168,14 @@ const NovelsPage = ({ drafts ,comments}) => {
 export default NovelsPage;
 
 export async function getStaticProps() {
-	const { data, error } = await supabase.from("drafts").select("*").order("created_at", { ascending: false });
-		if (error) console.log("error", error);
-const { data: comments, error: commentsFetchErr } = await supabase
-	.from("comments")
-	.select("*")
-	.order("created_at", { ascending: false });
+	const { data, error } = await supabase.from("drafts").select("*").order("last_edit_time", { ascending: false });
+	if (error) console.log("error", error);
+	const { data: comments, error: commentsFetchErr } = await supabase
+		.from("comments")
+		.select("*")
+		.order("created_at", { ascending: false });
 
-if (commentsFetchErr) console.log("error", commentsFetchErr);
+	if (commentsFetchErr) console.log("error", commentsFetchErr);
 	return {
 		props: {
 			drafts: data,

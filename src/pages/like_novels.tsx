@@ -39,7 +39,7 @@ export type novels = {
 	good_mark: number;
 };
 
-const NovelsPage = ({ drafts ,comments}) => {
+const NovelsPage = ({ drafts, comments }) => {
 	const [isClient, setIsClient] = useState(false);
 	useEffect(() => {
 		if (typeof window !== undefined) {
@@ -180,20 +180,20 @@ const NovelsPage = ({ drafts ,comments}) => {
 export default NovelsPage;
 
 export async function getStaticProps() {
-	const { data, error } = await supabase.from("drafts").select("*").order("created_at", { ascending: false });
+	const { data, error } = await supabase.from("drafts").select("*").order("last_edit_time", { ascending: false });
 
 	if (error) console.log("error", error);
-const { data: comments, error: commentsFetchErr } = await supabase
-	.from("comments")
-	.select("*")
-	.order("created_at", { ascending: false });
+	const { data: comments, error: commentsFetchErr } = await supabase
+		.from("comments")
+		.select("*")
+		.order("created_at", { ascending: false });
 
-if (commentsFetchErr) console.log("error", commentsFetchErr);
-return {
-	props: {
-		drafts: data,
-		comments: comments
-	},
-	revalidate: 10
-};
+	if (commentsFetchErr) console.log("error", commentsFetchErr);
+	return {
+		props: {
+			drafts: data,
+			comments: comments
+		},
+		revalidate: 10
+	};
 }
