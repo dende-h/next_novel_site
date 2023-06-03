@@ -29,6 +29,7 @@ import { novels } from "../novels";
 import Seo from "../../components/Seo";
 
 export type Draft = {
+	last_edit_time:string
 	created_at: string;
 	id: string;
 	title: string;
@@ -53,7 +54,7 @@ const NovelsByUser = ({ drafts, comments }) => {
 			return item.user_name === userName;
 		})
 		.map((item: Draft) => {
-			const formatDate = format(new Date(item.created_at), "yyyy/MM/dd-HH:mm");
+			const formatDate = format(new Date(item.last_edit_time), "yyyy/MM/dd-HH:mm");
 
 			return {
 				id: item.id,

@@ -51,7 +51,7 @@ const NovelsPage = ({ drafts, comments }) => {
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const heartNovels = useRecoilValue<string[]>(heartNovelArray);
 	const novels: novels[] = drafts.map((item) => {
-		const formatDate = format(new Date(item.created_at), "yyyy/MM/dd-HH:mm");
+		const formatDate = format(new Date(item.last_edit_time), "yyyy/MM/dd-HH:mm");
 
 		return {
 			id: item.id,
