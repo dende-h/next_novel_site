@@ -89,7 +89,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 					<Box bg={backgroundColor} px={4} py={8}>
 						<Box maxW="600px" mx="auto">
 							<Center w={"100%"} h={"auto"} mb={6} borderRadius="md">
-								<Image src={coverImage} alt={`${title}の表紙`} object-fit="contain" width={450} height={728} priority />
+								<Image src={coverImage} alt={`${title}の表紙`} width={450} height={728} priority />
 							</Center>
 							<Box mb={6}>
 								<Heading as="h1" fontSize="2xl" mb={2}>
@@ -164,7 +164,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 								>
 									縦スクロール読み（PC推奨）
 								</Button>
-								<CommentsViewer novelId={id} commentsNum={comments.length}/>
+								<CommentsViewer novelId={id} commentsNum={comments.length} />
 								<VStack spacing={2}>
 									{comments.map((item) => {
 										return (
