@@ -29,6 +29,11 @@ export const HeaderMenu = () => {
 						p={2}
 						_focus={{ outline: "none" }}
 					>
+						<Link href={"/ranking"} passHref>
+							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
+								PVランキング
+							</MenuItem>
+						</Link>
 						<Link href={"/novels"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
 								新規小説一覧
