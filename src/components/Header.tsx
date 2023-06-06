@@ -31,6 +31,13 @@ const Header = () => {
 			</Box>
 			<Flex align="center">
 				<Box mr={4} display={{ base: "none", lg: "block" }}>
+					<Link href="/ranking" _hover={{ textDecoration: "none" }}>
+						<Text fontSize="lg" fontWeight="medium">
+							PVランキング
+						</Text>
+					</Link>
+				</Box>
+				<Box mr={4} display={{ base: "none", lg: "block" }}>
 					<Link href="/novels" _hover={{ textDecoration: "none" }}>
 						<Text fontSize="lg" fontWeight="medium">
 							新規小説

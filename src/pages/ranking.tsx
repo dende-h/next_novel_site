@@ -14,7 +14,9 @@ import {
 	Tr,
 	useBreakpointValue,
 	Select,
-	Container
+	Container,
+	Spinner,
+	Center
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
@@ -37,8 +39,10 @@ export default function RankingPage() {
 	const [tabIndex, setTabIndex] = useState(0);
 	const baseURL = "https://next-novel-site.vercel.app";
 	const periods = ["allTime", "monthly", "weekly", "daily"];
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
+		setIsLoading(true);
 		const fetchData = async () => {
 			const res = await fetch(`/api/ranking?period=${periods[tabIndex]}`);
 			const data: RankingData[] = await res.json();
@@ -86,6 +90,7 @@ export default function RankingPage() {
 				.filter((item) => item !== null);
 
 			setRankingData(finalData);
+			setIsLoading(false);
 		};
 
 		fetchData();
@@ -139,56 +144,66 @@ export default function RankingPage() {
 								</Tabs>
 							)}
 							<Box bg="white" borderRadius="md" borderWidth="1px" borderColor="gray.300" overflow="hidden" mt={4}>
-								<Table variant="simple" size="sm">
-									<Thead bg="gray.50">
-										<Tr>
-											<Th textAlign="center" color="gray.500" fontWeight="semibold">
-												Ranking
-											</Th>
-											{!isSmallScreen && (
+								{isLoading ? (
+									<Center p={6}>
+										<Spinner />
+									</Center>
+								) : (
+									<Table variant="simple" size="sm">
+										<Thead bg="gray.50">
+											<Tr>
 												<Th textAlign="center" color="gray.500" fontWeight="semibold">
-													Image
+													Ranking
 												</Th>
-											)}
-											<Th textAlign="center" color="gray.500" fontWeight="semibold">
-												Information
-											</Th>
-											<Th textAlign="center" color="gray.500" fontWeight="semibold">
-												PV Count
-											</Th>
-										</Tr>
-									</Thead>
-									<Tbody>
-										{rankingData.slice(0, 50).map((item, index) => (
-											<Tr key={index}>
-												<Td textAlign="center">{index + 1}</Td>
-												{!isSmallScreen &&
-													(item.imageUrl ? (
-														<Td display="flex" justifyContent="center">
-															<Image alt={"image"} src={item.imageUrl} width={45} height={73} />
-														</Td>
-													) : (
-														<Td textAlign="center">
-															<Text>No Image</Text>
-														</Td>
-													))}
-												<Td>
-													<VStack align="start" spacing={1}>
-														<Link href={`${baseURL}${item.pagePath}`}>
-															<Text fontWeight="bold" color="blue" fontSize={{ base: "11px", md: "12px", lg: "14px" }}>
-																{item.title}
-															</Text>
-														</Link>
-														<Text fontSize="sm" color="gray.500">
-															by {item.userName}
-														</Text>
-													</VStack>
-												</Td>
-												<Td textAlign="center">{item.uniquePageviews}</Td>
+												{!isSmallScreen && (
+													<Th textAlign="center" color="gray.500" fontWeight="semibold">
+														Image
+													</Th>
+												)}
+												<Th textAlign="center" color="gray.500" fontWeight="semibold">
+													Information
+												</Th>
+												<Th textAlign="center" color="gray.500" fontWeight="semibold">
+													PV Count
+												</Th>
 											</Tr>
-										))}
-									</Tbody>
-								</Table>
+										</Thead>
+										<Tbody>
+											{rankingData.slice(0, 50).map((item, index) => (
+												<Tr key={index}>
+													<Td textAlign="center">{index + 1}</Td>
+													{!isSmallScreen &&
+														(item.imageUrl ? (
+															<Td display="flex" justifyContent="center">
+																<Image alt={"image"} src={item.imageUrl} width={45} height={73} />
+															</Td>
+														) : (
+															<Td textAlign="center">
+																<Text>No Image</Text>
+															</Td>
+														))}
+													<Td>
+														<VStack align="start" spacing={1}>
+															<Link href={`${baseURL}${item.pagePath}`}>
+																<Text
+																	fontWeight="bold"
+																	color="blue"
+																	fontSize={{ base: "11px", md: "12px", lg: "14px" }}
+																>
+																	{item.title}
+																</Text>
+															</Link>
+															<Text fontSize="sm" color="gray.500">
+																by {item.userName}
+															</Text>
+														</VStack>
+													</Td>
+													<Td textAlign="center">{item.uniquePageviews}</Td>
+												</Tr>
+											))}
+										</Tbody>
+									</Table>
+								)}
 							</Box>
 						</Box>
 					</Box>
