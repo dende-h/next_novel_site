@@ -10,11 +10,11 @@ import { commentsArray } from "../Atoms/commentsArray";
 
 type Props = {
 	novel: novels;
-	commentNum:number
+	commentNum: number;
 };
 
 const NovelCard = (props: Props) => {
-	const { novel,commentNum } = props;
+	const { novel, commentNum } = props;
 	const router = useRouter();
 	const imageUrl = novel.thumbnail ? novel.thumbnail : "/android-chrome-256x256.png";
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
@@ -22,7 +22,7 @@ const NovelCard = (props: Props) => {
 	useEffect(() => {
 		calcCharCount(novel.body);
 	}, []);
-	
+
 	return (
 		<>
 			<Box
@@ -35,9 +35,10 @@ const NovelCard = (props: Props) => {
 				_hover={{ boxShadow: "2xl", transform: "translateY(-4px)", cursor: "pointer" }}
 				mb={"4"}
 				onClick={() => router.push(`/novels/${novel.id}`)}
+				position="relative"
 			>
-				<Center w="100%" h="75%" position="relative">
-					<Image src={imageUrl} alt={novel.title} object-fit="contain" width={300} height={485} priority />
+				<Center w="100%" h="70%" position="relative">
+					<Image src={imageUrl} alt={novel.title} fill style={{ objectFit: "contain" }} priority />
 				</Center>
 
 				<Box
@@ -71,8 +72,10 @@ const NovelCard = (props: Props) => {
 							{charCount}文字
 						</Text>
 						<LikeButton id={novel.id} title={novel.title} good_mark={novel.good_mark} />
-						<Spacer/>
-						<Text fontSize={"xs"} my={"auto"} mr={3}>コメント{commentNum}件</Text>
+						<Spacer />
+						<Text fontSize={"xs"} my={"auto"} mr={3}>
+							コメント{commentNum}件
+						</Text>
 					</Flex>
 				</Box>
 			</Box>
