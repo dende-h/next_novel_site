@@ -156,7 +156,7 @@ export default function RankingPage() {
 									<Table variant="simple" size="sm">
 										<Thead bg={backgroundColor}>
 											<Tr>
-												<Th textAlign="center" color="gray.500" fontWeight="semibold">
+												<Th textAlign="center" color={textColor} fontWeight="semibold">
 													順位
 												</Th>
 												{!isSmallScreen && (
@@ -175,8 +175,10 @@ export default function RankingPage() {
 										<Tbody>
 											{rankingData.slice(0, 50).map((item, index) => (
 												<Tr key={index}>
-													<Td textAlign="center" color={textColor}>
-														{index + 1}位
+													<Td textAlign="center">
+														<Text fontSize="sm" color={textColor}>
+															{index + 1}位
+														</Text>
 													</Td>
 													{!isSmallScreen &&
 														(item.imageUrl ? (
@@ -204,8 +206,10 @@ export default function RankingPage() {
 															</Text>
 														</VStack>
 													</Td>
-													<Td textAlign="center" color={textColor}>
-														{item.uniquePageviews}UPV
+													<Td textAlign="center">
+														<Text fontSize="sm" color={textColor}>
+															{item.uniquePageviews}UPV
+														</Text>
 													</Td>
 												</Tr>
 											))}
