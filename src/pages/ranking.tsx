@@ -180,16 +180,18 @@ export default function RankingPage() {
 															{index + 1}位
 														</Text>
 													</Td>
-													{!isSmallScreen &&
-														(item.imageUrl ? (
-															<Td display="flex" justifyContent="center">
-																<Image alt={"image"} src={item.imageUrl} width={45} height={73} />
-															</Td>
-														) : (
-															<Td textAlign="center">
-																<Text color={textColor}>No Image</Text>
-															</Td>
-														))}
+													{!isSmallScreen && (
+														<Td>
+															<Center w={"72px"} h={"72px"} position={"relative"} mx={"auto"}>
+																<Image
+																	alt={"image"}
+																	src={item.imageUrl ? item.imageUrl : "/android-chrome-72x72.png"}
+																	fill
+																	style={{ objectFit: "contain" }}
+																/>
+															</Center>
+														</Td>
+													)}
 													<Td>
 														<VStack align="start" spacing={1}>
 															<Link href={`${baseURL}${item.pagePath}`}>
