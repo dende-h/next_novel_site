@@ -16,7 +16,8 @@ import {
 	Select,
 	Container,
 	Spinner,
-	Center
+	Center,
+	useColorModeValue
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
@@ -100,6 +101,9 @@ export default function RankingPage() {
 	};
 
 	const isSmallScreen = useBreakpointValue({ base: true, md: false });
+	const backgroundColor = useColorModeValue("gray.50", "gray.900");
+	const textBackgroundColor = useColorModeValue("gray.100", "gray.700");
+	const textColor = useColorModeValue("gray.700", "gray.100");
 
 	return (
 		<>
@@ -121,25 +125,25 @@ export default function RankingPage() {
 							mb={4}
 							textAlign={"center"}
 							fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}
-							color={"gray.700"}
+							color={textColor}
 						>
-							Novel Ranking
+							Novel PV Ranking
 						</Heading>
-						<Box borderRadius="lg" overflow="hidden" boxShadow="lg" bg="gray.100" p={5}>
+						<Box borderRadius="lg" overflow="hidden" boxShadow="lg" bg={textBackgroundColor} p={5}>
 							{isSmallScreen ? (
 								<Select defaultValue={"allTime"} mb={4} onChange={(e) => handleTabsChange(e.target.selectedIndex)}>
-									<option value="allTime">All Time</option>
-									<option value="monthly">Last 30 days</option>
-									<option value="weekly">Last 7 days</option>
-									<option value="daily">Last 24 hours</option>
+									<option value="allTime">全期間</option>
+									<option value="monthly">過去30日</option>
+									<option value="weekly">過去7日</option>
+									<option value="daily">過去24時間</option>
 								</Select>
 							) : (
 								<Tabs variant="enclosed" index={tabIndex} onChange={handleTabsChange}>
 									<TabList borderColor={"gray.500"}>
-										<Tab>All Time</Tab>
-										<Tab>Last 30 days</Tab>
-										<Tab>Last 7 days</Tab>
-										<Tab>Last 24 hours</Tab>
+										<Tab>全期間</Tab>
+										<Tab>過去30日</Tab>
+										<Tab>過去7日</Tab>
+										<Tab>過去24時間</Tab>
 									</TabList>
 								</Tabs>
 							)}
@@ -150,28 +154,30 @@ export default function RankingPage() {
 									</Center>
 								) : (
 									<Table variant="simple" size="sm">
-										<Thead bg="gray.50">
+										<Thead bg={backgroundColor}>
 											<Tr>
 												<Th textAlign="center" color="gray.500" fontWeight="semibold">
-													Ranking
+													順位
 												</Th>
 												{!isSmallScreen && (
-													<Th textAlign="center" color="gray.500" fontWeight="semibold">
-														Image
+													<Th textAlign="center" color={textColor} fontWeight="semibold">
+														表紙画像
 													</Th>
 												)}
-												<Th textAlign="center" color="gray.500" fontWeight="semibold">
-													Information
+												<Th textAlign="center" color={textColor} fontWeight="semibold">
+													作品情報
 												</Th>
-												<Th textAlign="center" color="gray.500" fontWeight="semibold">
-													PV Count
+												<Th textAlign="center" color={textColor} fontWeight="semibold">
+													ユニークPV数
 												</Th>
 											</Tr>
 										</Thead>
 										<Tbody>
 											{rankingData.slice(0, 50).map((item, index) => (
 												<Tr key={index}>
-													<Td textAlign="center">{index + 1}</Td>
+													<Td textAlign="center" color={textColor}>
+														{index + 1}位
+													</Td>
 													{!isSmallScreen &&
 														(item.imageUrl ? (
 															<Td display="flex" justifyContent="center">
@@ -179,7 +185,7 @@ export default function RankingPage() {
 															</Td>
 														) : (
 															<Td textAlign="center">
-																<Text>No Image</Text>
+																<Text color={textColor}>No Image</Text>
 															</Td>
 														))}
 													<Td>
@@ -193,12 +199,14 @@ export default function RankingPage() {
 																	{item.title}
 																</Text>
 															</Link>
-															<Text fontSize="sm" color="gray.500">
+															<Text fontSize="sm" color={textColor}>
 																by {item.userName}
 															</Text>
 														</VStack>
 													</Td>
-													<Td textAlign="center">{item.uniquePageviews}</Td>
+													<Td textAlign="center" color={textColor}>
+														{item.uniquePageviews}UPV
+													</Td>
 												</Tr>
 											))}
 										</Tbody>
