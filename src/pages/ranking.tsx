@@ -147,7 +147,14 @@ export default function RankingPage() {
 									</TabList>
 								</Tabs>
 							)}
-							<Box bg="white" borderRadius="md" borderWidth="1px" borderColor="gray.300" overflow="hidden" mt={4}>
+							<Box
+								bg={backgroundColor}
+								borderRadius="md"
+								borderWidth="1px"
+								borderColor="gray.300"
+								overflow="hidden"
+								mt={4}
+							>
 								{isLoading ? (
 									<Center p={6}>
 										<Spinner />
