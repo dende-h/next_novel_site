@@ -86,7 +86,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 		<>
 			{!isLoading ? (
 				<>
-					<Box bg={backgroundColor} px={4} py={8}>
+					<Box bg={textBackgroundColor} px={4} py={8}>
 						<Box maxW="600px" mx="auto">
 							<Center w={"100%"} h={"auto"} mb={6} borderRadius="md">
 								<Image src={coverImage} alt={`${title}の表紙`} width={450} height={728} priority />
