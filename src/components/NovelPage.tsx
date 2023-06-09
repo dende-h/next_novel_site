@@ -21,7 +21,14 @@ import {
 	useToast,
 	Avatar,
 	Flex,
-	Spinner
+	Spinner,
+	ModalBody,
+	Modal,
+	ModalCloseButton,
+	ModalContent,
+	ModalFooter,
+	ModalHeader,
+	ModalOverlay
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -86,7 +93,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 		<>
 			{!isLoading ? (
 				<>
-					<Box bg={backgroundColor} px={4} py={8}>
+					<Box bg={textBackgroundColor} px={4} py={8}>
 						<Box maxW="600px" mx="auto">
 							<Center w={"100%"} h={"auto"} mb={6} borderRadius="md">
 								<Image src={coverImage} alt={`${title}の表紙`} width={450} height={728} priority />
@@ -207,25 +214,23 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 							</VStack>
 						</Box>
 					</Box>
-					<Drawer isOpen={isOpen} onClose={onClose} size="full" placement="bottom">
-						<DrawerOverlay />
-						<DrawerContent backgroundColor={backgroundColor} position={"relative"}>
-							<DrawerCloseButton position={"absolute"} top={1} left={1} />
-							<DrawerHeader
-								maxW={"300px"}
-								textOverflow={"ellipsis"}
-								overflow={"hidden"}
-								whiteSpace={"nowrap"}
+					<Modal isOpen={isOpen} onClose={onClose} size="full">
+						<ModalOverlay />
+						<ModalContent backgroundColor={backgroundColor} position={"relative"}>
+							<ModalCloseButton position={"absolute"} top={1} left={1} />
+							<ModalHeader
+								minW={"auto"}
+								whiteSpace={"normal"}
 								fontFamily={"Noto Serif JP"}
 								marginX={"auto"}
 								h={"auto"}
 								p={8}
 							>
-								<Text as={"h3"} fontSize={{ base: "12px", md: "14px", lg: "16px" }}>
+								<Text as={"h3"} fontSize={{ base: "12px", md: "14px", lg: "16px" }} wordBreak="break-all">
 									{title}
 								</Text>
-							</DrawerHeader>
-							<DrawerBody h={"100%"} overflowY={"auto"} overflowX={"scroll"}>
+							</ModalHeader>
+							<ModalBody h={"100%"} overflowY={"auto"}>
 								<Box
 									sx={displayMode === "verticalScroll" ? css : undefined}
 									bgColor={textBackgroundColor}
@@ -242,14 +247,14 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 									{displayMode === "verticalScroll" && <NovelViewer text={body} writingHorizontally={false} />}
 									{displayMode === "bookView" && <NovelBookViewer text={body} writingHorizontally={false} />}
 								</Box>
-							</DrawerBody>
-							<DrawerFooter>
+							</ModalBody>
+							<ModalFooter>
 								<Button colorScheme={"teal"} onClick={onClose}>
 									Close
 								</Button>
-							</DrawerFooter>
-						</DrawerContent>
-					</Drawer>
+							</ModalFooter>
+						</ModalContent>
+					</Modal>
 				</>
 			) : (
 				<Center>
