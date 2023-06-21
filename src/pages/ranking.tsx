@@ -29,7 +29,7 @@ import Seo from "../components/Seo";
 
 type RankingData = {
 	pagePath: string;
-	uniquePageviews: string;
+	pageviews: string;
 	title?: string;
 	imageUrl?: string;
 	userName?: string;
@@ -47,7 +47,6 @@ export default function RankingPage() {
 		const fetchData = async () => {
 			const res = await fetch(`/api/ranking?period=${periods[tabIndex]}`);
 			const data: RankingData[] = await res.json();
-
 			if (!Array.isArray(data)) {
 				console.error("Data is not an array:", data);
 				return;
@@ -175,7 +174,7 @@ export default function RankingPage() {
 													作品情報
 												</Th>
 												<Th textAlign="center" color={textColor} fontWeight="semibold">
-													ユニークPV数
+													PV数
 												</Th>
 											</Tr>
 										</Thead>
@@ -217,7 +216,7 @@ export default function RankingPage() {
 													</Td>
 													<Td textAlign="center">
 														<Text fontSize="sm" color={textColor}>
-															{item.uniquePageviews}UPV
+															{item.pageviews}PV
 														</Text>
 													</Td>
 												</Tr>
