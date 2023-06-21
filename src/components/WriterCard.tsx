@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import LikeUserButton from "./LikeUserButton";
-import { Box, Center, Heading, HStack, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Center, Heading, HStack, useColorModeValue } from "@chakra-ui/react";
 import { WritersIntroductionViewer } from "./WritersIntroductionViewer";
 
 const WriterCard = ({ writer }) => {
