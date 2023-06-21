@@ -17,10 +17,9 @@ import {
 	FormControl,
 	Heading,
 	VStack,
-	color,
 	useColorModeValue
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm } from "react-hook-form";
 import { supabase } from "../../lib/supabaseClient";
@@ -33,10 +32,10 @@ type FormValues = {
 	googleReCaptchaToken: string;
 };
 
-type Props = { novelId: string , commentsNum:number};
+type Props = { novelId: string; commentsNum: number };
 
 export const CommentsViewer = (props: Props) => {
-	const { novelId,commentsNum } = props;
+	const { novelId, commentsNum } = props;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [isSend, setIsSend] = useState<boolean>(false);
 	const firstField = React.useRef();

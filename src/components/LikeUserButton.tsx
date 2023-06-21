@@ -1,5 +1,5 @@
 import { HStack, IconButton } from "@chakra-ui/react";
-import { FaHeart, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { useRecoilState } from "recoil";
 import { MouseEvent, useEffect, useState } from "react";
 import { heartUserArray } from "../Atoms/heartUserArray";
