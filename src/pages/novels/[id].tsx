@@ -1,6 +1,6 @@
 /* eslint-disable no-irregular-whitespace */
 import { useRouter } from "next/router";
-import { Box, Center, Container, Heading } from "@chakra-ui/react";
+import { Box, Center, Container } from "@chakra-ui/react";
 import Header from "../../components/Header";
 import { supabase } from "../../../lib/supabaseClient";
 import format from "date-fns/format";
