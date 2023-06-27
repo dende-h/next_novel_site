@@ -25,6 +25,11 @@ export default class Document extends NextDocument {
 					<meta name="msapplication-TileImage" content="/android-chrome-144x144.png" />
 					<meta name="application-name" content="Lit:Bite" />
 					<meta name="description" content="短編小説編集アプリRe:teratureから投稿された小説が読めるNovelサイトです" />
+					<script
+						async
+						src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9778569212499788"
+						crossOrigin="anonymous"
+					></script>
 				</Head>
 				<body>
 					{/* Make Color mode to persists when you refresh the page. */}
