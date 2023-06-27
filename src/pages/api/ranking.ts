@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
 
-const propertyId = "368541387"; // Replace with your property id
+const propertyId = process.env.GOOGLE_PROPATY_ID; // Replace with your property id
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const period = req.query.period as "allTime" | "monthly" | "weekly" | "daily";
@@ -49,10 +49,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		});
 
 		const rankingData = response.rows
-			.filter((row) => /\/novels\/\d+/.test(row.dimensionValues[0].value))
+			.filter((row) =>
+				/novels\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/.test(row.dimensionValues[0].value)
+			)
 			.map((row) => ({
 				pagePath: row.dimensionValues[0].value,
-				uniquePageviews: row.metricValues[0].value
+				pageviews: row.metricValues[0].value
 			}));
 
 		res.status(200).json(rankingData);

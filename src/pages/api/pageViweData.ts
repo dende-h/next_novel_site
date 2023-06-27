@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
 
-const propertyId = "368541387"; // Replace with your property id
+const propertyId = process.env.GOOGLE_PROPATY_ID; // Replace with your property id
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const period = req.query.period as "allTime" | "monthly" | "weekly" | "daily";
