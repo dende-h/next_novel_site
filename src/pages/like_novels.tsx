@@ -27,17 +27,7 @@ import { Footer } from "../components/Footer";
 import Seo from "../components/Seo";
 import { heartNovelArray } from "../Atoms/heartNovelArray";
 import { useRecoilValue } from "recoil";
-
-export type novels = {
-	id: string;
-	title: string;
-	author: string;
-	created_at: string;
-	thumbnail: string;
-	tags: string[];
-	body: string;
-	good_mark: number;
-};
+import { Novels } from "./novels";
 
 const NovelsPage = ({ drafts, comments }) => {
 	const [isClient, setIsClient] = useState(false);
@@ -50,7 +40,7 @@ const NovelsPage = ({ drafts, comments }) => {
 	const btnRef = React.useRef();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const heartNovels = useRecoilValue<string[]>(heartNovelArray);
-	const novels: novels[] = drafts.map((item) => {
+	const novels: Novels[] = drafts.map((item) => {
 		const formatDate = format(new Date(item.last_edit_time), "yyyy/MM/dd-HH:mm");
 
 		return {

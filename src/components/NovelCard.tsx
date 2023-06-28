@@ -3,11 +3,11 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useCalcCharCount } from "../hooks/useCalcCharCount";
-import { novels } from "../pages/novels";
+import { Novels } from "../pages/novels";
 import LikeButton from "./LikeButton";
 
 type Props = {
-	novel: novels;
+	novel: Novels;
 	commentNum: number;
 };
 
