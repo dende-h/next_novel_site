@@ -25,11 +25,11 @@ import format from "date-fns/format";
 import { useState } from "react";
 import React from "react";
 import { Footer } from "../../components/Footer";
-import { novels } from "../novels";
+import { Novels } from "../novels";
 import Seo from "../../components/Seo";
 
 export type Draft = {
-	last_edit_time:string
+	last_edit_time: string;
 	created_at: string;
 	id: string;
 	title: string;
@@ -41,6 +41,8 @@ export type Draft = {
 	tag4: string;
 	body: string;
 	good_mark: number;
+	preface: string | null;
+	postscript: string | null;
 };
 
 const NovelsByUser = ({ drafts, comments }) => {
@@ -49,7 +51,7 @@ const NovelsByUser = ({ drafts, comments }) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef = React.useRef();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
-	const novels: novels[] = drafts
+	const novels: Novels[] = drafts
 		.filter((item) => {
 			return item.user_name === userName;
 		})
@@ -200,6 +202,6 @@ export async function getStaticProps() {
 			drafts: data,
 			comments: comments
 		},
-		revalidate: 10
+		revalidate: 60
 	};
 }

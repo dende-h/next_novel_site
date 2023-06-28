@@ -6,7 +6,7 @@ import { supabase } from "../../../lib/supabaseClient";
 import format from "date-fns/format";
 import React, { useEffect, useState } from "react";
 import { Footer } from "../../components/Footer";
-import { novels } from "../novels";
+import { Novels } from "../novels";
 import Seo from "../../components/Seo";
 import { Writers } from "../writers";
 import { Draft } from "../novels_by_user/[user_name]";
@@ -33,7 +33,7 @@ const Novel = ({ drafts, user, comments }) => {
 		setCommentsState(commentsOnSingleNovel);
 	}, []);
 
-	const novel: novels = drafts
+	const novel: Novels = drafts
 		.filter((item) => {
 			return item.id === draftId;
 		})
@@ -48,7 +48,9 @@ const Novel = ({ drafts, user, comments }) => {
 				thumbnail: item.image_url,
 				tags: [item.tag1, item.tag2, item.tag3, item.tag4],
 				body: item.body,
-				good_mark: item.good_mark
+				good_mark: item.good_mark,
+				preface: item.preface ? item.preface : null,
+				postscript: item.postscript ? item.postscript : null
 			};
 		})[0];
 
@@ -93,6 +95,8 @@ const Novel = ({ drafts, user, comments }) => {
 							tags={novel.tags}
 							likes={novel.good_mark}
 							lastUpdated={novel.created_at}
+							preface={novel.preface}
+							postscript={novel.postscript}
 						/>
 					</Container>
 
@@ -147,6 +151,6 @@ export async function getStaticProps() {
 			user: user,
 			comments: comments
 		},
-		revalidate: 10
+		revalidate: 60
 	};
 }

@@ -50,9 +50,23 @@ type NovelProps = {
 	tags: string[];
 	likes: number;
 	lastUpdated: string;
+	preface: string | null;
+	postscript: string | null;
 };
 
-const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes, lastUpdated }: NovelProps) => {
+const NovelPage = ({
+	id,
+	title,
+	author,
+	authorBio,
+	body,
+	coverImage,
+	tags,
+	likes,
+	lastUpdated,
+	preface,
+	postscript
+}: NovelProps) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const comments = useRecoilValue(commentsArray);
 	const router = useRouter();
@@ -62,6 +76,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 	const [displayMode, setDisplayMode] = useState<string | null>(null);
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const textBackgroundColor = useColorModeValue("gray.100", "gray.500");
+	const prefaceBackgroundColor = useColorModeValue("gray.50", "gray.600");
 	const { calcCharCount, charCount } = useCalcCharCount();
 	useEffect(() => {
 		calcCharCount(body);
@@ -144,9 +159,17 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 								</HStack>
 							</Box>
 							<VStack>
+								{preface && (
+									<Box width={"100%"} p={2} boxShadow={"md"} borderRadius="md" backgroundColor={prefaceBackgroundColor}>
+										<Text fontFamily={"Noto Serif JP"} fontSize={{ base: "13px", md: "16px", lg: "18px" }}>
+											【まえがき】
+										</Text>
+										<WritersIntroductionViewer text={preface} />
+									</Box>
+								)}
 								<Button
 									width={{ base: "300px", md: "450px" }}
-									colorScheme="gray"
+									colorScheme="facebook"
 									onClick={() => {
 										setDisplayMode("horizontalScroll");
 										onOpen();
@@ -156,7 +179,7 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 								</Button>
 								<Button
 									width={{ base: "300px", md: "450px" }}
-									colorScheme="gray"
+									colorScheme="facebook"
 									onClick={() => {
 										setDisplayMode("verticalScroll");
 										onOpen();
@@ -236,9 +259,13 @@ const NovelPage = ({ id, title, author, authorBio, body, coverImage, tags, likes
 									overflowX={"scroll"}
 									position={"relative"}
 								>
-									{displayMode === "horizontalScroll" && <NovelViewer text={body} writingHorizontally={true} />}
-									{displayMode === "verticalScroll" && <NovelViewer text={body} writingHorizontally={false} />}
-									{displayMode === "bookView" && <NovelBookViewer text={body} writingHorizontally={false} />}
+									{displayMode === "horizontalScroll" && (
+										<NovelViewer text={body} writingHorizontally={true} postscript={postscript} />
+									)}
+									{displayMode === "verticalScroll" && (
+										<NovelViewer text={body} writingHorizontally={false} postscript={postscript} />
+									)}
+									{/* {displayMode === "bookView" && <NovelBookViewer text={body} writingHorizontally={false} />} */}
 								</Box>
 							</ModalBody>
 							<ModalFooter>

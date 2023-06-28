@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react";
 import { FC } from "react";
 
 type Props = {
-	text: string;
+	text: string | null;
 };
 
 const rubyRegex = /[｜|]([^《｜|]+)《([^》]+)》/g;
@@ -43,13 +43,14 @@ function addBrTags(text: string) {
 }
 
 export const WritersIntroductionViewer: FC<Props> = ({ text }) => {
-	const aText = addLinkTags(text);
+	const aText = addLinkTags(text ? text : "");
 	const boutenText = addBoutenTags(aText);
 	const rubyText = addRubyTags(boutenText);
 	const brText = addBrTags(rubyText);
 	return (
 		<Box
 			className="ruby-text"
+			fontSize={{ base: "13px", md: "16px", lg: "18px" }}
 			dangerouslySetInnerHTML={{ __html: brText }}
 			fontFamily={"Noto Serif JP"}
 			lineHeight="1.5em"
