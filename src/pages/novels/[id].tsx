@@ -6,7 +6,7 @@ import { supabase } from "../../../lib/supabaseClient";
 import format from "date-fns/format";
 import React, { useEffect, useState } from "react";
 import { Footer } from "../../components/Footer";
-import { novels } from "../novels";
+import { Novels } from "../novels";
 import Seo from "../../components/Seo";
 import { Writers } from "../writers";
 import { Draft } from "../novels_by_user/[user_name]";
@@ -33,7 +33,7 @@ const Novel = ({ drafts, user, comments }) => {
 		setCommentsState(commentsOnSingleNovel);
 	}, []);
 
-	const novel: novels = drafts
+	const novel: Novels = drafts
 		.filter((item) => {
 			return item.id === draftId;
 		})

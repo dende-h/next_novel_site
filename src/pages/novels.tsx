@@ -26,7 +26,7 @@ import React from "react";
 import { Footer } from "../components/Footer";
 import Seo from "../components/Seo";
 
-export type novels = {
+export type Novels = {
 	id: string;
 	title: string;
 	author: string;
@@ -49,7 +49,7 @@ const NovelsPage = ({ drafts, comments }) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef = React.useRef();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
-	const novels: novels[] = drafts.map((item) => {
+	const novels: Novels[] = drafts.map((item) => {
 		const formatDate = format(new Date(item.last_edit_time), "yyyy/MM/dd-HH:mm");
 
 		return {

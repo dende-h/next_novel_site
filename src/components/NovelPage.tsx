@@ -271,7 +271,7 @@ const NovelPage = ({
 									{displayMode === "verticalScroll" && (
 										<NovelViewer text={body} writingHorizontally={false} postscript={postscript} />
 									)}
-									{displayMode === "bookView" && <NovelBookViewer text={body} writingHorizontally={false} />}
+									{/* {displayMode === "bookView" && <NovelBookViewer text={body} writingHorizontally={false} />} */}
 								</Box>
 							</ModalBody>
 							<ModalFooter>
