@@ -160,14 +160,8 @@ const NovelPage = ({
 							</Box>
 							<VStack>
 								{preface && (
-									<Box
-										width={{ base: "300px", md: "450px" }}
-										p={2}
-										boxShadow={"md"}
-										borderRadius="md"
-										backgroundColor={prefaceBackgroundColor}
-									>
-										<Text textAlign={"center"} fontFamily={"Noto Serif JP"}>
+									<Box width={"100%"} p={2} boxShadow={"md"} borderRadius="md" backgroundColor={prefaceBackgroundColor}>
+										<Text fontFamily={"Noto Serif JP"} fontSize={{ base: "13px", md: "16px", lg: "18px" }}>
 											【まえがき】
 										</Text>
 										<WritersIntroductionViewer text={preface} />
