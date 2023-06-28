@@ -25,7 +25,6 @@ import { useEffect, useState } from "react";
 import React from "react";
 import { Footer } from "../components/Footer";
 import Seo from "../components/Seo";
-import { NovelBookViewer } from "../components/NovelBookViewer";
 
 export type novels = {
 	id: string;
@@ -36,6 +35,8 @@ export type novels = {
 	tags: string[];
 	body: string;
 	good_mark: number;
+	preface: string | null;
+	postscript: string | null;
 };
 
 const NovelsPage = ({ drafts, comments }) => {
@@ -181,6 +182,6 @@ export async function getStaticProps() {
 			drafts: data,
 			comments: comments
 		},
-		revalidate: 10
+		revalidate: 60
 	};
 }
