@@ -151,6 +151,6 @@ export async function getStaticProps() {
 			user: user,
 			comments: comments
 		},
-		revalidate: 60
+		revalidate: 10
 	};
 }
