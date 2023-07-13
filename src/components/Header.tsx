@@ -30,45 +30,53 @@ const Header = () => {
 				</Link>
 			</Box>
 			<Flex align="center">
-				<Box mr={4} display={{ base: "none", lg: "block" }}>
+				<Box mr={3} display={{ base: "none", lg: "block" }}>
 					<Link href="/ranking" _hover={{ textDecoration: "none" }}>
-						<Text fontSize="lg" fontWeight="medium">
+						<Text fontSize="md" fontWeight="medium">
 							PVランキング
 						</Text>
 					</Link>
 				</Box>
-				<Box mr={4} display={{ base: "none", lg: "block" }}>
+				<Box mr={3} display={{ base: "none", lg: "block" }}>
 					<Link href="/novels" _hover={{ textDecoration: "none" }}>
-						<Text fontSize="lg" fontWeight="medium">
+						<Text fontSize="md" fontWeight="medium">
 							新規小説
 						</Text>
 					</Link>
 				</Box>
-				<Box mr={4} display={{ base: "none", lg: "block" }}>
+				<Box mr={3} display={{ base: "none", lg: "block" }}>
 					<Link href="/like_novels" _hover={{ textDecoration: "none" }}>
-						<Text fontSize="lg" fontWeight="medium">
+						<Text fontSize="md" fontWeight="medium">
 							いいねした小説
 						</Text>
 					</Link>
 				</Box>
-				<Box mr={4} display={{ base: "none", lg: "block" }}>
+				<Box mr={3} display={{ base: "none", lg: "block" }}>
 					<Link href="/writers" _hover={{ textDecoration: "none" }}>
-						<Text fontSize="lg" fontWeight="medium">
+						<Text fontSize="md" fontWeight="medium">
 							作家一覧
 						</Text>
 					</Link>
 				</Box>
-				<Box mr={4} display={{ base: "none", lg: "block" }}>
+				<Box mr={3} display={{ base: "none", lg: "block" }}>
 					<Link href="/like_writers" _hover={{ textDecoration: "none" }}>
-						<Text fontSize="lg" fontWeight="medium">
+						<Text fontSize="md" fontWeight="medium">
 							お気に入り作家
 						</Text>
 					</Link>
 				</Box>
-				<Box mr={4} display={{ base: "none", lg: "block" }}>
-					<Link href="contact" _hover={{ textDecoration: "none" }}>
-						<Text fontSize="lg" fontWeight="medium">
+				<Box mr={3} display={{ base: "none", lg: "block" }}>
+					<Link href="/contact" _hover={{ textDecoration: "none" }}>
+						<Text fontSize="md" fontWeight="medium">
 							お問い合わせ
+						</Text>
+					</Link>
+				</Box>
+
+				<Box mr={3} display={{ base: "none", lg: "block" }}>
+					<Link href="/developer" _hover={{ textDecoration: "none" }}>
+						<Text fontSize="md" fontWeight="medium">
+							開発者紹介
 						</Text>
 					</Link>
 				</Box>
