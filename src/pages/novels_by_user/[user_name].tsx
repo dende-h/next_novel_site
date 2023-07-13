@@ -47,13 +47,13 @@ export type Draft = {
 
 const NovelsByUser = ({ drafts, comments }) => {
 	const router = useRouter();
-	const userName = router.query.user_name;
+	const userName = router.query.user_name as string;
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const btnRef = React.useRef();
 	const backgroundColor = useColorModeValue("gray.200", "gray.600");
 	const novels: Novels[] = drafts
 		.filter((item) => {
-			return item.user_name === userName;
+			return item.user_name === decodeURIComponent(userName);
 		})
 		.map((item: Draft) => {
 			const formatDate = format(new Date(item.last_edit_time), "yyyy/MM/dd-HH:mm");

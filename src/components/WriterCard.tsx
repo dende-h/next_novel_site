@@ -25,7 +25,7 @@ const WriterCard = ({ writer }) => {
 			_hover={{ boxShadow: "2xl", transform: "translateY(-4px)", cursor: "pointer" }}
 			mb={"2"}
 			onClick={() => {
-				router.push(`/novels_by_user/${user_name}`);
+				router.push(`/novels_by_user/${encodeURIComponent(user_name)}`);
 			}}
 			position={"relative"}
 		>
