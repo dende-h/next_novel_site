@@ -12,9 +12,16 @@ export const Footer = () => (
 				</Box>
 			</Link>
 			<Link href="/policy" passHref>
-				<Box>
+				<Box mr={4}>
 					<Heading as="h4" fontSize="sm">
 						プライバシーポリシー
+					</Heading>
+				</Box>
+			</Link>
+			<Link href="/developer" passHref>
+				<Box>
+					<Heading as="h4" fontSize="sm">
+						開発者
 					</Heading>
 				</Box>
 			</Link>

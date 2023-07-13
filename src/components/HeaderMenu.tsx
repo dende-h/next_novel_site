@@ -59,6 +59,11 @@ export const HeaderMenu = () => {
 								お問い合わせ
 							</MenuItem>
 						</Link>
+						<Link href={"/developer"} passHref>
+							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
+								開発者紹介
+							</MenuItem>
+						</Link>
 						{/* 外部サイトへのリンク */}
 
 						<MenuItem
