@@ -112,7 +112,7 @@ const NovelPage = ({
 								</Heading>
 								<HStack>
 									<Link
-										href={`/novels_by_user/${author}`}
+										href={`/novels_by_user/${encodeURIComponent(author)}`}
 										passHref
 										onClick={(e) => {
 											setIsLoading(true);
