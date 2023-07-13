@@ -26,6 +26,6 @@ export const Footer = () => (
 				</Box>
 			</Link>
 		</Flex>
-		<Center>©2022 dende-h</Center>
+		<Center>©2023 dende-h</Center>
 	</Container>
 );
