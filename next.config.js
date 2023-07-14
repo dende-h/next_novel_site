@@ -11,6 +11,9 @@ module.exports = {
 			}
 		]
 	},
+	experimental: {
+		scrollRestoration: true
+	},
 	// 以下はPWAでISRを利用するための設定
 	pwa: {
 		disable: process.env.NODE_ENV === 'development',
