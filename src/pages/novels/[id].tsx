@@ -24,7 +24,7 @@ const Novel = ({ drafts, user, comments }) => {
 	const router = useRouter();
 	const draftId = router.query.id;
 	const displayCharacters = 40;
-	const commentsOnSingleNovel = comments.filter((item) => {
+	const commentsOnSingleNovel = comments?.filter((item) => {
 		return item.novel_id === draftId;
 	});
 	const setCommentsState = useSetRecoilState(commentsArray);
@@ -34,7 +34,7 @@ const Novel = ({ drafts, user, comments }) => {
 	}, []);
 
 	const novel: Novels = drafts
-		.filter((item) => {
+		?.filter((item) => {
 			return item.id === draftId;
 		})
 		.map((item: Draft) => {
@@ -54,13 +54,13 @@ const Novel = ({ drafts, user, comments }) => {
 			};
 		})[0];
 
-	const author: Writers = user.filter((item) => {
+	const author: Writers = user?.filter((item) => {
 		return item.user_name === novel.author;
 	})[0];
 
 	const imageUrl = novel.thumbnail ? novel.thumbnail : "/android-chrome-256x256.png";
 
-	const introductionBody = [...novel.body].filter((char) => {
+	const introductionBody = [...novel.body]?.filter((char) => {
 		return !char.match(/(\s+|　)/g); //空白文字、全角半角スペース、改行は除外
 	});
 
