@@ -9,10 +9,11 @@ import LikeButton from "./LikeButton";
 type Props = {
 	novel: Novels;
 	commentNum: number;
+	index: number;
 };
 
 const NovelCard = (props: Props) => {
-	const { novel, commentNum } = props;
+	const { novel, commentNum, index } = props;
 	const router = useRouter();
 	const imageUrl = novel.thumbnail ? novel.thumbnail : "/android-chrome-256x256.png";
 	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
@@ -31,14 +32,21 @@ const NovelCard = (props: Props) => {
 			transition="all 0.5s"
 			_hover={{ boxShadow: "2xl", transform: "translateY(-4px)", cursor: "pointer" }}
 			mb={"4"}
-			onClick={() => router.push(`/novels/${novel.id}`)}
+			onClick={() => router.push(`/novels/${novel.id}`, undefined, { scroll: false })}
 			position="relative"
 			display="flex"
 			flexDirection="row"
 			overflow="hidden"
 		>
 			<Box w={"30%"} h="100%" overflow="hidden" position="relative">
-				<Image src={imageUrl} alt={novel.title} fill style={{ objectFit: "contain" }} priority />
+				<Image
+					src={imageUrl}
+					alt={novel.title}
+					fill
+					style={{ objectFit: "contain" }}
+					priority={index < 3}
+					sizes="(max-width: 30em) 100vw, (max-width: 50em) 50vw, 400px"
+				/>
 			</Box>
 
 			<Box w={"70%"} h="100%" p="2" backgroundColor={backgroundCardFooterColor}>

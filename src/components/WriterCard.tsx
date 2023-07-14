@@ -5,9 +5,16 @@ import { useRouter } from "next/router";
 import LikeUserButton from "./LikeUserButton";
 import { Box, Center, Heading, HStack, useColorModeValue } from "@chakra-ui/react";
 import { WritersIntroductionViewer } from "./WritersIntroductionViewer";
+import { Writers } from "../pages/writers";
 
-const WriterCard = ({ writer }) => {
+type Props = {
+	writer: Writers;
+	index: number;
+};
+
+const WriterCard = (props: Props) => {
 	const router = useRouter();
+	const { writer, index } = props;
 	const { user_name, Introduction, image_url } = writer;
 
 	const imageUrl = image_url ? image_url : "/Reterature.png";
@@ -30,7 +37,14 @@ const WriterCard = ({ writer }) => {
 			position={"relative"}
 		>
 			<Center w="100%" h="70%" position="relative">
-				<Image src={imageUrl} alt={user_name} fill style={{ objectFit: "contain" }} priority />
+				<Image
+					src={imageUrl}
+					alt={user_name}
+					fill
+					style={{ objectFit: "contain" }}
+					priority={index < 3}
+					sizes="(max-width: 30em) 100vw, (max-width: 50em) 50vw, 400px"
+				/>
 			</Center>
 
 			<Box

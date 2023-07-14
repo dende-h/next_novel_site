@@ -59,9 +59,9 @@ const WritersPage = ({ user }) => {
 
 						{/* 作家一覧 */}
 						<SimpleGrid spacing={1} minChildWidth="300px" onClick={() => setIsLoading(true)}>
-							{likeWriters.map((writer) => (
+							{likeWriters.map((writer, index) => (
 								<Center key={writer.id} mt={4}>
-									<WriterCard writer={writer} />
+									<WriterCard writer={writer} index={index} />
 								</Center>
 							))}
 						</SimpleGrid>
