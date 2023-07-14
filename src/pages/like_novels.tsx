@@ -28,6 +28,7 @@ import Seo from "../components/Seo";
 import { heartNovelArray } from "../Atoms/heartNovelArray";
 import { useRecoilValue } from "recoil";
 import { Novels } from "./novels";
+import SkeletonNovelCard from "../components/SkeletonNovelCard";
 
 const NovelsPage = ({ drafts, comments }) => {
 	const [isClient, setIsClient] = useState(false);
@@ -94,52 +95,52 @@ const NovelsPage = ({ drafts, comments }) => {
 				pageImgWidth="1200"
 			/>
 
-			{isClient && !isLoading ? (
-				<Box minH="100vh" display="flex" flexDirection="column">
-					<Header />
+			<Box minH="100vh" display="flex" flexDirection="column">
+				<Header />
 
-					<Container flex="1" maxW={"100%"} py={8} px={4}>
-						<Heading as="h1" mb={4} textAlign="center">
-							いいねした小説一覧（{`${selectTags.length > 0 ? filterNovels.length : likeNovels.length}件`}）
-						</Heading>
+				<Container flex="1" maxW={"100%"} py={8} px={4}>
+					<Heading as="h1" mb={4} textAlign="center">
+						いいねした小説一覧（{`${selectTags.length > 0 ? filterNovels.length : likeNovels.length}件`}）
+					</Heading>
 
-						{/* タグフィルター */}
-						<Button ref={btnRef} colorScheme="blackAlpha" onClick={onOpen}>
-							タグで絞り込む
-						</Button>
-						<Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef}>
-							<DrawerOverlay />
-							<DrawerContent>
-								<DrawerCloseButton />
-								<DrawerHeader bgColor={backgroundColor}>タグを選択して絞り込む</DrawerHeader>
+					{/* タグフィルター */}
+					<Button ref={btnRef} colorScheme="blackAlpha" onClick={onOpen}>
+						タグで絞り込む
+					</Button>
+					<Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={btnRef}>
+						<DrawerOverlay />
+						<DrawerContent>
+							<DrawerCloseButton />
+							<DrawerHeader bgColor={backgroundColor}>タグを選択して絞り込む</DrawerHeader>
 
-								<DrawerBody bgColor={backgroundColor}>
-									<TagFilter
-										tags={filterDuplicatesAllDraftTags} // タグのリスト
-										selectedTags={selectTags} // 選択されたタグのリスト
-										onTagSelect={(tag: string) => setSelectTags([...selectTags, tag])} // タグが選択されたときに呼び出されるコールバック関数
-										onTagRemove={(tag: string) =>
-											setSelectTags(
-												selectTags.filter((item: string) => {
-													return item !== tag;
-												})
-											)
-										} // タグが削除されたときに呼び出されるコールバック関数
-									/>
-								</DrawerBody>
+							<DrawerBody bgColor={backgroundColor}>
+								<TagFilter
+									tags={filterDuplicatesAllDraftTags} // タグのリスト
+									selectedTags={selectTags} // 選択されたタグのリスト
+									onTagSelect={(tag: string) => setSelectTags([...selectTags, tag])} // タグが選択されたときに呼び出されるコールバック関数
+									onTagRemove={(tag: string) =>
+										setSelectTags(
+											selectTags.filter((item: string) => {
+												return item !== tag;
+											})
+										)
+									} // タグが削除されたときに呼び出されるコールバック関数
+								/>
+							</DrawerBody>
 
-								<DrawerFooter bgColor={backgroundColor}>
-									<Button colorScheme={"blue"} variant="ghost" mr={3} onClick={onClose}>
-										Cancel
-									</Button>
-								</DrawerFooter>
-							</DrawerContent>
-						</Drawer>
+							<DrawerFooter bgColor={backgroundColor}>
+								<Button colorScheme={"blue"} variant="ghost" mr={3} onClick={onClose}>
+									Cancel
+								</Button>
+							</DrawerFooter>
+						</DrawerContent>
+					</Drawer>
 
-						{/* 小説一覧 */}
-						<SimpleGrid spacing={1} minChildWidth="300px" onClick={() => setIsLoading(true)}>
-							{(selectTags.length > 0 ? filterNovels : likeNovels).map((novel, index) => (
-								<Center mt={4} key={novel.id}>
+					{/* 小説一覧 */}
+					<SimpleGrid spacing={1} minChildWidth="300px" onClick={() => setIsLoading(true)}>
+						{(selectTags.length > 0 ? filterNovels : likeNovels).map((novel, index) => (
+							<Center mt={4} key={novel.id}>
+								{isClient && !isLoading ? (
 									<NovelCard
 										index={index}
 										novel={novel}
@@ -149,21 +150,19 @@ const NovelsPage = ({ drafts, comments }) => {
 											}).length
 										}
 									/>
-								</Center>
-							))}
-						</SimpleGrid>
-					</Container>
+								) : (
+									<SkeletonNovelCard />
+								)}
+							</Center>
+						))}
+					</SimpleGrid>
+				</Container>
 
-					<Box bg="gray.900" color="white" py={4}>
-						{/* フッター */}
-						<Footer />
-					</Box>
+				<Box bg="gray.900" color="white" py={4}>
+					{/* フッター */}
+					<Footer />
 				</Box>
-			) : (
-				<Center bg="gray.100" minH="100vh">
-					<Spinner />
-				</Center>
-			)}
+			</Box>
 		</>
 	);
 };

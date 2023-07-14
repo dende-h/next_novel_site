@@ -8,6 +8,7 @@ import { useRecoilValue } from "recoil";
 import { heartUserArray } from "../Atoms/heartUserArray";
 import { Writers } from "./writers";
 import Seo from "../components/Seo";
+import SkeletonWriterCard from "../components/SkeletonWriterCard";
 
 const WritersPage = ({ user }) => {
 	const [isClient, setIsClient] = useState(false);
@@ -48,35 +49,30 @@ const WritersPage = ({ user }) => {
 				pageImgHeight="600"
 				pageImgWidth="1200"
 			/>
-			{isClient && !isLoading ? (
-				<Box minH="100vh" display="flex" flexDirection="column">
-					<Header />
 
-					<Container flex="1" maxW={"100%"} py={8} px={4}>
-						<Heading as="h1" mb={4} textAlign="center">
-							お気に入り作家
-						</Heading>
+			<Box minH="100vh" display="flex" flexDirection="column">
+				<Header />
 
-						{/* 作家一覧 */}
-						<SimpleGrid spacing={1} minChildWidth="300px" onClick={() => setIsLoading(true)}>
-							{likeWriters.map((writer, index) => (
-								<Center key={writer.id} mt={4}>
-									<WriterCard writer={writer} index={index} />
-								</Center>
-							))}
-						</SimpleGrid>
-					</Container>
+				<Container flex="1" maxW={"100%"} py={8} px={4}>
+					<Heading as="h1" mb={4} textAlign="center">
+						お気に入り作家
+					</Heading>
 
-					<Box bg="gray.900" color="white" py={4}>
-						{/* フッター */}
-						<Footer />
-					</Box>
+					{/* 作家一覧 */}
+					<SimpleGrid spacing={1} minChildWidth="300px" onClick={() => setIsLoading(true)}>
+						{likeWriters.map((writer, index) => (
+							<Center key={writer.id} mt={4}>
+								{isClient && !isLoading ? <WriterCard writer={writer} index={index} /> : <SkeletonWriterCard />}
+							</Center>
+						))}
+					</SimpleGrid>
+				</Container>
+
+				<Box bg="gray.900" color="white" py={4}>
+					{/* フッター */}
+					<Footer />
 				</Box>
-			) : (
-				<Center bg="gray.100" minH="100vh">
-					...is Loading
-				</Center>
-			)}
+			</Box>
 		</>
 	);
 };
