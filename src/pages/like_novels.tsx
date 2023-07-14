@@ -138,9 +138,10 @@ const NovelsPage = ({ drafts, comments }) => {
 
 						{/* 小説一覧 */}
 						<SimpleGrid spacing={1} minChildWidth="300px" onClick={() => setIsLoading(true)}>
-							{(selectTags.length > 0 ? filterNovels : likeNovels).map((novel) => (
+							{(selectTags.length > 0 ? filterNovels : likeNovels).map((novel, index) => (
 								<Center mt={4} key={novel.id}>
 									<NovelCard
+										index={index}
 										novel={novel}
 										commentNum={
 											comments.filter((item) => {
