@@ -15,7 +15,8 @@ import {
 	DrawerOverlay,
 	useDisclosure,
 	useColorModeValue,
-	Spinner
+	Spinner,
+	HStack
 } from "@chakra-ui/react";
 import NovelCard from "../../components/NovelCard";
 import TagFilter from "../../components/TagFilter";
@@ -28,6 +29,10 @@ import { Footer } from "../../components/Footer";
 import { Novels } from "../novels";
 import Seo from "../../components/Seo";
 import SkeletonNovelCard from "../../components/SkeletonNovelCard";
+import { Writers } from "../writers";
+import Image from "next/image";
+import LikeUserButton from "../../components/LikeUserButton";
+import { WritersIntroductionViewer } from "../../components/WritersIntroductionViewer";
 
 export type Draft = {
 	last_edit_time: string;
@@ -46,7 +51,7 @@ export type Draft = {
 	postscript: string | null;
 };
 
-const NovelsByUser = ({ drafts, comments }) => {
+const NovelsByUser = ({ drafts, comments, writers }) => {
 	const router = useRouter();
 	const userName = router.query.user_name as string;
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -89,7 +94,13 @@ const NovelsByUser = ({ drafts, comments }) => {
 		return tagIncludes.length > 0;
 	});
 
+	const writer: Writers = writers?.filter((item) => {
+		return item.user_name === userName;
+	})[0];
+
 	const [isLoading, setIsLoading] = useState(false);
+
+	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
 
 	return (
 		<>
@@ -101,12 +112,51 @@ const NovelsByUser = ({ drafts, comments }) => {
 				pageImgHeight="600"
 				pageImgWidth="1200"
 			/>
-			<Box minH="100vh" display="flex" flexDirection="column">
+			<Box minH="100vh" display="flex" flexDirection="column" overflowY={"scroll"}>
 				<Header />
 				<Container flex="1" maxW={"100%"} py={8} px={4}>
 					<Heading as="h1" mb={4} textAlign="center">
 						{userName}の小説一覧
 					</Heading>
+					<HStack
+						h={{ base: "200px", md: "300px" }}
+						spacing={0}
+						w={{ base: "350px", md: "600px" }}
+						mx={"auto"}
+						mb={"8"}
+						backgroundColor={backgroundCardFooterColor}
+						boxShadow={"lg"}
+					>
+						<Box w={"30%"} h="100%" overflow="hidden" position="relative">
+							<Image
+								src={writer.image_url}
+								alt={userName}
+								fill
+								style={{ objectFit: "contain" }}
+								priority
+								sizes="(max-width: 30em) 100vw, (max-width: 50em) 50vw, 400px"
+							/>
+						</Box>
+						<Box w={"70%"} h="100%" p="2" overflowY="hidden">
+							<HStack spacing={2}>
+								<Heading
+									as={"h4"}
+									fontSize={"sm"}
+									fontWeight="bold"
+									lineHeight="shorter"
+									height="1rem"
+									overflow="hidden"
+									my={"auto"}
+								>
+									{userName}
+								</Heading>
+								<LikeUserButton name={userName} />
+							</HStack>
+							<Box fontSize={"12px"}>
+								<WritersIntroductionViewer text={writer.Introduction} />
+							</Box>
+						</Box>
+					</HStack>
 
 					{/* タグフィルター */}
 					<Button ref={btnRef} colorScheme="blackAlpha" onClick={onOpen}>
@@ -196,10 +246,18 @@ export async function getStaticProps() {
 		.order("created_at", { ascending: false });
 
 	if (commentsFetchErr) console.log("error", commentsFetchErr);
+
+	const { data: writers, error: writersFetchEr } = await supabase
+		.from("user")
+		.select("*")
+		.order("created_at", { ascending: false });
+
+	if (writersFetchEr) console.log("error", writersFetchEr);
 	return {
 		props: {
 			drafts: data,
-			comments: comments
+			comments: comments,
+			writers: writers
 		},
 		revalidate: 10
 	};
