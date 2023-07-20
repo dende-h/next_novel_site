@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import LikeUserButton from "./LikeUserButton";
-import { Box, Center, Heading, HStack, useColorModeValue } from "@chakra-ui/react";
+import { Box, Heading, HStack, useColorModeValue } from "@chakra-ui/react";
 import { WritersIntroductionViewer } from "./WritersIntroductionViewer";
 import { Writers } from "../pages/writers";
 
@@ -23,20 +23,23 @@ const WriterCard = (props: Props) => {
 
 	return (
 		<Box
-			w={"300px"}
-			h={"485px"}
+			w={{ base: "350px", md: "400px" }}
+			h={"120px"}
 			borderWidth={1}
 			borderRadius="md"
 			boxShadow="md"
 			transition="all 0.5s"
 			_hover={{ boxShadow: "2xl", transform: "translateY(-4px)", cursor: "pointer" }}
-			mb={"2"}
+			mb={"4"}
 			onClick={() => {
 				router.push(`/novels_by_user/${encodeURIComponent(user_name)}`);
 			}}
-			position={"relative"}
+			position="relative"
+			display="flex"
+			flexDirection="row"
+			overflow="hidden"
 		>
-			<Center w="100%" h="70%" position="relative">
+			<Box w={"30%"} h="100%" overflow="hidden" position="relative">
 				<Image
 					src={imageUrl}
 					alt={user_name}
@@ -45,24 +48,23 @@ const WriterCard = (props: Props) => {
 					priority={index < 3}
 					sizes="(max-width: 30em) 100vw, (max-width: 50em) 50vw, 400px"
 				/>
-			</Center>
-
-			<Box
-				h="30%"
-				p="2"
-				borderBottomLeftRadius="md"
-				borderBottomRightRadius="md"
-				backgroundColor={backgroundCardFooterColor}
-				position="relative"
-				overflowY={"scroll"}
-			>
+			</Box>
+			<Box w={"70%"} h="100%" p="2" backgroundColor={backgroundCardFooterColor} overflowY="hidden">
 				<HStack spacing={2}>
-					<Heading as={"h4"} fontSize={"md"} fontWeight="bold" lineHeight="shorter" height="1.5rem" overflow="hidden">
-						PN:{user_name}
+					<Heading
+						as={"h4"}
+						fontSize={"sm"}
+						fontWeight="bold"
+						lineHeight="shorter"
+						height="1rem"
+						overflow="hidden"
+						my={"auto"}
+					>
+						{user_name}
 					</Heading>
 					<LikeUserButton name={user_name} />
 				</HStack>
-				<Box fontSize={"12px"} overflowWrap="break-word">
+				<Box fontSize={"12px"}>
 					<WritersIntroductionViewer text={Introduction} />
 				</Box>
 			</Box>
