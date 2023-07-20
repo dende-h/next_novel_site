@@ -15,7 +15,6 @@ import {
 	DrawerOverlay,
 	useDisclosure,
 	useColorModeValue,
-	Spinner,
 	HStack
 } from "@chakra-ui/react";
 import NovelCard from "../../components/NovelCard";
