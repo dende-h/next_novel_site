@@ -1,34 +1,25 @@
-import { Box, Center, Skeleton, SkeletonText, useColorModeValue } from "@chakra-ui/react";
+import { Box, Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 
 const SkeletonWriterCard = () => {
-	const backgroundCardFooterColor = useColorModeValue("gray.50", "gray.600");
-
 	return (
 		<Box
-			w={"300px"}
-			h={"485px"}
+			w={{ base: "350px", md: "400px" }}
+			h={"150px"}
 			borderWidth={1}
 			borderRadius="md"
 			boxShadow="md"
 			transition="all 0.5s"
-			mb={"2"}
-			position={"relative"}
+			mb={"4"}
+			position="relative"
+			display="flex"
+			flexDirection="row"
+			overflow="hidden"
 		>
-			<Center w="100%" h="70%" position="relative">
-				<Skeleton startColor="pink.500" endColor="orange.500" w="100%" h="100%" />
-			</Center>
+			<Skeleton startColor="blue.500" endColor="green.500" w={"30%"} h="100%" />
 
-			<Box
-				h="30%"
-				p="2"
-				borderBottomLeftRadius="md"
-				borderBottomRightRadius="md"
-				backgroundColor={backgroundCardFooterColor}
-				position="relative"
-				overflowY={"scroll"}
-			>
-				<SkeletonText mt="4" noOfLines={1} spacing="4" />
-				<SkeletonText mt="4" noOfLines={4} spacing="4" />
+			<Box w={"70%"} h="100%" p="2">
+				<SkeletonText mt="4" noOfLines={2} spacing="4" />
+				<SkeletonCircle size="10" />
 			</Box>
 		</Box>
 	);
