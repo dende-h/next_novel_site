@@ -15,7 +15,7 @@ const SkeletonNovelCard = () => {
 			flexDirection="row"
 			overflow="hidden"
 		>
-			<Skeleton w={"30%"} h="100%" />
+			<Skeleton startColor="pink.500" endColor="orange.500" w={"30%"} h="100%" />
 
 			<Box w={"70%"} h="100%" p="2">
 				<SkeletonText mt="4" noOfLines={2} spacing="4" />
