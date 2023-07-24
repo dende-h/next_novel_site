@@ -125,6 +125,7 @@ const NovelsByUser = ({ drafts, comments, writers }) => {
 						mb={"8"}
 						backgroundColor={backgroundCardFooterColor}
 						boxShadow={"lg"}
+						borderRadius={"md"}
 					>
 						<Box w={"30%"} h="100%" overflow="hidden" position="relative">
 							<Image

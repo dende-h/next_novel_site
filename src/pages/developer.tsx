@@ -102,6 +102,13 @@ const ShortNovelVillage: React.FC = () => {
 							<ListItem mb={1}>
 								<HStack spacing={0}>
 									<ListIcon as={MdSettings} color="green.500" />
+									<Text fontWeight={"bold"}>23/07/24</Text>
+								</HStack>
+								<Text>ユーザー頁のUI変更</Text>
+							</ListItem>
+							<ListItem mb={1}>
+								<HStack spacing={0}>
+									<ListIcon as={MdSettings} color="green.500" />
 									<Text fontWeight={"bold"}>23/07/14</Text>
 								</HStack>
 								<Text>一覧から個別頁へ遷移後、ブラウザバック時に元の位置に戻るように修正</Text>
