@@ -64,6 +64,22 @@ const Header = () => {
 					</Link>
 				</Box>
 				<Box mr={3} display={{ base: "none", lg: "block" }}>
+					<Link href="/random_novels" passHref>
+						<Text
+							fontSize="md"
+							fontWeight="medium"
+							fontFamily={"serif"}
+							_hover={{
+								color: "blue.400",
+								transform: "rotate(360deg)"
+							}}
+							transition="0.5s"
+						>
+							Random
+						</Text>
+					</Link>
+				</Box>
+				<Box mr={3} display={{ base: "none", lg: "block" }}>
 					<Link href="/like_novels" passHref>
 						<Text
 							fontSize="md"
@@ -75,7 +91,7 @@ const Header = () => {
 							}}
 							transition="0.5s"
 						>
-							GoodMark
+							Goodmark
 						</Text>
 					</Link>
 				</Box>

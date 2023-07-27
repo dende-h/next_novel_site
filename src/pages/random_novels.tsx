@@ -39,7 +39,7 @@ export type Novels = {
 	postscript: string | null;
 };
 
-const NovelsPage = ({ drafts, comments }) => {
+const RandomPage = ({ drafts, comments }) => {
 	const [isClient, setIsClient] = useState(false);
 	useEffect(() => {
 		if (typeof window !== undefined) {
@@ -86,8 +86,8 @@ const NovelsPage = ({ drafts, comments }) => {
 	return (
 		<>
 			<Seo
-				pageTitle="小説一覧"
-				pageDescription="投稿された小説の一覧です"
+				pageTitle="ランダム100選"
+				pageDescription="投稿された小説のランダムに100件抽出した一覧です"
 				pageImg={null}
 				pagePath="https://next-novel-site.vercel.app/novels"
 				pageImgHeight="600"
@@ -98,7 +98,7 @@ const NovelsPage = ({ drafts, comments }) => {
 
 				<Container flex="1" maxW={"100%"} py={8} px={4}>
 					<Heading as="h1" mb={4} textAlign="center">
-						新作小説一覧
+						ランダム100選
 					</Heading>
 
 					{/* タグフィルター */}
@@ -165,11 +165,17 @@ const NovelsPage = ({ drafts, comments }) => {
 	);
 };
 
-export default NovelsPage;
+export default RandomPage;
 
 export async function getStaticProps() {
-	const { data, error } = await supabase.from("drafts").select("*").order("last_edit_time", { ascending: false });
+	const { data, error } = await supabase.from("drafts").select("*");
 	if (error) console.log("error", error);
+
+	// dataをランダムに並び替える
+	data.sort(() => Math.random() - 0.5);
+	// 上位100件のみ取得
+	const sortedData = data.slice(0, 100);
+
 	const { data: comments, error: commentsFetchErr } = await supabase
 		.from("comments")
 		.select("*")
@@ -178,7 +184,7 @@ export async function getStaticProps() {
 	if (commentsFetchErr) console.log("error", commentsFetchErr);
 	return {
 		props: {
-			drafts: data,
+			drafts: sortedData,
 			comments: comments
 		},
 		revalidate: 10
