@@ -162,7 +162,6 @@ const NovelsPage = ({ drafts, comments }) => {
 					<Footer />
 				</Box>
 			</Box>
-			)
 		</>
 	);
 };
