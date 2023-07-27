@@ -1,8 +1,9 @@
 import React from "react";
-import { Box, Flex, IconButton, Link, Text, Tooltip } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Text, Tooltip } from "@chakra-ui/react";
 import { HeaderMenu } from "./HeaderMenu";
 import { DarkModeSwitch } from "./DarkModeSwitch";
 import { TbReload } from "react-icons/tb";
+import Link from "next/link";
 
 const Header = () => {
 	const handleReload = () => {
@@ -23,7 +24,7 @@ const Header = () => {
 			color="white"
 		>
 			<Box>
-				<Link href="/novels" _hover={{ textDecoration: "none" }}>
+				<Link href="/novels" passHref>
 					<Text as={"h1"} fontSize="2xl" fontWeight="bold">
 						Lit:Bite
 					</Text>
@@ -31,52 +32,115 @@ const Header = () => {
 			</Box>
 			<Flex align="center">
 				<Box mr={3} display={{ base: "none", lg: "block" }}>
-					<Link href="/ranking" _hover={{ textDecoration: "none" }}>
-						<Text fontSize="md" fontWeight="medium">
-							PVランキング
+					<Link href="/ranking" passHref>
+						<Text
+							fontSize="md"
+							fontWeight="medium"
+							fontFamily={"serif"}
+							_hover={{
+								color: "blue.400",
+								transform: "rotate(360deg)"
+							}}
+							transition="0.5s"
+						>
+							Ranking
 						</Text>
 					</Link>
 				</Box>
 				<Box mr={3} display={{ base: "none", lg: "block" }}>
-					<Link href="/novels" _hover={{ textDecoration: "none" }}>
-						<Text fontSize="md" fontWeight="medium">
-							新規小説
+					<Link href="/novels" passHref>
+						<Text
+							fontSize="md"
+							fontWeight="medium"
+							fontFamily={"serif"}
+							_hover={{
+								color: "blue.400",
+								transform: "rotate(360deg)"
+							}}
+							transition="0.5s"
+						>
+							New
 						</Text>
 					</Link>
 				</Box>
 				<Box mr={3} display={{ base: "none", lg: "block" }}>
-					<Link href="/like_novels" _hover={{ textDecoration: "none" }}>
-						<Text fontSize="md" fontWeight="medium">
-							いいねした小説
+					<Link href="/like_novels" passHref>
+						<Text
+							fontSize="md"
+							fontWeight="medium"
+							fontFamily={"serif"}
+							_hover={{
+								color: "blue.400",
+								transform: "rotate(360deg)"
+							}}
+							transition="0.5s"
+						>
+							GoodMark
 						</Text>
 					</Link>
 				</Box>
 				<Box mr={3} display={{ base: "none", lg: "block" }}>
-					<Link href="/writers" _hover={{ textDecoration: "none" }}>
-						<Text fontSize="md" fontWeight="medium">
-							作家一覧
+					<Link href="/writers" passHref>
+						<Text
+							fontSize="md"
+							fontWeight="medium"
+							fontFamily={"serif"}
+							_hover={{
+								color: "blue.400",
+								transform: "rotate(360deg)"
+							}}
+							transition="0.5s"
+						>
+							Writers
 						</Text>
 					</Link>
 				</Box>
 				<Box mr={3} display={{ base: "none", lg: "block" }}>
-					<Link href="/like_writers" _hover={{ textDecoration: "none" }}>
-						<Text fontSize="md" fontWeight="medium">
-							お気に入り作家
+					<Link href="/like_writers" passHref>
+						<Text
+							fontSize="md"
+							fontWeight="medium"
+							fontFamily={"serif"}
+							_hover={{
+								color: "blue.400",
+								transform: "rotate(360deg)"
+							}}
+							transition="0.5s"
+						>
+							Favorite
 						</Text>
 					</Link>
 				</Box>
 				<Box mr={3} display={{ base: "none", lg: "block" }}>
-					<Link href="/contact" _hover={{ textDecoration: "none" }}>
-						<Text fontSize="md" fontWeight="medium">
-							お問い合わせ
+					<Link href="/contact" passHref>
+						<Text
+							fontSize="md"
+							fontWeight="medium"
+							fontFamily={"serif"}
+							_hover={{
+								color: "blue.400",
+								transform: "rotate(360deg)"
+							}}
+							transition="0.5s"
+						>
+							Contact
 						</Text>
 					</Link>
 				</Box>
 
 				<Box mr={3} display={{ base: "none", lg: "block" }}>
-					<Link href="/developer" _hover={{ textDecoration: "none" }}>
-						<Text fontSize="md" fontWeight="medium">
-							開発者紹介
+					<Link href="/developer" passHref>
+						<Text
+							fontSize="md"
+							fontWeight="medium"
+							fontFamily={"serif"}
+							_hover={{
+								color: "blue.400",
+								transform: "rotate(360deg)"
+							}}
+							transition="0.5s"
+						>
+							Developer
 						</Text>
 					</Link>
 				</Box>
@@ -91,6 +155,7 @@ const Header = () => {
 					fontSize="lg"
 					fontWeight="bold"
 					color={"teal.300"}
+					fontFamily={"serif"}
 				>
 					Re:terature
 				</Box>

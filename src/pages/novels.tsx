@@ -13,8 +13,7 @@ import {
 	DrawerHeader,
 	DrawerOverlay,
 	useDisclosure,
-	useColorModeValue,
-	Spinner
+	useColorModeValue
 } from "@chakra-ui/react";
 import NovelCard from "../components/NovelCard";
 import TagFilter from "../components/TagFilter";
