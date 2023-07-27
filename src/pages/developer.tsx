@@ -102,6 +102,13 @@ const ShortNovelVillage: React.FC = () => {
 							<ListItem mb={1}>
 								<HStack spacing={0}>
 									<ListIcon as={MdSettings} color="green.500" />
+									<Text fontWeight={"bold"}>23/07/27</Text>
+								</HStack>
+								<Text>メニュー変更とランダム100追加</Text>
+							</ListItem>
+							<ListItem mb={1}>
+								<HStack spacing={0}>
+									<ListIcon as={MdSettings} color="green.500" />
 									<Text fontWeight={"bold"}>23/07/24</Text>
 								</HStack>
 								<Text>ユーザー頁のUI変更</Text>
