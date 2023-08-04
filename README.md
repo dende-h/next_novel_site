@@ -1,39 +1,25 @@
-# Example app with [chakra-ui](https://github.com/chakra-ui/chakra-ui) and TypeScript
+### About Lit:Bite
 
-This example features how to use [chakra-ui](https://github.com/chakra-ui/chakra-ui) as the component library within a Next.js app with TypeScript.
+- This is a web application that allows you to browse novels submitted from **[Re:terature](https://novel-editor-ver2.vercel.app/)**!
+- [GitHub repository for Re:terature](https://github.com/dende-h/novel_editor_ver2)
+- This is a site for short stories of 24,000 words or less. You can enjoy it in your spare time.
+- Like buttons and favorites are recorded in browser storage, so you can use them on different devices.
+- Register your favorite authors and you can view a list of their works right away!
+- You can display them randomly, so you may come across a wonderful work of art by chance.
+- All can be viewed free of charge with no user registration or login required.
+- You can leave a comment. You can support the author by sending your comments of support.
+- Recommended browser is Chrome or Brave. You can use it like a native application by pasting short shortcodes.
 
-Next.js and chakra-ui have built-in TypeScript declarations, so we'll get autocompletion for their modules straight away.
+### Technology Stacks
 
-We are connecting the Next.js `_app.js` with `chakra-ui`'s Provider and theme so the pages can have app-wide dark/light mode. We are also creating some components which shows the usage of `chakra-ui`'s style props.
+- Language: TypeScript
+- Framework: Next.js
+- Style framework: ChakraUI
+- State management：Recoil
+- Cloud DB：supabase
 
-## Deploy your own
+See package.json for version
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-chakra-ui)
+### Link to the actual application
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-chakra-ui&project-name=with-chakra-ui&repository-name=with-chakra-ui)
-
-## How to use
-
-### Using `create-next-app`
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-chakra-ui with-chakra-ui-app
-```
-
-```bash
-yarn create next-app --example with-chakra-ui with-chakra-ui-app
-```
-
-```bash
-pnpm create next-app --example with-chakra-ui with-chakra-ui-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-## Notes
-
-Chakra has supported Gradients and RTL in `v1.1`. To utilize RTL, [add RTL direction and swap](https://chakra-ui.com/docs/features/rtl-support).
-
-If you don't have multi-direction app, you should make `<Html lang="ar" dir="rtl">` inside `_document.ts`.
+**[Lit:Bite](https://next-novel-site.vercel.app/)**

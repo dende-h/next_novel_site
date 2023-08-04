@@ -39,6 +39,13 @@ export const HeaderMenu = () => {
 								新規小説一覧
 							</MenuItem>
 						</Link>
+
+						<Link href="/random_novels" passHref>
+							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
+								ランダム表示
+							</MenuItem>
+						</Link>
+
 						<Link href={"/like_novels"} passHref>
 							<MenuItem bgColor={"gray.800"} _hover={{ bgColor: headerMenuHoverColor }}>
 								いいねした小説
