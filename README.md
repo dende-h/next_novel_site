@@ -20,6 +20,10 @@
 
 See package.json for version
 
+### Architecture
+
+![architecture](./public/Next.drawio.png)
+
 ### Link to the actual application
 
 **[Lit:Bite](https://next-novel-site.vercel.app/)**
