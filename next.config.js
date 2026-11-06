@@ -1,66 +1,18 @@
-/* eslint-disable comma-dangle */
-/* eslint-disable semi */
-/* eslint-disable indent */
-/* eslint-disable no-tabs */
+// サービス終了につき、どのURLにアクセスしても終了告知ページ（/）を表示する
+/** @type {import('next').NextConfig} */
 module.exports = {
-	images: {
-		remotePatterns: [
-			{
-				protocol: 'https',
-				hostname: 'enjzxtbbcyrptkkutovq.supabase.co'
-			}
-		]
+	reactStrictMode: true,
+	poweredByHeader: false,
+	async rewrites() {
+		return {
+			// public/ や pages/ に存在しないパスはすべて / に書き換える（旧ページ・旧APIを含む）
+			fallback: [{ source: '/:path*', destination: '/' }]
+		};
 	},
-	experimental: {
-		scrollRestoration: true
-	},
-	// 以下はPWAでISRを利用するための設定
-	pwa: {
-		disable: process.env.NODE_ENV === 'development',
-		dest: 'public',
-		register: true,
-		skipWaiting: true,
-		runtimeCaching: [
-			{
-				urlPattern: /^https?.*/,
-				handler: 'StaleWhileRevalidate',
-				options: {
-					cacheName: 'https-calls',
-					cacheableResponse: {
-						statuses: [0, 200]
-					}
-				}
-			},
-			{
-				urlPattern: /\/_next\/data\/.+\/.+\.json/,
-				handler: 'NetworkFirst',
-				options: {
-					networkTimeoutSeconds: 10,
-					cacheName: 'next-data',
-					cacheableResponse: {
-						statuses: [200]
-					}
-				}
-			},
-			{
-				urlPattern: /\/api\/.+/,
-				handler: 'NetworkFirst',
-				options: {
-					cacheableResponse: {
-						statuses: [0, 200]
-					}
-				}
-			},
-			{
-				urlPattern: /.*/,
-				handler: 'NetworkFirst',
-				options: {
-					cacheableResponse: {
-						statuses: [0, 200]
-					}
-				}
-			}
-		]
-	},
-	generateEtags: false
+	async headers() {
+		return [
+			{ source: '/:path*', headers: [{ key: 'X-Robots-Tag', value: 'noindex' }] },
+			{ source: '/sw.js', headers: [{ key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' }] }
+		];
+	}
 };

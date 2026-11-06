@@ -1,28 +1,6 @@
-import { ChakraProvider } from "@chakra-ui/react";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
-import { RecoilRoot } from "recoil";
-import GoogleAnalytics from "../components/GoogleAnalytics";
-import theme from "../theme";
-import { type AppProps } from "next/app";
-import usePageView from "../hooks/usePageView";
-import { Analytics } from "@vercel/analytics/react";
-import { ServiceNoticeModal } from "../components/ServiceNoticeModal";
-const SiteKey = process.env.NEXT_PUBLIC_GOOGLE_RECAOTCHA_KEY;
+import type { AppProps } from 'next/app';
+import '../styles/globals.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
-	usePageView();
-	return (
-		<ChakraProvider theme={theme}>
-			<RecoilRoot>
-				<GoogleReCaptchaProvider reCaptchaKey={SiteKey} language="ja">
-					<GoogleAnalytics />
-					<Analytics />
-					<ServiceNoticeModal />
-					<Component {...pageProps} />
-				</GoogleReCaptchaProvider>
-			</RecoilRoot>
-		</ChakraProvider>
-	);
+export default function App({ Component, pageProps }: AppProps) {
+	return <Component {...pageProps} />;
 }
-
-export default MyApp;
